@@ -1,0 +1,41 @@
+{
+    IBClasses = (
+        {
+            CLASS = AVRFusesController; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = AVRFusesWindowController; 
+        }, 
+        {
+            ACTIONS = {
+                browseEeprom = id; 
+                browseFlash = id; 
+                closePrefs = id; 
+                deviceChanged = id; 
+                eraseDevice = id; 
+                fusesProgram = id; 
+                fusesRead = id; 
+                fusesVerify = id; 
+                programEeprom = id; 
+                programFlash = id; 
+                readEeprom = id; 
+                readFlash = id; 
+                showPrefs = id; 
+                verifyEeprom = id; 
+                verifyFlash = id; 
+            }; 
+            CLASS = AVRFusesWindowController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                devicePopUpButton = NSPopUpButton; 
+                fusesTableView = NSTableView; 
+                logTextView = NSTextView; 
+                mainWindow = NSWindow; 
+                prefsWindow = NSWindow; 
+                tabView = NSTabView; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }
+    ); 
+    IBVersion = 1; 
+}
