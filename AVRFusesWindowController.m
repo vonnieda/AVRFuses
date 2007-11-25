@@ -22,15 +22,15 @@
 {
 }
 
-- (IBAction)fusesProgram:(id)sender
+- (IBAction)programFuses:(id)sender
 {
 }
 
-- (IBAction)fusesRead:(id)sender
+- (IBAction)readFuses:(id)sender
 {
 }
 
-- (IBAction)fusesVerify:(id)sender
+- (IBAction)verifyFuses:(id)sender
 {
 }
 
@@ -59,6 +59,10 @@
 }
 
 - (IBAction)verifyFlash:(id)sender
+{
+}
+
+- (IBAction)browseAvrdude:(id)sender
 {
 }
 

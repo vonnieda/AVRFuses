@@ -7,12 +7,14 @@
 	selectedPart = nil;
 	fuses = [[NSMutableDictionary alloc] init];
 	fuseSettings = [[NSMutableArray alloc] init];
-	
+
 	[fusesTableView setDoubleAction: @selector(tableViewDoubleClick)];
 	
 	[self loadPartDefinitions];
-	
-	for (NSString *partName in [[parts allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)]) {
+
+	NSArray *sortedPartNames = [[parts allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+	for (int i = 0; i < [sortedPartNames count]; i++) {
+		NSString *partName = [sortedPartNames objectAtIndex: i];
 		[devicePopUpButton addItemWithTitle: partName];
 	}
 	
@@ -21,6 +23,14 @@
 	}
 	
 	[self deviceChanged: nil];
+	
+	[mainWindow makeKeyAndOrderFront: nil];
+	
+	if ([[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"] == nil) {
+		[self showPrefs: nil];
+	}
+	
+	[self loadAvrdudeConfigs];
 }
 
 - (void)loadPartDefinitions
@@ -132,6 +142,44 @@
     [NSApp endSheet:prefsWindow];
 	
     [prefsWindow orderOut:self];	
+	
+	[self loadAvrdudeConfigs];
+}
+
+- (IBAction)closePrefs:(id)sender
+{
+	[NSApp stopModal];
+}
+
+- (IBAction)browseAvrdude:(id)sender
+{
+	NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+	[openPanel setCanChooseDirectories: NO];
+	[openPanel setAllowsMultipleSelection: NO];
+	[openPanel setMessage: @"Type / to browse to /usr"];
+	if ([openPanel runModalForDirectory: nil file: nil] == NSOKButton) {
+		[[[NSUserDefaultsController sharedUserDefaultsController] values] setValue: [[openPanel filenames] objectAtIndex: 0] forKey: @"avrdudePath"];
+	}
+}
+
+- (IBAction)browseFlash:(id)sender
+{
+	NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+	[openPanel setCanChooseDirectories: NO];
+	[openPanel setAllowsMultipleSelection: NO];
+	if ([openPanel runModalForTypes: [NSArray arrayWithObject: @"hex"]] == NSOKButton) {
+		[[[NSUserDefaultsController sharedUserDefaultsController] values] setValue: [[openPanel filenames] objectAtIndex: 0] forKey: @"lastSelectedFlash"];
+	}
+}
+
+- (IBAction)browseEeprom:(id)sender
+{
+	NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+	[openPanel setCanChooseDirectories: NO];
+	[openPanel setAllowsMultipleSelection: NO];
+	if ([openPanel runModalForTypes: [NSArray arrayWithObject: @"hex"]] == NSOKButton) {
+		[[[NSUserDefaultsController sharedUserDefaultsController] values] setValue: [[openPanel filenames] objectAtIndex: 0] forKey: @"lastSelectedEeprom"];
+	}
 }
 
 - (void)log:(NSString *)s
@@ -142,7 +190,69 @@
 	[logTextView scrollRangeToVisible: NSMakeRange([[logTextView textStorage] length], [[logTextView textStorage] length])];
 }
 
-- (IBAction)fusesProgram:(id)sender
+- (void)loadAvrdudeConfigs
+{
+	NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
+	
+	if (avrdudePath == nil) {
+		return;
+	}
+	
+	avrdudeVersion = nil;
+	//[avrdudeConfigPopUpButton removeAllItems];
+	
+	NSMutableArray *avrdudeArguments = [[NSMutableArray alloc] init];
+	[avrdudeArguments addObject: @"-v"];
+	[avrdudeArguments addObject: @"-c"];
+	[avrdudeArguments addObject: @"?"];
+	
+	[self log: @"Loading avrdude config..."];
+	NSTask *task = [[NSTask alloc] init];
+	[task setLaunchPath: avrdudePath];
+	[task setArguments: avrdudeArguments];
+	NSPipe *pipe = [NSPipe pipe];
+	[task setStandardError: pipe];
+	NSFileHandle *file = [pipe fileHandleForReading];
+	NS_DURING
+		[task launch];
+		[task waitUntilExit];
+		NSData *data = [file readDataToEndOfFile];
+		NSString *configs = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+		NSArray *lines = [configs componentsSeparatedByString: @"\n"];
+		for (int i = 0; i < [lines count]; i++) {
+			NSString *line = [lines objectAtIndex: i];
+			NSRange range;
+			if (!avrdudeVersion) {
+				range = [line rangeOfString: @"Version"];
+				if (range.location != NSNotFound) {
+					NSString *substr = [line substringFromIndex: range.location];
+					NSArray *comps = [substr componentsSeparatedByString: @" "];
+					comps = [[comps objectAtIndex: 1] componentsSeparatedByString: @","];
+					avrdudeVersion = [comps objectAtIndex: 0];
+				}
+			}
+			if (![line hasPrefix: @"   "] && [line hasPrefix: @"  "]) {
+				//NSArray *comps = [line componentsSeparatedByString: @" "];
+				//[avrdudeConfigPopUpButton addItemWithTitle: [comps objectAtIndex: 2]];
+			}
+		}
+		[self log: @"SUCCESS"];
+	NS_HANDLER
+		NSRunAlertPanel( @"Error", 
+			@"Unable to execute avrdude, check that your avrdude path is correct in Preferences", 
+			@"Okay", 
+			nil, nil);
+	NS_ENDHANDLER
+	
+	if (avrdudeVersion) {
+		[mainWindow setTitle: [NSString stringWithFormat: @"AVRFuses (avrdude v%@)", avrdudeVersion]];
+	}
+	else {
+		[self log: @"FAILED"];
+	}
+}
+
+- (IBAction)programFuses:(id)sender
 {
 	NSString *avrdudePort = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePort"];
 	NSString *avrdudeConfig = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudeConfig"];
@@ -154,6 +264,8 @@
 	[avrdudeArguments addObject: avrdudeConfig];
 	[avrdudeArguments addObject: @"-p"];
 	[avrdudeArguments addObject: selectedPart->name];
+	[avrdudeArguments addObject: @"-qq"];
+	
 	for (int i = 0; i < [[fuses allKeys] count]; i++) {
 		NSString *fuseName = [[fuses allKeys] objectAtIndex: i];
 		NSString *avrdudeFuseName = nil;
@@ -172,13 +284,15 @@
 	[self log: @"Programming fuses..."];
 	NSTask *task = [NSTask launchedTaskWithLaunchPath: avrdudePath arguments: avrdudeArguments];
 	[task waitUntilExit];
-	[self log: [NSString stringWithFormat: @"Exit code: %d", [task terminationStatus]]];
 	if ([task terminationStatus] == 0) {
-		[self log: @"Success!"];
+		[self log: @"SUCCESS"];
+	}
+	else {
+		[self log: @"FAILED"];
 	}
 }
 
-- (IBAction)fusesRead:(id)sender
+- (IBAction)readFuses:(id)sender
 {
 	NSString *avrdudePort = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePort"];
 	NSString *avrdudeConfig = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudeConfig"];
@@ -190,6 +304,8 @@
 	[avrdudeArguments addObject: avrdudeConfig];
 	[avrdudeArguments addObject: @"-p"];
 	[avrdudeArguments addObject: selectedPart->name];
+	[avrdudeArguments addObject: @"-qq"];
+	
 	for (int i = 0; i < [[fuses allKeys] count]; i++) {
 		NSString *fuseName = [[fuses allKeys] objectAtIndex: i];
 		NSString *avrdudeFuseName = nil;
@@ -208,9 +324,8 @@
 	[self log: @"Reading fuses..."];
 	NSTask *task = [NSTask launchedTaskWithLaunchPath: avrdudePath arguments: avrdudeArguments];
 	[task waitUntilExit];
-	[self log: [NSString stringWithFormat: @"Exit code: %d", [task terminationStatus]]];
 	if ([task terminationStatus] == 0) {
-		[self log: @"Success!"];
+		[self log: @"SUCCESS"];
 		for (int i = 0; i < [[fuses allKeys] count]; i++) {
 			NSString *fuseName = [[fuses allKeys] objectAtIndex: i];
 			char buffer[1000];
@@ -224,12 +339,256 @@
 			[fuses setObject: [NSNumber numberWithUnsignedChar: (fuseValue & 0xff)] forKey: fuseName];
 		}
 	}
+	else {
+		[self log: @"FAILED"];
+	}
 	[fusesTableView reloadData];
 }
 
-- (IBAction)closePrefs:(id)sender
+- (IBAction)verifyFuses:(id)sender
 {
-	[NSApp stopModal];
+	NSString *avrdudePort = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePort"];
+	NSString *avrdudeConfig = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudeConfig"];
+	NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
+	NSMutableArray *avrdudeArguments = [[NSMutableArray alloc] init];
+	[avrdudeArguments addObject: @"-P"];
+	[avrdudeArguments addObject: avrdudePort];
+	[avrdudeArguments addObject: @"-c"];
+	[avrdudeArguments addObject: avrdudeConfig];
+	[avrdudeArguments addObject: @"-p"];
+	[avrdudeArguments addObject: selectedPart->name];
+	[avrdudeArguments addObject: @"-qq"];
+
+	for (int i = 0; i < [[fuses allKeys] count]; i++) {
+		NSString *fuseName = [[fuses allKeys] objectAtIndex: i];
+		NSString *avrdudeFuseName = nil;
+		if ([fuseName isEqualToString: @"EXTENDED"]) {
+			avrdudeFuseName = @"efuse";
+		}
+		else if ([fuseName isEqualToString: @"LOW"]) {
+			avrdudeFuseName = @"lfuse";
+		}
+		else if ([fuseName isEqualToString: @"HIGH"]) {
+			avrdudeFuseName = @"hfuse";
+		}
+		[avrdudeArguments addObject: @"-U"];
+		[avrdudeArguments addObject: [NSString stringWithFormat: @"%@:v:0x%02x:m", avrdudeFuseName, [[fuses objectForKey: fuseName] unsignedCharValue]]];
+	}
+	[self log: @"Verifying fuses..."];
+	NSTask *task = [NSTask launchedTaskWithLaunchPath: avrdudePath arguments: avrdudeArguments];
+	[task waitUntilExit];
+	if ([task terminationStatus] == 0) {
+		[self log: @"SUCCESS"];
+	}
+	else {
+		[self log: @"FAILED"];
+	}
+	[fusesTableView reloadData];
+}
+
+- (IBAction)verifyFlash:(id)sender
+{
+	NSString *avrdudePort = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePort"];
+	NSString *avrdudeConfig = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudeConfig"];
+	NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
+	NSMutableArray *avrdudeArguments = [[NSMutableArray alloc] init];
+	[avrdudeArguments addObject: @"-P"];
+	[avrdudeArguments addObject: avrdudePort];
+	[avrdudeArguments addObject: @"-c"];
+	[avrdudeArguments addObject: avrdudeConfig];
+	[avrdudeArguments addObject: @"-p"];
+	[avrdudeArguments addObject: selectedPart->name];
+	[avrdudeArguments addObject: @"-qq"];
+	
+	[avrdudeArguments addObject: @"-U"];
+	[avrdudeArguments addObject: [NSString stringWithFormat: @"flash:v:%@", 
+		[[NSUserDefaults standardUserDefaults] stringForKey: @"lastSelectedFlash"]]];
+	[self log: @"Verifying flash..."];
+	NSTask *task = [NSTask launchedTaskWithLaunchPath: avrdudePath arguments: avrdudeArguments];
+	[task waitUntilExit];
+	if ([task terminationStatus] == 0) {
+		[self log: @"SUCCESS"];
+	}
+	else {
+		[self log: @"FAILED"];
+	}
+}
+
+- (IBAction)programFlash:(id)sender
+{
+	NSString *avrdudePort = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePort"];
+	NSString *avrdudeConfig = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudeConfig"];
+	NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
+	NSMutableArray *avrdudeArguments = [[NSMutableArray alloc] init];
+	[avrdudeArguments addObject: @"-P"];
+	[avrdudeArguments addObject: avrdudePort];
+	[avrdudeArguments addObject: @"-c"];
+	[avrdudeArguments addObject: avrdudeConfig];
+	[avrdudeArguments addObject: @"-p"];
+	[avrdudeArguments addObject: selectedPart->name];
+	[avrdudeArguments addObject: @"-qq"];
+	
+	[avrdudeArguments addObject: @"-U"];
+	[avrdudeArguments addObject: [NSString stringWithFormat: @"flash:w:%@", 
+		[[NSUserDefaults standardUserDefaults] stringForKey: @"lastSelectedFlash"]]];
+	[self log: @"Programming flash..."];
+	NSTask *task = [NSTask launchedTaskWithLaunchPath: avrdudePath arguments: avrdudeArguments];
+	[task waitUntilExit];
+	if ([task terminationStatus] == 0) {
+		[self log: @"SUCCESS"];
+	}
+	else {
+		[self log: @"FAILED"];
+	}
+}
+
+- (IBAction)readFlash:(id)sender
+{
+	if ([[NSFileManager defaultManager] fileExistsAtPath: [[NSUserDefaults standardUserDefaults] stringForKey: @"lastSelectedFlash"]]) {
+		if (NSRunAlertPanel(@"Overwrite File?", @"The file already exists. Do you want to overwrite it?", @"No", @"Yes", nil)) {
+			return;
+		}
+	}
+
+	NSString *avrdudePort = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePort"];
+	NSString *avrdudeConfig = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudeConfig"];
+	NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
+	NSMutableArray *avrdudeArguments = [[NSMutableArray alloc] init];
+	[avrdudeArguments addObject: @"-P"];
+	[avrdudeArguments addObject: avrdudePort];
+	[avrdudeArguments addObject: @"-c"];
+	[avrdudeArguments addObject: avrdudeConfig];
+	[avrdudeArguments addObject: @"-p"];
+	[avrdudeArguments addObject: selectedPart->name];
+	[avrdudeArguments addObject: @"-qq"];
+	
+	[avrdudeArguments addObject: @"-U"];
+	[avrdudeArguments addObject: [NSString stringWithFormat: @"flash:r:%@:i", 
+		[[NSUserDefaults standardUserDefaults] stringForKey: @"lastSelectedFlash"]]];
+	[self log: @"Reading flash..."];
+	NSTask *task = [NSTask launchedTaskWithLaunchPath: avrdudePath arguments: avrdudeArguments];
+	[task waitUntilExit];
+	if ([task terminationStatus] == 0) {
+		[self log: @"SUCCESS"];
+	}
+	else {
+		[self log: @"FAILED"];
+	}
+}
+
+- (IBAction)verifyEeprom:(id)sender
+{
+	NSString *avrdudePort = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePort"];
+	NSString *avrdudeConfig = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudeConfig"];
+	NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
+	NSMutableArray *avrdudeArguments = [[NSMutableArray alloc] init];
+	[avrdudeArguments addObject: @"-P"];
+	[avrdudeArguments addObject: avrdudePort];
+	[avrdudeArguments addObject: @"-c"];
+	[avrdudeArguments addObject: avrdudeConfig];
+	[avrdudeArguments addObject: @"-p"];
+	[avrdudeArguments addObject: selectedPart->name];
+	[avrdudeArguments addObject: @"-qq"];
+	
+	[avrdudeArguments addObject: @"-U"];
+	[avrdudeArguments addObject: [NSString stringWithFormat: @"eeprom:v:%@", 
+		[[NSUserDefaults standardUserDefaults] stringForKey: @"lastSelectedEeprom"]]];
+	[self log: @"Verifying EEPROM..."];
+	NSTask *task = [NSTask launchedTaskWithLaunchPath: avrdudePath arguments: avrdudeArguments];
+	[task waitUntilExit];
+	if ([task terminationStatus] == 0) {
+		[self log: @"SUCCESS"];
+	}
+	else {
+		[self log: @"FAILED"];
+	}
+}
+
+- (IBAction)programEeprom:(id)sender
+{
+	NSString *avrdudePort = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePort"];
+	NSString *avrdudeConfig = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudeConfig"];
+	NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
+	NSMutableArray *avrdudeArguments = [[NSMutableArray alloc] init];
+	[avrdudeArguments addObject: @"-P"];
+	[avrdudeArguments addObject: avrdudePort];
+	[avrdudeArguments addObject: @"-c"];
+	[avrdudeArguments addObject: avrdudeConfig];
+	[avrdudeArguments addObject: @"-p"];
+	[avrdudeArguments addObject: selectedPart->name];
+	[avrdudeArguments addObject: @"-qq"];
+	
+	[avrdudeArguments addObject: @"-U"];
+	[avrdudeArguments addObject: [NSString stringWithFormat: @"eeprom:w:%@", 
+		[[NSUserDefaults standardUserDefaults] stringForKey: @"lastSelectedEeprom"]]];
+	[self log: @"Programming EEPROM..."];
+	NSTask *task = [NSTask launchedTaskWithLaunchPath: avrdudePath arguments: avrdudeArguments];
+	[task waitUntilExit];
+	if ([task terminationStatus] == 0) {
+		[self log: @"SUCCESS"];
+	}
+	else {
+		[self log: @"FAILED"];
+	}
+}
+
+- (IBAction)readEeprom:(id)sender
+{
+	if ([[NSFileManager defaultManager] fileExistsAtPath: [[NSUserDefaults standardUserDefaults] stringForKey: @"lastSelectedEeprom"]]) {
+		if (NSRunAlertPanel(@"Overwrite File?", @"The file already exists. Do you want to overwrite it?", @"No", @"Yes", nil)) {
+			return;
+		}
+	}
+	
+	NSString *avrdudePort = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePort"];
+	NSString *avrdudeConfig = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudeConfig"];
+	NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
+	NSMutableArray *avrdudeArguments = [[NSMutableArray alloc] init];
+	[avrdudeArguments addObject: @"-P"];
+	[avrdudeArguments addObject: avrdudePort];
+	[avrdudeArguments addObject: @"-c"];
+	[avrdudeArguments addObject: avrdudeConfig];
+	[avrdudeArguments addObject: @"-p"];
+	[avrdudeArguments addObject: selectedPart->name];
+	[avrdudeArguments addObject: @"-qq"];
+	
+	[avrdudeArguments addObject: @"-U"];
+	[avrdudeArguments addObject: [NSString stringWithFormat: @"eeprom:r:%@:i", 
+		[[NSUserDefaults standardUserDefaults] stringForKey: @"lastSelectedEeprom"]]];
+	[self log: @"Reading EEPROM..."];
+	NSTask *task = [NSTask launchedTaskWithLaunchPath: avrdudePath arguments: avrdudeArguments];
+	[task waitUntilExit];
+	if ([task terminationStatus] == 0) {
+		[self log: @"SUCCESS"];
+	}
+	else {
+		[self log: @"FAILED"];
+	}
+}
+
+- (IBAction)eraseDevice:(id)sender
+{
+	NSString *avrdudePort = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePort"];
+	NSString *avrdudeConfig = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudeConfig"];
+	NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
+	NSMutableArray *avrdudeArguments = [[NSMutableArray alloc] init];
+	[avrdudeArguments addObject: @"-P"];
+	[avrdudeArguments addObject: avrdudePort];
+	[avrdudeArguments addObject: @"-c"];
+	[avrdudeArguments addObject: avrdudeConfig];
+	[avrdudeArguments addObject: @"-p"];
+	[avrdudeArguments addObject: selectedPart->name];
+	[avrdudeArguments addObject: @"-qq"];
+	[avrdudeArguments addObject: @"-e"];
+	[self log: @"Erasing chip..."];
+	NSTask *task = [NSTask launchedTaskWithLaunchPath: avrdudePath arguments: avrdudeArguments];
+	[task waitUntilExit];
+	if ([task terminationStatus] == 0) {
+		[self log: @"SUCCESS"];
+	}
+	else {
+		[self log: @"FAILED"];
+	}
 }
 
 - (void)tableViewDoubleClick

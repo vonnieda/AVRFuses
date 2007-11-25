@@ -23,6 +23,8 @@
 		<dict>
 			<key>ACTIONS</key>
 			<dict>
+				<key>browseAvrdude</key>
+				<string>id</string>
 				<key>browseEeprom</key>
 				<string>id</string>
 				<key>browseFlash</key>
@@ -43,15 +45,21 @@
 				<string>id</string>
 				<key>programFlash</key>
 				<string>id</string>
+				<key>programFuses</key>
+				<string>id</string>
 				<key>readEeprom</key>
 				<string>id</string>
 				<key>readFlash</key>
+				<string>id</string>
+				<key>readFuses</key>
 				<string>id</string>
 				<key>showPrefs</key>
 				<string>id</string>
 				<key>verifyEeprom</key>
 				<string>id</string>
 				<key>verifyFlash</key>
+				<string>id</string>
+				<key>verifyFuses</key>
 				<string>id</string>
 			</dict>
 			<key>CLASS</key>
@@ -60,6 +68,10 @@
 			<string>ObjC</string>
 			<key>OUTLETS</key>
 			<dict>
+				<key>avrdudeConfigPopUpButton</key>
+				<string>NSPopUpButton</string>
+				<key>avrdudeTextField</key>
+				<string>NSTextField</string>
 				<key>devicePopUpButton</key>
 				<string>NSPopUpButton</string>
 				<key>fusesTableView</key>

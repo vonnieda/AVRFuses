@@ -10,9 +10,11 @@
 	PartDefinition *selectedPart;
 	NSMutableDictionary *fuses;
 	NSMutableArray *fuseSettings;
+	NSString *avrdudeVersion;
 }
 
 - (void)awakeFromNib;
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *) theApplication;
 - (void)loadPartDefinitions;
+- (void)loadAvrdudeConfigs;
 @end
