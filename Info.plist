@@ -6,6 +6,8 @@
 	<string>English</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
+	<key>CFBundleIconFile</key>
+	<string>AVRFuses2</string>
 	<key>CFBundleIdentifier</key>
 	<string>org.vonnieda.AVRFuses</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -17,10 +19,14 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>1.4</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>SUFeedURL</key>
+	<string>http://www.vonnieda.org/AVRFuses/appcast.xml</string>
+	<key>SUScheduledCheckInterval</key>
+	<integer>259200</integer>
 </dict>
 </plist>

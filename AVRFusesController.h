@@ -17,4 +17,6 @@
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *) theApplication;
 - (void)loadPartDefinitions;
 - (void)loadAvrdudeConfigs;
+
+- (BOOL) avrdudeAvailable;
 @end

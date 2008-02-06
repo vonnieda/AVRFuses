@@ -23,6 +23,8 @@
 		<dict>
 			<key>ACTIONS</key>
 			<dict>
+				<key>avrdudeChanged</key>
+				<string>id</string>
 				<key>browseAvrdude</key>
 				<string>id</string>
 				<key>browseEeprom</key>
@@ -70,6 +72,8 @@
 			<dict>
 				<key>avrdudeConfigPopUpButton</key>
 				<string>NSPopUpButton</string>
+				<key>avrdudeSerialBaudPopUpButton</key>
+				<string>NSPopUpButton</string>
 				<key>avrdudeTextField</key>
 				<string>NSTextField</string>
 				<key>devicePopUpButton</key>
@@ -85,6 +89,19 @@
 				<key>tabView</key>
 				<string>NSTabView</string>
 			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>checkForUpdates</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>SUUpdater</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
 			<key>SUPERCLASS</key>
 			<string>NSObject</string>
 		</dict>
