@@ -8,12 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class FuseDefinition;
 
 @interface PartDefinition : NSObject 
 {
 	@public
 	NSString *name;
 	NSMutableDictionary *fuses;
+	FuseDefinition *lockbits;
 }
 
 -(id)init;

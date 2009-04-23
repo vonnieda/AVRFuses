@@ -69,4 +69,16 @@
 - (IBAction)avrdudeChanged: (id) sender
 {
 }
+
+- (IBAction)programLockbits:(id)sender
+{
+}
+
+- (IBAction)readLockbits:(id)sender
+{
+}
+
+- (IBAction)verifyLockbits:(id)sender
+{
+}
 @end

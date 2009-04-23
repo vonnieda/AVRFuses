@@ -6,6 +6,22 @@
 		<description>Changes and updates for AVRFuses by Jason von Nieda</description>
 		<language>en</language>
 		<item>
+			<title>Version 1.4</title>
+			<description>
+				<![CDATA[
+					<li>Fixed issue with checking for updates on startup not being disableable.
+					<li>Made window resizable.
+					<li>Cleaned up avrdude argument building code.
+					<li>Made port optional; required for some programmers.
+					<li>Made port a drop down containing common ports found on the system for easier selection.
+					<li>Added setting for baud rate; used for serial based programmers.
+					<li>Started work on Lock Bits editor but decided to hold it for 1.5. This release needed to get out now. Lock Bits removed for now.
+				]]>
+			</description>
+			<pubDate>Thu, 6 Mar 2008 00:01:00 +0000</pubDate>
+			<enclosure url="http://www.vonnieda.org/download.jsp?name=http://www.vonnieda.org/AVRFuses/AVRFuses_1.4.zip" length="1091604" type="application/octet-stream"/>
+		</item>
+		<item>
 			<title>Version 1.3</title>
 			<description>
 				<![CDATA[

@@ -49,11 +49,15 @@
 				<string>id</string>
 				<key>programFuses</key>
 				<string>id</string>
+				<key>programLockbits</key>
+				<string>id</string>
 				<key>readEeprom</key>
 				<string>id</string>
 				<key>readFlash</key>
 				<string>id</string>
 				<key>readFuses</key>
+				<string>id</string>
+				<key>readLockbits</key>
 				<string>id</string>
 				<key>showPrefs</key>
 				<string>id</string>
@@ -62,6 +66,8 @@
 				<key>verifyFlash</key>
 				<string>id</string>
 				<key>verifyFuses</key>
+				<string>id</string>
+				<key>verifyLockbits</key>
 				<string>id</string>
 			</dict>
 			<key>CLASS</key>
@@ -72,6 +78,8 @@
 			<dict>
 				<key>avrdudeConfigPopUpButton</key>
 				<string>NSPopUpButton</string>
+				<key>avrdudePortPopUpButton</key>
+				<string>NSComboBox</string>
 				<key>avrdudeSerialBaudPopUpButton</key>
 				<string>NSPopUpButton</string>
 				<key>avrdudeTextField</key>
@@ -79,6 +87,8 @@
 				<key>devicePopUpButton</key>
 				<string>NSPopUpButton</string>
 				<key>fusesTableView</key>
+				<string>NSTableView</string>
+				<key>lockbitsTableView</key>
 				<string>NSTableView</string>
 				<key>logTextView</key>
 				<string>NSTextView</string>

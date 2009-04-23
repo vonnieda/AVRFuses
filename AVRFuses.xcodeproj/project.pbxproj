@@ -18,6 +18,7 @@
 		962D354C0CFD5922003A6C5A /* AVRFuses2.icns in Resources */ = {isa = PBXBuildFile; fileRef = 962D354B0CFD5922003A6C5A /* AVRFuses2.icns */; };
 		964C0B930D599BD2008FDB06 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 964C0B920D599BD2008FDB06 /* IOKit.framework */; };
 		9661E70C0D18340400DFABE4 /* appcast.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9661E70B0D18340400DFABE4 /* appcast.xml */; };
+		9679D22B0D81172200133101 /* MainMenu_WithLockBits.nib in Resources */ = {isa = PBXBuildFile; fileRef = 9679D2290D81172200133101 /* MainMenu_WithLockBits.nib */; };
 		96A329570CFBF63900500BA9 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 96A329560CFBF63900500BA9 /* Credits.rtf */; };
 		96D8D1E80CEEB5DF00C7FDC6 /* PartDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D8D1E70CEEB5DF00C7FDC6 /* PartDefinition.m */; };
 		96D8D30A0CEEE5D600C7FDC6 /* AVRFuses.parts in Resources */ = {isa = PBXBuildFile; fileRef = 96D8D3090CEEE5D600C7FDC6 /* AVRFuses.parts */; };
@@ -55,6 +56,7 @@
 		962D354B0CFD5922003A6C5A /* AVRFuses2.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AVRFuses2.icns; sourceTree = "<group>"; };
 		964C0B920D599BD2008FDB06 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
 		9661E70B0D18340400DFABE4 /* appcast.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = appcast.xml; sourceTree = "<group>"; };
+		9679D22A0D81172200133101 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu_WithLockBits.nib; sourceTree = "<group>"; };
 		96A329560CFBF63900500BA9 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		96D8D1E60CEEB5DF00C7FDC6 /* PartDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartDefinition.h; sourceTree = "<group>"; };
 		96D8D1E70CEEB5DF00C7FDC6 /* PartDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartDefinition.m; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				9679D2290D81172200133101 /* MainMenu_WithLockBits.nib */,
 			);
 			name = AVRFuses;
 			sourceTree = "<group>";
@@ -210,6 +213,7 @@
 				96A329570CFBF63900500BA9 /* Credits.rtf in Resources */,
 				962D354C0CFD5922003A6C5A /* AVRFuses2.icns in Resources */,
 				9661E70C0D18340400DFABE4 /* appcast.xml in Resources */,
+				9679D22B0D81172200133101 /* MainMenu_WithLockBits.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,6 +248,14 @@
 				29B97319FDCFA39411CA2CEA /* English */,
 			);
 			name = MainMenu.nib;
+			sourceTree = "<group>";
+		};
+		9679D2290D81172200133101 /* MainMenu_WithLockBits.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9679D22A0D81172200133101 /* English */,
+			);
+			name = MainMenu_WithLockBits.nib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -13,6 +13,9 @@
 	IBOutlet NSTextField *avrdudeTextField;
 	IBOutlet NSPopUpButton *avrdudeConfigPopUpButton;
 	IBOutlet NSPopUpButton *avrdudeSerialBaudPopUpButton;
+	IBOutlet NSComboBox *avrdudePortPopUpButton;
+	
+	IBOutlet NSTableView *lockbitsTableView;
 }
 - (IBAction)showPrefs:(id)sender;
 - (IBAction)browseAvrdude:(id)sender;
@@ -36,4 +39,8 @@
 - (IBAction)programFuses:(id)sender;
 - (IBAction)readFuses:(id)sender;
 - (IBAction)verifyFuses:(id)sender;
+
+- (IBAction)programLockbits:(id)sender;
+- (IBAction)readLockbits:(id)sender;
+- (IBAction)verifyLockbits:(id)sender;
 @end

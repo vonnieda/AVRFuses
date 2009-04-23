@@ -8,62 +8,24 @@
 #import <IOKit/serial/IOSerialKeys.h>
 #import <IOKit/IOBSD.h>
 
+/*
+Need to come up with just a few  generic methods:
+readMemory, verifyMemory, programMemory and use it similar to how avrdude uses -U
+*/
+
+/*
+TODO removed lockbits for now so I can release 1.4
+This method of reading in the configs causes problems in all the other
+methods (mainly read) because of the loop that looks at all fusenames
+and expects a file. I don't like having to hardcode the fuse names in each
+function.
+
+Also, right now it's fine cause we never add lockbits fusename to fuses, but if we do (like
+I originally intended) then everything that uses the fuses array needs to change. Should store lockbits
+seperately or come up with a more generic method of read/writing/verifying/displaying memory.
+*/
 
 @implementation AVRFusesController
-- (bool)getNextSerialPort:(io_iterator_t)serialPortIterator
-{
-	bool ret = false;
-	io_object_t serialService = IOIteratorNext(serialPortIterator);
-	if (serialService != 0) {
-		CFStringRef modemName = (CFStringRef)IORegistryEntryCreateCFProperty(serialService, CFSTR(kIOTTYDeviceKey), kCFAllocatorDefault, 0);
-		CFStringRef bsdPath = (CFStringRef)IORegistryEntryCreateCFProperty(serialService, CFSTR(kIOCalloutDeviceKey), kCFAllocatorDefault, 0);
-		CFStringRef serviceType = (CFStringRef)IORegistryEntryCreateCFProperty(serialService, CFSTR(kIOSerialBSDTypeKey), kCFAllocatorDefault, 0);
-		if (modemName && bsdPath) {
-			// If the port already exists in the list of ports, we want that one.  We only create a new one as a last resort.
-			//serialPort = [self portByPath:(NSString*)bsdPath];
-			//if (serialPort == nil) {
-			//	serialPort = [[[AMSerialPort alloc] init:(NSString*)bsdPath withName:(NSString*)modemName type:(NSString*)serviceType] autorelease];
-			//}
-			NSLog((NSString *) modemName);
-			NSLog((NSString *) bsdPath);
-			NSLog((NSString *) serviceType);
-			NSLog(@"--------------");
-			ret = true;
-		}
-		CFRelease(modemName);
-		CFRelease(bsdPath);
-		CFRelease(serviceType);
-		
-		// We have sucked this service dry of information so release it now.
-		(void)IOObjectRelease(serialService);
-	}
-	return ret;
-}
-
-- (void)addAllSerialPortsToArray:(NSMutableArray *)array
-{
-	kern_return_t kernResult; 
-	CFMutableDictionaryRef classesToMatch;
-	io_iterator_t serialPortIterator;
-	
-	// Serial devices are instances of class IOSerialBSDClient
-	classesToMatch = IOServiceMatching(kIOSerialBSDServiceValue);
-	if (classesToMatch != NULL) {
-		CFDictionarySetValue(classesToMatch, CFSTR(kIOSerialBSDTypeKey), CFSTR(kIOSerialBSDAllTypes));
-
-		// This function decrements the refcount of the dictionary passed it
-		kernResult = IOServiceGetMatchingServices(kIOMasterPortDefault, classesToMatch, &serialPortIterator);    
-		if (kernResult == KERN_SUCCESS) {			
-			while ([self getNextSerialPort:serialPortIterator]) {
-			}
-			(void)IOObjectRelease(serialPortIterator);
-		} else {
-			NSLog(@"IOServiceGetMatchingServices returned %d", kernResult);
-		}
-	} else {
-		NSLog(@"IOServiceMatching returned a NULL dictionary.");
-	}
-}
 
 - (void)awakeFromNib
 {
@@ -71,8 +33,10 @@
 	selectedPart = nil;
 	fuses = [[NSMutableDictionary alloc] init];
 	fuseSettings = [[NSMutableArray alloc] init];
+	lockbitSettings = [[NSMutableArray alloc] init];
 
-	[fusesTableView setDoubleAction: @selector(tableViewDoubleClick)];
+	[fusesTableView setDoubleAction: @selector(tableViewDoubleClick:)];
+	[lockbitsTableView setDoubleAction: @selector(tableViewDoubleClick:)];
 	
 	[self loadPartDefinitions];
 
@@ -87,7 +51,7 @@
 	}
 	
 	[avrdudeSerialBaudPopUpButton removeAllItems];
-	[avrdudeSerialBaudPopUpButton addItemWithTitle: @"[Not Specified]"];
+	[avrdudeSerialBaudPopUpButton addItemWithTitle: @"[Default]"];
 	[avrdudeSerialBaudPopUpButton addItemWithTitle: @"300"];
 	[avrdudeSerialBaudPopUpButton addItemWithTitle: @"1200"];
 	[avrdudeSerialBaudPopUpButton addItemWithTitle: @"2400"];
@@ -102,17 +66,30 @@
 		[avrdudeSerialBaudPopUpButton selectItemWithTitle: [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudeSerialBaud"]];
 	}
 	
-	[self addAllSerialPortsToArray: nil];
+	[avrdudePortPopUpButton removeAllItems];
+	[avrdudePortPopUpButton addItemWithObjectValue: @"usb"];
+	NSMutableArray *serialPorts = [NSMutableArray array];
+	[self addAllSerialPortsToArray: serialPorts];
+	for (int i = 0; i < [serialPorts count]; i++) {
+		[avrdudePortPopUpButton addItemWithObjectValue: [serialPorts objectAtIndex: i]];
+	}
+	
+	/*
+	if ([[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePort"] != nil) {
+		[avrdudePortPopUpButton selectItemWithTitle: [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePort"]];
+	}
+	*/
 	
 	[self deviceChanged: nil];
 	
 	[mainWindow makeKeyAndOrderFront: nil];
 	
-	NSString *avrdudePort = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePort"];
+	//NSString *avrdudePort = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePort"];
 	NSString *avrdudeConfig = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudeConfig"];
 	NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
 
-	if (!avrdudePort || !avrdudeConfig || !avrdudePath) {
+	//if (!avrdudePort || !avrdudeConfig || !avrdudePath) {
+	if (!avrdudeConfig || !avrdudePath) {
 		[self showPrefs: nil];
 	}
 	else {
@@ -161,13 +138,25 @@
 		}
 		
 		FuseDefinition *fuse = nil;
-		if ([part->fuses objectForKey: settingFuse] == nil) {
-			fuse = [[FuseDefinition alloc] init];
-			fuse->name = settingFuse;
-			[part->fuses setObject: fuse forKey: fuse->name];
+		if ([settingFuse isEqualToString: @"LOCKBIT"]) {
+			if (part->lockbits == nil) {
+				fuse = [[FuseDefinition alloc] init];
+				fuse->name = settingFuse;
+				part->lockbits = fuse;
+			}
+			else {
+				fuse = part->lockbits;
+			}
 		}
 		else {
-			fuse = [part->fuses objectForKey: settingFuse];
+			if ([part->fuses objectForKey: settingFuse] == nil) {
+				fuse = [[FuseDefinition alloc] init];
+				fuse->name = settingFuse;
+				[part->fuses setObject: fuse forKey: fuse->name];
+			}
+			else {
+				fuse = [part->fuses objectForKey: settingFuse];
+			}
 		}
 		FuseSetting *fuseSetting = [[FuseSetting alloc] init];
 		fuseSetting->fuse = fuse->name;
@@ -188,6 +177,7 @@
 	[[NSUserDefaults standardUserDefaults] setObject: selectedPart->name forKey: @"lastSelectedPart"];
 	
 	[fuseSettings removeAllObjects];
+	[lockbitSettings removeAllObjects];
 	
 	if ([selectedPart->fuses objectForKey:@"EXTENDED"] != nil) {
 		FuseDefinition *fuse = [selectedPart->fuses objectForKey: @"EXTENDED"];
@@ -207,8 +197,15 @@
 			[fuseSettings addObject: [fuse->settings objectAtIndex: i]];
 		}
 	}
+	if (selectedPart->lockbits != nil) {
+		FuseDefinition *fuse = selectedPart->lockbits;
+		for (int i = 0; i < [fuse->settings count]; i++) {
+			[lockbitSettings addObject: [fuse->settings objectAtIndex: i]];
+		}
+	}
 	
 	[fusesTableView reloadData];
+	[lockbitsTableView reloadData];
 	
 	[fuses removeAllObjects];
 	for (int i = 0; i < [[selectedPart->fuses allKeys] count]; i++) {
@@ -287,11 +284,12 @@
 
 - (BOOL) avrdudeAvailable
 {
-	NSString *avrdudePort = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePort"];
+	//NSString *avrdudePort = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePort"];
 	NSString *avrdudeConfig = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudeConfig"];
 	NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
 
-	return (avrdudePath && avrdudeConfig && avrdudePort && avrdudeVersion);
+	//return (avrdudePath && avrdudeConfig && avrdudePort && avrdudeVersion);
+	return (avrdudePath && avrdudeConfig && avrdudeVersion);
 }
 
 - (void)loadAvrdudeConfigs
@@ -377,16 +375,21 @@
 	NSString *avrdudeSerialBaud = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudeSerialBaud"];
 	//NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
 	NSMutableArray *avrdudeArguments = [[NSMutableArray alloc] init];
-	[avrdudeArguments addObject: @"-P"];
-	[avrdudeArguments addObject: avrdudePort];
+	if (avrdudePort != nil && [avrdudePort length] > 0) {
+		[avrdudeArguments addObject: @"-P"];
+		[avrdudeArguments addObject: avrdudePort];
+	}
 	[avrdudeArguments addObject: @"-c"];
 	[avrdudeArguments addObject: avrdudeConfig];
-	[avrdudeArguments addObject: @"-b"];
-	[avrdudeArguments addObject: avrdudeSerialBaud];
+	if (avrdudeSerialBaud != nil && ![avrdudeSerialBaud isEqualToString: @"[Default]"]) {
+		[avrdudeArguments addObject: @"-b"];
+		[avrdudeArguments addObject: avrdudeSerialBaud];
+	}
 	[avrdudeArguments addObject: @"-p"];
 	[avrdudeArguments addObject: selectedPart->name];
 	[avrdudeArguments addObject: @"-qq"];
 	[avrdudeArguments autorelease];
+	//NSLog(@"%@", avrdudeArguments);
 	return avrdudeArguments;
 }
 
@@ -406,6 +409,10 @@
 		}
 		else if ([fuseName isEqualToString: @"HIGH"]) {
 			avrdudeFuseName = @"hfuse";
+		}
+		// TODO this pattern in the rest of these functions should change with addition of lockbits
+		else {
+			continue;
 		}
 		[avrdudeArguments addObject: @"-U"];
 		[avrdudeArguments addObject: [NSString stringWithFormat: @"%@:w:0x%02x:m", avrdudeFuseName, [[fuses objectForKey: fuseName] unsignedCharValue]]];
@@ -453,6 +460,9 @@
 		else if ([fuseName isEqualToString: @"HIGH"]) {
 			avrdudeFuseName = @"hfuse";
 		}
+		else {
+			continue;
+		}
 		[avrdudeArguments addObject: @"-U"];
 		[avrdudeArguments addObject: [NSString stringWithFormat: @"%@:r:/tmp/%@.tmp:h", avrdudeFuseName, fuseName]];
 	}
@@ -478,6 +488,7 @@
 		[self log: @"SUCCESS"];
 		for (int i = 0; i < [[fuses allKeys] count]; i++) {
 			NSString *fuseName = [[fuses allKeys] objectAtIndex: i];
+			//NSLog(@"%@", fuseName);
 			char buffer[1000];
 			FILE *file = fopen([[NSString stringWithFormat: @"/tmp/%@.tmp", fuseName] cString], "r");
 			fgets(buffer, 1000, file);
@@ -496,6 +507,150 @@
 }
 
 - (IBAction)verifyFuses:(id)sender
+{
+	NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
+	NSMutableArray *avrdudeArguments = [self defaultAvrdudeArguments];
+
+	for (int i = 0; i < [[fuses allKeys] count]; i++) {
+		NSString *fuseName = [[fuses allKeys] objectAtIndex: i];
+		NSString *avrdudeFuseName = nil;
+		if ([fuseName isEqualToString: @"EXTENDED"]) {
+			avrdudeFuseName = @"efuse";
+		}
+		else if ([fuseName isEqualToString: @"LOW"]) {
+			avrdudeFuseName = @"lfuse";
+		}
+		else if ([fuseName isEqualToString: @"HIGH"]) {
+			avrdudeFuseName = @"hfuse";
+		}
+		else {
+			continue;
+		}
+		[avrdudeArguments addObject: @"-U"];
+		[avrdudeArguments addObject: [NSString stringWithFormat: @"%@:v:0x%02x:m", avrdudeFuseName, [[fuses objectForKey: fuseName] unsignedCharValue]]];
+	}
+	[self log: @"Verifying fuses..."];
+	NSTask *task = [[NSTask alloc] init];
+	[task setLaunchPath: avrdudePath];
+	[task setArguments: avrdudeArguments];
+	NSPipe *pipe = [NSPipe pipe];
+	[task setStandardError: pipe];
+	NSFileHandle *file = [pipe fileHandleForReading];
+	[task launch];
+	[task waitUntilExit];
+	NSData *data = [file readDataToEndOfFile];
+	NSString *stdErr = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+	NSArray *stdErrLines = [stdErr componentsSeparatedByString: @"\n"];
+	for (int i = 0; i < [stdErrLines count]; i++) {
+		NSString *line = [stdErrLines objectAtIndex: i];
+		if ([line length] > 0) {
+			[self log: line];
+		}
+	}
+	if ([task terminationStatus] == 0) {
+		[self log: @"SUCCESS"];
+	}
+	else {
+		[self log: @"FAILED"];
+	}
+	[fusesTableView reloadData];
+}
+
+// TODO
+/*
+- (IBAction)programLockbits:(id)sender
+{
+	NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
+	NSMutableArray *avrdudeArguments = [self defaultAvrdudeArguments];
+	
+	for (int i = 0; i < [[fuses allKeys] count]; i++) {
+		NSString *fuseName = [[fuses allKeys] objectAtIndex: i];
+		NSString *avrdudeFuseName = nil;
+		if ([fuseName isEqualToString: @"EXTENDED"]) {
+			avrdudeFuseName = @"efuse";
+		}
+		else if ([fuseName isEqualToString: @"LOW"]) {
+			avrdudeFuseName = @"lfuse";
+		}
+		else if ([fuseName isEqualToString: @"HIGH"]) {
+			avrdudeFuseName = @"hfuse";
+		}
+		[avrdudeArguments addObject: @"-U"];
+		[avrdudeArguments addObject: [NSString stringWithFormat: @"%@:w:0x%02x:m", avrdudeFuseName, [[fuses objectForKey: fuseName] unsignedCharValue]]];
+	}
+	[self log: @"Programming fuses..."];
+	NSTask *task = [[NSTask alloc] init];
+	[task setLaunchPath: avrdudePath];
+	[task setArguments: avrdudeArguments];
+	NSPipe *pipe = [NSPipe pipe];
+	[task setStandardError: pipe];
+	NSFileHandle *file = [pipe fileHandleForReading];
+	[task launch];
+	[task waitUntilExit];
+	NSData *data = [file readDataToEndOfFile];
+	NSString *stdErr = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+	NSArray *stdErrLines = [stdErr componentsSeparatedByString: @"\n"];
+	for (int i = 0; i < [stdErrLines count]; i++) {
+		NSString *line = [stdErrLines objectAtIndex: i];
+		if ([line length] > 0) {
+			[self log: line];
+		}
+	}
+	if ([task terminationStatus] == 0) {
+		[self log: @"SUCCESS"];
+	}
+	else {
+		[self log: @"FAILED"];
+	}
+}
+
+- (IBAction)readLockbits:(id)sender
+{
+	NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
+	NSMutableArray *avrdudeArguments = [self defaultAvrdudeArguments];
+	
+	NSString *fuseName = @"LOCKBIT";
+	NSString *avrdudeFuseName = @"lock";
+	[avrdudeArguments addObject: @"-U"];
+	[avrdudeArguments addObject: [NSString stringWithFormat: @"%@:r:/tmp/%@.tmp:h", avrdudeFuseName, fuseName]];
+
+	[self log: @"Reading lock bits..."];
+	NSTask *task = [[NSTask alloc] init];
+	[task setLaunchPath: avrdudePath];
+	[task setArguments: avrdudeArguments];
+	NSPipe *pipe = [NSPipe pipe];
+	[task setStandardError: pipe];
+	NSFileHandle *file = [pipe fileHandleForReading];
+	[task launch];
+	[task waitUntilExit];
+	NSData *data = [file readDataToEndOfFile];
+	NSString *stdErr = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+	NSArray *stdErrLines = [stdErr componentsSeparatedByString: @"\n"];
+	for (int i = 0; i < [stdErrLines count]; i++) {
+		NSString *line = [stdErrLines objectAtIndex: i];
+		if ([line length] > 0) {
+			[self log: line];
+		}
+	}
+	if ([task terminationStatus] == 0) {
+		[self log: @"SUCCESS"];
+		char buffer[1000];
+		FILE *file = fopen([[NSString stringWithFormat: @"/tmp/%@.tmp", fuseName] cString], "r");
+		fgets(buffer, 1000, file);
+		NSString *line = [[NSString alloc] initWithCString: buffer];
+		NSScanner *scanner = [NSScanner scannerWithString: line];
+		unsigned int fuseValue;
+		[scanner scanHexInt: &fuseValue];
+		fclose(file);
+		[fuses setObject: [NSNumber numberWithUnsignedChar: (fuseValue & 0xff)] forKey: fuseName];
+	}
+	else {
+		[self log: @"FAILED"];
+	}
+	[lockbitsTableView reloadData];
+}
+
+- (IBAction)verifyLockbits:(id)sender
 {
 	NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
 	NSMutableArray *avrdudeArguments = [self defaultAvrdudeArguments];
@@ -541,6 +696,7 @@
 	}
 	[fusesTableView reloadData];
 }
+*/
 
 - (IBAction)verifyFlash:(id)sender
 {
@@ -824,18 +980,27 @@
 	}
 }
 
-- (void)tableViewDoubleClick
+- (void)tableViewDoubleClick: (NSTableView *) tableView
 {
 	if (![self avrdudeAvailable]) {
 		return;
 	}
-	FuseSetting *fuseSetting = [fuseSettings objectAtIndex: [fusesTableView selectedRow]];
+
+	NSMutableArray *settings = nil;
+	if (tableView == fusesTableView) {
+		settings = fuseSettings;
+	}
+	else if (tableView == lockbitsTableView) {
+		settings = lockbitSettings;
+	}
+
+	FuseSetting *fuseSetting = [settings objectAtIndex: [tableView selectedRow]];
 	
 	unsigned char fuseValue = [[fuses objectForKey: fuseSetting->fuse] intValue];
 
 	BOOL singleElementGroup = YES;
-	for (int i = 0; i < [fuseSettings count]; i++) {
-		FuseSetting *fuseSetting1 = [fuseSettings objectAtIndex: i];
+	for (int i = 0; i < [settings count]; i++) {
+		FuseSetting *fuseSetting1 = [settings objectAtIndex: i];
 		if (fuseSetting1 != fuseSetting && 
 			[fuseSetting1->fuse isEqualToString: fuseSetting->fuse] &&
 			fuseSetting1->mask == fuseSetting->mask) {
@@ -854,23 +1019,36 @@
 	
 	[fuses setObject: [NSNumber numberWithUnsignedChar: fuseValue] forKey: fuseSetting->fuse];
 	
-	[fusesTableView reloadData];
+	[tableView reloadData];
 }
 
 - (int)numberOfRowsInTableView:(NSTableView *)tableView
 {
-	return [fuseSettings count];
+	if (tableView == fusesTableView) {
+		return [fuseSettings count];
+	}
+	else if (tableView == lockbitsTableView) {
+		return [lockbitSettings count];
+	}
+	return 0;
 }
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *) column row:(int)row
 {
+	NSMutableArray *settings = nil;
+	if (tableView == fusesTableView) {
+		settings = fuseSettings;
+	}
+	else if (tableView == lockbitsTableView) {
+		settings = lockbitSettings;
+	}
 	if ([[column identifier] isEqual:@"checkbox"]) {
-		FuseSetting *fuseSetting = [fuseSettings objectAtIndex: row];
+		FuseSetting *fuseSetting = [settings objectAtIndex: row];
 		unsigned char fuseValue = [[fuses objectForKey: fuseSetting->fuse] intValue];
 		return ((fuseValue & fuseSetting->mask) == fuseSetting->value) ? @"1" : @"0";
 	}
 	else if ([[column identifier] isEqual:@"fuse"]) {
-		FuseSetting *fuseSetting = [fuseSettings objectAtIndex: row];
+		FuseSetting *fuseSetting = [settings objectAtIndex: row];
 		return fuseSetting->text;
 	}
 	
@@ -880,5 +1058,61 @@
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *) theApplication
 {
 	return YES;
+}
+
+- (float)splitView:(NSSplitView *)sender constrainMinCoordinate:(float)proposedMin ofSubviewAt:(int)offset
+{
+	if (offset == 0) {
+		return 388.0;
+	}
+	return 0.0;
+}
+
+- (NSString *)getNextSerialPort:(io_iterator_t)serialPortIterator
+{
+	NSString *serialPort = nil;
+	io_object_t serialService = IOIteratorNext(serialPortIterator);
+	if (serialService != 0) {
+		CFStringRef modemName = (CFStringRef)IORegistryEntryCreateCFProperty(serialService, CFSTR(kIOTTYDeviceKey), kCFAllocatorDefault, 0);
+		CFStringRef bsdPath = (CFStringRef)IORegistryEntryCreateCFProperty(serialService, CFSTR(kIOCalloutDeviceKey), kCFAllocatorDefault, 0);
+		CFStringRef serviceType = (CFStringRef)IORegistryEntryCreateCFProperty(serialService, CFSTR(kIOSerialBSDTypeKey), kCFAllocatorDefault, 0);
+		if (modemName && bsdPath) {
+			serialPort = [NSString stringWithString: (NSString *) bsdPath];
+		}
+		CFRelease(modemName);
+		CFRelease(bsdPath);
+		CFRelease(serviceType);
+		
+		// We have sucked this service dry of information so release it now.
+		(void)IOObjectRelease(serialService);
+	}
+	return serialPort;
+}
+
+- (void)addAllSerialPortsToArray:(NSMutableArray *)array
+{
+	NSString *serialPort;
+	kern_return_t kernResult; 
+	CFMutableDictionaryRef classesToMatch;
+	io_iterator_t serialPortIterator;
+	
+	// Serial devices are instances of class IOSerialBSDClient
+	classesToMatch = IOServiceMatching(kIOSerialBSDServiceValue);
+	if (classesToMatch != NULL) {
+		CFDictionarySetValue(classesToMatch, CFSTR(kIOSerialBSDTypeKey), CFSTR(kIOSerialBSDAllTypes));
+
+		// This function decrements the refcount of the dictionary passed it
+		kernResult = IOServiceGetMatchingServices(kIOMasterPortDefault, classesToMatch, &serialPortIterator);    
+		if (kernResult == KERN_SUCCESS) {			
+			while ((serialPort = [self getNextSerialPort:serialPortIterator]) != nil) {
+				[array addObject: serialPort];
+			}
+			(void)IOObjectRelease(serialPortIterator);
+		} else {
+			NSLog(@"IOServiceGetMatchingServices returned %d", kernResult);
+		}
+	} else {
+		NSLog(@"IOServiceMatching returned a NULL dictionary.");
+	}
 }
 @end

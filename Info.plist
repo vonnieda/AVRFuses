@@ -26,7 +26,10 @@
 	<string>NSApplication</string>
 	<key>SUFeedURL</key>
 	<string>http://www.vonnieda.org/AVRFuses/appcast.xml</string>
-	<key>SUScheduledCheckInterval</key>
-	<integer>259200</integer>
+	<key>RegistrationDefaults</key>
+	<dict>
+		<key>SUCheckAtStartup</key>
+		<true/>
+	</dict>
 </dict>
 </plist>

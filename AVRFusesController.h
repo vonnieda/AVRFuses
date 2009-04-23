@@ -10,6 +10,7 @@
 	PartDefinition *selectedPart;
 	NSMutableDictionary *fuses;
 	NSMutableArray *fuseSettings;
+	NSMutableArray *lockbitSettings;
 	NSString *avrdudeVersion;
 }
 
@@ -19,4 +20,8 @@
 - (void)loadAvrdudeConfigs;
 
 - (BOOL) avrdudeAvailable;
+
+- (NSString *)getNextSerialPort:(io_iterator_t)serialPortIterator;
+- (void)addAllSerialPortsToArray:(NSMutableArray *)array;
+
 @end
