@@ -6,6 +6,27 @@
 		<description>Changes and updates for AVRFuses by Jason von Nieda</description>
 		<language>en</language>
 		<item>
+			<title>Version 1.4.4</title>
+			<pubDate>Thu, 23 Apr 2009 20:26:51 -0700</pubDate>
+			<description>
+				<![CDATA[
+					<li>Added avrdude command line logging to log window at the request of several users. This is configurable via the Preferences.
+					<li>Integrated new part information.
+					<li>Added some coloration to different log messages to help differentiate what is happening.
+					<li>Added .eep to the list of acceptable file types for EEPROM read/write/verify.
+					<li>Upgraded Sparkle framework to current version.
+				]]>
+			</description>
+
+			<enclosure
+				url="http://www.vonnieda.org/AVRFuses/AVRFuses_1.4.4.zip"
+				sparkle:version="1.4.4"
+				type="application/octet-stream"
+				length="1755506"
+				sparkle:dsaSignature="MC0CFQDBnJj2NepU5LUk9HNIMZa+85i8sQIUW6qBdU6nwtTLpiwlrWbhtTfDdng="
+			/>
+		</item>
+		<item>
 			<title>Version 1.4</title>
 			<description>
 				<![CDATA[

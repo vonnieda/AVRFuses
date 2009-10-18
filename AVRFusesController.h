@@ -23,5 +23,4 @@
 
 - (NSString *)getNextSerialPort:(io_iterator_t)serialPortIterator;
 - (void)addAllSerialPortsToArray:(NSMutableArray *)array;
-
 @end

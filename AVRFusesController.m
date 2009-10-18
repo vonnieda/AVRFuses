@@ -269,17 +269,49 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	NSOpenPanel *openPanel = [NSOpenPanel openPanel];
 	[openPanel setCanChooseDirectories: NO];
 	[openPanel setAllowsMultipleSelection: NO];
-	if ([openPanel runModalForTypes: [NSArray arrayWithObject: @"hex"]] == NSOKButton) {
+	if ([openPanel runModalForTypes: [NSArray arrayWithObjects: @"hex", @"eep", nil]] == NSOKButton) {
 		[[[NSUserDefaultsController sharedUserDefaultsController] values] setValue: [[openPanel filenames] objectAtIndex: 0] forKey: @"lastSelectedEeprom"];
 	}
 }
 
-- (void)log:(NSString *)s
+- (void)log:(NSString *)s withAttributes:(NSDictionary *)attributes
 {
-	NSAttributedString *a = [[NSAttributedString alloc] initWithString: [NSString stringWithFormat: @"%@\n", s]];
+	NSAttributedString *a = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", s]  attributes:attributes];
 	[a autorelease];
 	[[logTextView textStorage] appendAttributedString: a];
 	[logTextView scrollRangeToVisible: NSMakeRange([[logTextView textStorage] length], [[logTextView textStorage] length])];
+}
+
+- (void)log:(NSString *)s
+{
+	[self log:s withAttributes:[NSDictionary dictionary]];
+}
+
+- (void)logStatus:(BOOL)status
+{
+	NSDictionary *green = 
+	[NSDictionary dictionaryWithObject:[NSColor colorWithDeviceRed:0.0 green:1.0 blue:0.0 alpha:1.0]
+								forKey:NSForegroundColorAttributeName];
+	NSDictionary *red = 
+	[NSDictionary dictionaryWithObject:[NSColor colorWithDeviceRed:1.0 green:0.0 blue:0.0 alpha:1.0]
+								forKey:NSForegroundColorAttributeName];
+	[self log:(status ? @"SUCCESS" : @"FAILURE") withAttributes:(status ? green : red)];
+}
+
+- (void)logCommandLine:(NSTask *)t
+{
+	if (![[NSUserDefaults standardUserDefaults] boolForKey:@"showCommandLines"]) {
+		return;
+	}
+	NSDictionary *blue = 
+	[NSDictionary dictionaryWithObject:[NSColor colorWithDeviceRed:0.0 green:0.0 blue:1.0 alpha:1.0]
+								forKey:NSForegroundColorAttributeName];
+	NSMutableString *s = [NSMutableString stringWithFormat:@"\n%@", [t launchPath]];
+	for (int i = 0, count = [[t arguments] count]; i < count; i++) {
+		[s appendFormat:@" %@", [[t arguments] objectAtIndex:i]];
+	}
+	[s appendString:@"\n"];
+	[self log:[s description] withAttributes:blue];
 }
 
 - (BOOL) avrdudeAvailable
@@ -319,6 +351,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	[task setStandardError: pipe];
 	NSFileHandle *file = [pipe fileHandleForReading];
 	NS_DURING
+		[self logCommandLine:task];
 		[task launch];
 		[task waitUntilExit];
 		NSData *data = [file readDataToEndOfFile];
@@ -341,7 +374,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 				[avrdudeConfigPopUpButton addItemWithTitle: [comps objectAtIndex: 2]];
 			}
 		}
-		[self log: @"SUCCESS"];
+		[self logStatus:TRUE];
 	NS_HANDLER
 		NSAlert *alert = [[NSAlert alloc] init];
 		[alert setMessageText: @"Unable to execute avrdude."];
@@ -362,7 +395,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 		
 	}
 	else {
-		[self log: @"FAILED"];
+		[self logStatus:FALSE];
 	}
 
 	[self didChangeValueForKey: @"avrdudeAvailable"];
@@ -424,6 +457,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	NSPipe *pipe = [NSPipe pipe];
 	[task setStandardError: pipe];
 	NSFileHandle *file = [pipe fileHandleForReading];
+	[self logCommandLine:task];
 	[task launch];
 	[task waitUntilExit];
 	NSData *data = [file readDataToEndOfFile];
@@ -435,12 +469,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 			[self log: line];
 		}
 	}
-	if ([task terminationStatus] == 0) {
-		[self log: @"SUCCESS"];
-	}
-	else {
-		[self log: @"FAILED"];
-	}
+	[self logStatus:[task terminationStatus] == 0];
 }
 
 - (IBAction)readFuses:(id)sender
@@ -473,6 +502,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	NSPipe *pipe = [NSPipe pipe];
 	[task setStandardError: pipe];
 	NSFileHandle *file = [pipe fileHandleForReading];
+	[self logCommandLine:task];
 	[task launch];
 	[task waitUntilExit];
 	NSData *data = [file readDataToEndOfFile];
@@ -485,7 +515,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 		}
 	}
 	if ([task terminationStatus] == 0) {
-		[self log: @"SUCCESS"];
+		[self logStatus:TRUE];
 		for (int i = 0; i < [[fuses allKeys] count]; i++) {
 			NSString *fuseName = [[fuses allKeys] objectAtIndex: i];
 			//NSLog(@"%@", fuseName);
@@ -536,6 +566,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	NSPipe *pipe = [NSPipe pipe];
 	[task setStandardError: pipe];
 	NSFileHandle *file = [pipe fileHandleForReading];
+	[self logCommandLine:task];
 	[task launch];
 	[task waitUntilExit];
 	NSData *data = [file readDataToEndOfFile];
@@ -547,12 +578,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 			[self log: line];
 		}
 	}
-	if ([task terminationStatus] == 0) {
-		[self log: @"SUCCESS"];
-	}
-	else {
-		[self log: @"FAILED"];
-	}
+	[self logStatus:[task terminationStatus] == 0];
 	[fusesTableView reloadData];
 }
 
@@ -713,6 +739,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	NSPipe *pipe = [NSPipe pipe];
 	[task setStandardError: pipe];
 	NSFileHandle *file = [pipe fileHandleForReading];
+	[self logCommandLine:task];
 	[task launch];
 	[task waitUntilExit];
 	NSData *data = [file readDataToEndOfFile];
@@ -724,12 +751,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 			[self log: line];
 		}
 	}
-	if ([task terminationStatus] == 0) {
-		[self log: @"SUCCESS"];
-	}
-	else {
-		[self log: @"FAILED"];
-	}
+	[self logStatus:[task terminationStatus] == 0];
 }
 
 - (IBAction)programFlash:(id)sender
@@ -747,6 +769,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	NSPipe *pipe = [NSPipe pipe];
 	[task setStandardError: pipe];
 	NSFileHandle *file = [pipe fileHandleForReading];
+	[self logCommandLine:task];
 	[task launch];
 	[task waitUntilExit];
 	NSData *data = [file readDataToEndOfFile];
@@ -758,12 +781,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 			[self log: line];
 		}
 	}
-	if ([task terminationStatus] == 0) {
-		[self log: @"SUCCESS"];
-	}
-	else {
-		[self log: @"FAILED"];
-	}
+	[self logStatus:[task terminationStatus] == 0];
 }
 
 - (void) readFlashAlertDidEnd: (NSAlert *) alert returnCode: (int) returnCode contextInfo: (void *) contextInfo
@@ -804,6 +822,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	NSPipe *pipe = [NSPipe pipe];
 	[task setStandardError: pipe];
 	NSFileHandle *file = [pipe fileHandleForReading];
+	[self logCommandLine:task];
 	[task launch];
 	[task waitUntilExit];
 	NSData *data = [file readDataToEndOfFile];
@@ -815,12 +834,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 			[self log: line];
 		}
 	}
-	if ([task terminationStatus] == 0) {
-		[self log: @"SUCCESS"];
-	}
-	else {
-		[self log: @"FAILED"];
-	}
+	[self logStatus:[task terminationStatus] == 0];
 }
 
 - (IBAction)verifyEeprom:(id)sender
@@ -838,6 +852,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	NSPipe *pipe = [NSPipe pipe];
 	[task setStandardError: pipe];
 	NSFileHandle *file = [pipe fileHandleForReading];
+	[self logCommandLine:task];
 	[task launch];
 	[task waitUntilExit];
 	NSData *data = [file readDataToEndOfFile];
@@ -849,12 +864,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 			[self log: line];
 		}
 	}
-	if ([task terminationStatus] == 0) {
-		[self log: @"SUCCESS"];
-	}
-	else {
-		[self log: @"FAILED"];
-	}
+	[self logStatus:[task terminationStatus] == 0];
 }
 
 - (IBAction)programEeprom:(id)sender
@@ -872,6 +882,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	NSPipe *pipe = [NSPipe pipe];
 	[task setStandardError: pipe];
 	NSFileHandle *file = [pipe fileHandleForReading];
+	[self logCommandLine:task];
 	[task launch];
 	[task waitUntilExit];
 	NSData *data = [file readDataToEndOfFile];
@@ -883,12 +894,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 			[self log: line];
 		}
 	}
-	if ([task terminationStatus] == 0) {
-		[self log: @"SUCCESS"];
-	}
-	else {
-		[self log: @"FAILED"];
-	}
+	[self logStatus:[task terminationStatus] == 0];
 }
 
 - (void) readEepromAlertDidEnd: (NSAlert *) alert returnCode: (int) returnCode contextInfo: (void *) contextInfo
@@ -929,6 +935,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	NSPipe *pipe = [NSPipe pipe];
 	[task setStandardError: pipe];
 	NSFileHandle *file = [pipe fileHandleForReading];
+	[self logCommandLine:task];
 	[task launch];
 	[task waitUntilExit];
 	NSData *data = [file readDataToEndOfFile];
@@ -940,12 +947,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 			[self log: line];
 		}
 	}
-	if ([task terminationStatus] == 0) {
-		[self log: @"SUCCESS"];
-	}
-	else {
-		[self log: @"FAILED"];
-	}
+	[self logStatus:[task terminationStatus] == 0];
 }
 
 - (IBAction)eraseDevice:(id)sender
@@ -961,6 +963,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	NSPipe *pipe = [NSPipe pipe];
 	[task setStandardError: pipe];
 	NSFileHandle *file = [pipe fileHandleForReading];
+	[self logCommandLine:task];
 	[task launch];
 	[task waitUntilExit];
 	NSData *data = [file readDataToEndOfFile];
@@ -972,12 +975,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 			[self log: line];
 		}
 	}
-	if ([task terminationStatus] == 0) {
-		[self log: @"SUCCESS"];
-	}
-	else {
-		[self log: @"FAILED"];
-	}
+	[self logStatus:[task terminationStatus] == 0];
 }
 
 - (void)tableViewDoubleClick: (NSTableView *) tableView

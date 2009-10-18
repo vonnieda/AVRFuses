@@ -6,32 +6,46 @@
 	objectVersion = 42;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		964D2B990FA1597E002CCAFE /* Distribution */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 964D2B9C0FA1599C002CCAFE /* Build configuration list for PBXAggregateTarget "Distribution" */;
+			buildPhases = (
+				964D2B980FA1597E002CCAFE /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = Distribution;
+			productName = Distribution;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		960A68150D17BBDA005F8956 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960A68140D17BBDA005F8956 /* Sparkle.framework */; };
-		960A683B0D17BC7F005F8956 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 960A68140D17BBDA005F8956 /* Sparkle.framework */; };
 		960D606F0B6FE9700018E006 /* AVRFusesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 960D606E0B6FE9700018E006 /* AVRFusesWindowController.m */; };
 		960D60720B6FE9780018E006 /* AVRFusesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 960D60700B6FE9780018E006 /* AVRFusesController.m */; };
 		962D354C0CFD5922003A6C5A /* AVRFuses2.icns in Resources */ = {isa = PBXBuildFile; fileRef = 962D354B0CFD5922003A6C5A /* AVRFuses2.icns */; };
 		964C0B930D599BD2008FDB06 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 964C0B920D599BD2008FDB06 /* IOKit.framework */; };
 		9661E70C0D18340400DFABE4 /* appcast.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9661E70B0D18340400DFABE4 /* appcast.xml */; };
-		9679D22B0D81172200133101 /* MainMenu_WithLockBits.nib in Resources */ = {isa = PBXBuildFile; fileRef = 9679D2290D81172200133101 /* MainMenu_WithLockBits.nib */; };
+		966BCC930FA009E7008AD182 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 966BCC920FA009E7008AD182 /* Sparkle.framework */; };
+		966BCCA10FA00A19008AD182 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 966BCC920FA009E7008AD182 /* Sparkle.framework */; };
 		96A329570CFBF63900500BA9 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 96A329560CFBF63900500BA9 /* Credits.rtf */; };
 		96D8D1E80CEEB5DF00C7FDC6 /* PartDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D8D1E70CEEB5DF00C7FDC6 /* PartDefinition.m */; };
 		96D8D30A0CEEE5D600C7FDC6 /* AVRFuses.parts in Resources */ = {isa = PBXBuildFile; fileRef = 96D8D3090CEEE5D600C7FDC6 /* AVRFuses.parts */; };
+		96EE8B950FA02F320024B974 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 96EE8B940FA02F320024B974 /* dsa_pub.pem */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		960A682C0D17BC21005F8956 /* CopyFiles */ = {
+		966BCCA00FA00A0C008AD182 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				960A683B0D17BC7F005F8956 /* Sparkle.framework in CopyFiles */,
+				966BCCA10FA00A19008AD182 /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,7 +62,6 @@
 		32CA4F630368D1EE00C91783 /* AVRFuses_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVRFuses_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* AVRFuses.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AVRFuses.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		960A68140D17BBDA005F8956 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		960D606D0B6FE9700018E006 /* AVRFusesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AVRFusesWindowController.h; sourceTree = "<group>"; };
 		960D606E0B6FE9700018E006 /* AVRFusesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = AVRFusesWindowController.m; sourceTree = "<group>"; };
 		960D60700B6FE9780018E006 /* AVRFusesController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = AVRFusesController.m; sourceTree = "<group>"; };
@@ -56,11 +69,12 @@
 		962D354B0CFD5922003A6C5A /* AVRFuses2.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AVRFuses2.icns; sourceTree = "<group>"; };
 		964C0B920D599BD2008FDB06 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
 		9661E70B0D18340400DFABE4 /* appcast.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = appcast.xml; sourceTree = "<group>"; };
-		9679D22A0D81172200133101 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu_WithLockBits.nib; sourceTree = "<group>"; };
+		966BCC920FA009E7008AD182 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		96A329560CFBF63900500BA9 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		96D8D1E60CEEB5DF00C7FDC6 /* PartDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartDefinition.h; sourceTree = "<group>"; };
 		96D8D1E70CEEB5DF00C7FDC6 /* PartDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartDefinition.m; sourceTree = "<group>"; };
 		96D8D3090CEEE5D600C7FDC6 /* AVRFuses.parts */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AVRFuses.parts; sourceTree = "<group>"; };
+		96EE8B940FA02F320024B974 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,8 +83,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
-				960A68150D17BBDA005F8956 /* Sparkle.framework in Frameworks */,
 				964C0B930D599BD2008FDB06 /* IOKit.framework in Frameworks */,
+				966BCC930FA009E7008AD182 /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,7 +101,7 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				960A68140D17BBDA005F8956 /* Sparkle.framework */,
+				966BCC920FA009E7008AD182 /* Sparkle.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 			);
 			name = "Linked Frameworks";
@@ -119,7 +133,6 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				9679D2290D81172200133101 /* MainMenu_WithLockBits.nib */,
 			);
 			name = AVRFuses;
 			sourceTree = "<group>";
@@ -142,6 +155,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				96EE8B940FA02F320024B974 /* dsa_pub.pem */,
 				9661E70B0D18340400DFABE4 /* appcast.xml */,
 				962D354B0CFD5922003A6C5A /* AVRFuses2.icns */,
 				96A329560CFBF63900500BA9 /* Credits.rtf */,
@@ -173,7 +187,7 @@
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
-				960A682C0D17BC21005F8956 /* CopyFiles */,
+				966BCCA00FA00A0C008AD182 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -198,6 +212,7 @@
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* AVRFuses */,
+				964D2B990FA1597E002CCAFE /* Distribution */,
 			);
 		};
 /* End PBXProject section */
@@ -213,11 +228,28 @@
 				96A329570CFBF63900500BA9 /* Credits.rtf in Resources */,
 				962D354C0CFD5922003A6C5A /* AVRFuses2.icns in Resources */,
 				9661E70C0D18340400DFABE4 /* appcast.xml in Resources */,
-				9679D22B0D81172200133101 /* MainMenu_WithLockBits.nib in Resources */,
+				96EE8B950FA02F320024B974 /* dsa_pub.pem in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		964D2B980FA1597E002CCAFE /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "# shell script goes here\n\nset -o errexit\n\n[ $BUILD_STYLE = Release ] || { echo Distribution target requires \"'Release'\" build style; false; }\n\nVERSION=$(defaults read \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info\" CFBundleVersion)\nDOWNLOAD_BASE_URL=\"http://www.vonnieda.org/AVRFuses\"\n\nARCHIVE_FILENAME=\"$PROJECT_NAME\"_\"$VERSION.zip\"\nDOWNLOAD_URL=\"$DOWNLOAD_BASE_URL/$ARCHIVE_FILENAME\"\n\nWD=$PWD\ncd \"$BUILT_PRODUCTS_DIR\"\n# rm -f \"$PROJECT_NAME\"*.zip\nzip -qr \"$ARCHIVE_FILENAME\" \"$PROJECT_NAME.app\"\n\nSIZE=$(stat -f %z \"$ARCHIVE_FILENAME\")\nPUBDATE=$(date +\"%a, %d %b %G %T %z\")\nSIGNATURE=$(\n\topenssl dgst -sha1 -binary < \"$ARCHIVE_FILENAME\" \\\n\t| openssl dgst -dss1 -sign $WD/dsa_priv.pem \\\n\t| openssl enc -base64\n)\n\n[ $SIGNATURE ] || { echo Unable to load signing private key; false; }\n\ncat <<EOF\n\t\t<item>\n\t\t\t<title>Version $VERSION</title>\n\t\t\t<pubDate>$PUBDATE</pubDate>\n\t\t\t<description>\n\t\t\t\t<![CDATA[\n\t\t\t\t\t<li>Release notes go here...\n\t\t\t\t]]>\n\t\t\t</description>\n\n\t\t\t<enclosure\n\t\t\t\turl=\"$DOWNLOAD_URL\"\n\t\t\t\tsparkle:version=\"$VERSION\"\n\t\t\t\ttype=\"application/octet-stream\"\n\t\t\t\tlength=\"$SIZE\"\n\t\t\t\tsparkle:dsaSignature=\"$SIGNATURE\"\n\t\t\t/>\n\t\t</item>\nEOF\n\necho \"$SIGNATURE\" | openssl enc -d -base64 > \"$WD/.sig.tmp\"\nopenssl dgst -sha1 -binary < \"$ARCHIVE_FILENAME\" \\\n| openssl dgst -dss1 -verify \"$WD/dsa_pub.pem\" -signature \"$WD/.sig.tmp\"\nrm \"$WD/.sig.tmp\"\n\necho scp \"'$HOME/svn/my-cool-app/build/Release/$ARCHIVE_FILENAME'\" www.example.com:download/\necho scp \"'$WD/appcast.xml'\" www.example.com:web/software/my-cool-app/appcast.xml\n\nexit 0";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8D11072C0486CEB800E47090 /* Sources */ = {
@@ -250,17 +282,30 @@
 			name = MainMenu.nib;
 			sourceTree = "<group>";
 		};
-		9679D2290D81172200133101 /* MainMenu_WithLockBits.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9679D22A0D81172200133101 /* English */,
-			);
-			name = MainMenu_WithLockBits.nib;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		964D2B9A0FA1597E002CCAFE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = Distribution;
+			};
+			name = Debug;
+		};
+		964D2B9B0FA1597E002CCAFE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = Distribution;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -268,8 +313,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -292,8 +339,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)\"";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				INFOPLIST_FILE = Info.plist;
@@ -328,6 +377,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		964D2B9C0FA1599C002CCAFE /* Build configuration list for PBXAggregateTarget "Distribution" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				964D2B9A0FA1597E002CCAFE /* Debug */,
+				964D2B9B0FA1597E002CCAFE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "AVRFuses" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
