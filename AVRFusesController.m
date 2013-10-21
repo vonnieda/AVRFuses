@@ -204,13 +204,22 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 		}
 	}
 	
-	[fusesTableView reloadData];
-	[lockbitsTableView reloadData];
-	
 	[fuses removeAllObjects];
 	for (int i = 0; i < [[selectedPart->fuses allKeys] count]; i++) {
 		[fuses setObject: [NSNumber numberWithUnsignedChar: 0xff] forKey: [[selectedPart->fuses allKeys] objectAtIndex: i]];
 	}
+    
+	[fusesTableView reloadData];
+	[lockbitsTableView reloadData];
+    
+    [self->lfuseText setHidden:[selectedPart->fuses objectForKey:@"LOW"] == nil];
+    [self->hfuseText setHidden:[selectedPart->fuses objectForKey:@"HIGH"] == nil];
+    [self->efuseText setHidden:[selectedPart->fuses objectForKey:@"EXTENDED"] == nil];
+    [self->lfuseTextLabel setHidden:[selectedPart->fuses objectForKey:@"LOW"] == nil];
+    [self->hfuseTextLabel setHidden:[selectedPart->fuses objectForKey:@"HIGH"] == nil];
+    [self->efuseTextLabel setHidden:[selectedPart->fuses objectForKey:@"EXTENDED"] == nil];
+    
+    [self updateFuseTextFields];
 }
 
 - (IBAction)showPrefs:(id)sender
@@ -533,6 +542,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	else {
 		[self log: @"FAILED"];
 	}
+    [self updateFuseTextFields];
 	[fusesTableView reloadData];
 }
 
@@ -1014,10 +1024,78 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 		fuseValue |= fuseSetting->mask;
 		fuseValue &= (~(fuseSetting->mask) | fuseSetting->value);
 	}
-	
+
 	[fuses setObject: [NSNumber numberWithUnsignedChar: fuseValue] forKey: fuseSetting->fuse];
 	
 	[tableView reloadData];
+    [self updateFuseTextFields];
+}
+
+- (IBAction)lfuseTextUpdated:(id)sender {
+    NSString *fuseName = @"LOW";
+    NSTextField *field = lfuseText;
+    
+    NSString *s = [field stringValue];
+    
+    NSScanner *scanner = [NSScanner scannerWithString: s];
+    unsigned int value;
+    if (![scanner scanHexInt: &value]) {
+        [field setStringValue:[NSString stringWithFormat:@"0x%2x", [[fuses objectForKey:fuseName] unsignedCharValue]]];
+    }
+    [fuses setObject: [NSNumber numberWithUnsignedChar: (value & 0xff)] forKey: fuseName];
+    [self updateFuseTextFields];
+	[fusesTableView reloadData];
+}
+
+- (IBAction)hfuseTextUpdated:(id)sender {
+    NSString *fuseName = @"HIGH";
+    NSTextField *field = hfuseText;
+    
+    NSString *s = [field stringValue];
+    
+    NSScanner *scanner = [NSScanner scannerWithString: s];
+    unsigned int value;
+    if (![scanner scanHexInt: &value]) {
+        [field setStringValue:[NSString stringWithFormat:@"0x%2x", [[fuses objectForKey:fuseName] unsignedCharValue]]];
+    }
+    [fuses setObject: [NSNumber numberWithUnsignedChar: (value & 0xff)] forKey: fuseName];
+    [self updateFuseTextFields];
+	[fusesTableView reloadData];
+}
+
+- (IBAction)efuseTextUpdated:(id)sender {
+    NSString *fuseName = @"EXTENDED";
+    NSTextField *field = efuseText;
+    
+    NSString *s = [field stringValue];
+    
+    NSScanner *scanner = [NSScanner scannerWithString: s];
+    unsigned int value;
+    if (![scanner scanHexInt: &value]) {
+        [field setStringValue:[NSString stringWithFormat:@"0x%2x", [[fuses objectForKey:fuseName] unsignedCharValue]]];
+    }
+    [fuses setObject: [NSNumber numberWithUnsignedChar: (value & 0xff)] forKey: fuseName];
+    [self updateFuseTextFields];
+	[fusesTableView reloadData];
+}
+
+- (void)updateFuseTextFields {
+	for (int i = 0; i < [[fuses allKeys] count]; i++) {
+		NSString *fuseName = [[fuses allKeys] objectAtIndex: i];
+        unsigned char fuseValue = [[fuses objectForKey: fuseName] unsignedCharValue];
+		if ([fuseName isEqualToString: @"EXTENDED"]) {
+            efuseText.stringValue = [NSString stringWithFormat:@"0x%02x", fuseValue];
+		}
+		else if ([fuseName isEqualToString: @"LOW"]) {
+            lfuseText.stringValue = [NSString stringWithFormat:@"0x%02x", fuseValue];
+		}
+		else if ([fuseName isEqualToString: @"HIGH"]) {
+            hfuseText.stringValue = [NSString stringWithFormat:@"0x%02x", fuseValue];
+		}
+		else {
+			continue;
+		}
+	}
 }
 
 - (int)numberOfRowsInTableView:(NSTableView *)tableView

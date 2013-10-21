@@ -6,6 +6,25 @@
 		<description>Changes and updates for AVRFuses by Jason von Nieda</description>
 		<language>en</language>
 		<item>
+			<title>Version 1.4.6</title>
+			<pubDate>Sat, 06 Apr 2013 20:45:51 -0700</pubDate>
+			<description>
+				<![CDATA[
+                    <li>The first new release is almost four years! Thanks for all the feedback, and keep it coming!
+					<li>Integrated new part information.
+					<li>Added text fields showing current fuse values and which allow you to type in a fuse value to have it loaded into the checkboxes.
+				]]>
+			</description>
+            
+			<enclosure
+            url="http://www.vonnieda.org/AVRFuses/AVRFuses_1.4.6.zip"
+            sparkle:version="1.4.6"
+            type="application/octet-stream"
+            length="1755506"
+            sparkle:dsaSignature="MCwCFDYZbGxa4IQJ7StvYsdB8xGaOEAaAhQYAQ+mkgkwZSJ69nnH/wXKzLFIUA=="
+			/>
+		</item>
+		<item>
 			<title>Version 1.4.4</title>
 			<pubDate>Thu, 23 Apr 2009 20:26:51 -0700</pubDate>
 			<description>

@@ -16,6 +16,13 @@
 	IBOutlet NSComboBox *avrdudePortPopUpButton;
 	
 	IBOutlet NSTableView *lockbitsTableView;
+    
+    IBOutlet NSTextField *lfuseText;
+    IBOutlet NSTextField *hfuseText;
+    IBOutlet NSTextField *efuseText;
+    IBOutlet NSTextField *lfuseTextLabel;
+    IBOutlet NSTextField *hfuseTextLabel;
+    IBOutlet NSTextField *efuseTextLabel;
 }
 - (IBAction)showPrefs:(id)sender;
 - (IBAction)browseAvrdude:(id)sender;
@@ -43,4 +50,8 @@
 - (IBAction)programLockbits:(id)sender;
 - (IBAction)readLockbits:(id)sender;
 - (IBAction)verifyLockbits:(id)sender;
+
+- (IBAction)lfuseTextUpdated:(id)sender;
+- (IBAction)hfuseTextUpdated:(id)sender;
+- (IBAction)efuseTextUpdated:(id)sender;
 @end

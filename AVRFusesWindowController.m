@@ -81,4 +81,15 @@
 - (IBAction)verifyLockbits:(id)sender
 {
 }
+
+- (IBAction)lfuseTextUpdated:(id)sender {
+    
+}
+- (IBAction)hfuseTextUpdated:(id)sender {
+    
+}
+- (IBAction)efuseTextUpdated:(id)sender {
+    
+}
+
 @end

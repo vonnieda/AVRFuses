@@ -1,3 +1,5 @@
+#!/bin/bash
+
 set -o errexit
 
 [ $BUILD_STYLE = Release ] || { echo Distribution target requires "'Release'" build style; false; }
