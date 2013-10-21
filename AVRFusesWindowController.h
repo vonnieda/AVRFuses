@@ -14,6 +14,7 @@
 	IBOutlet NSPopUpButton *avrdudeConfigPopUpButton;
 	IBOutlet NSPopUpButton *avrdudeSerialBaudPopUpButton;
 	IBOutlet NSComboBox *avrdudePortPopUpButton;
+    IBOutlet NSTextField *avrdudeBitClockTextField;
 	
 	IBOutlet NSTableView *lockbitsTableView;
     

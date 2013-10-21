@@ -74,21 +74,13 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 		[avrdudePortPopUpButton addItemWithObjectValue: [serialPorts objectAtIndex: i]];
 	}
 	
-	/*
-	if ([[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePort"] != nil) {
-		[avrdudePortPopUpButton selectItemWithTitle: [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePort"]];
-	}
-	*/
-	
 	[self deviceChanged: nil];
 	
 	[mainWindow makeKeyAndOrderFront: nil];
 	
-	//NSString *avrdudePort = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePort"];
 	NSString *avrdudeConfig = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudeConfig"];
 	NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
 
-	//if (!avrdudePort || !avrdudeConfig || !avrdudePath) {
 	if (!avrdudeConfig || !avrdudePath) {
 		[self showPrefs: nil];
 	}
@@ -103,7 +95,8 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	char buffer[1000];
 	FILE *file = fopen([[thisBundle pathForResource: @"AVRFuses" ofType: @"parts"] UTF8String], "r");
 	while(fgets(buffer, 1000, file) != NULL) {
-		NSString *line = [[NSString alloc] initWithCString: buffer];
+		NSString *line = [[NSString alloc] initWithCString: buffer encoding:NSUTF8StringEncoding];
+        [line autorelease];
 		NSScanner *scanner = [NSScanner scannerWithString: line];
 
 		NSString *settingPart = nil;
@@ -130,6 +123,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 		PartDefinition *part = nil;
 		if ([parts objectForKey: settingPart] == nil) {
 			part = [[PartDefinition alloc] init];
+            [part autorelease];
 			part->name = settingPart;
 			[parts setObject: part forKey: part->name];
 		}
@@ -141,6 +135,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 		if ([settingFuse isEqualToString: @"LOCKBIT"]) {
 			if (part->lockbits == nil) {
 				fuse = [[FuseDefinition alloc] init];
+                [fuse autorelease];
 				fuse->name = settingFuse;
 				part->lockbits = fuse;
 			}
@@ -151,6 +146,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 		else {
 			if ([part->fuses objectForKey: settingFuse] == nil) {
 				fuse = [[FuseDefinition alloc] init];
+                [fuse autorelease];
 				fuse->name = settingFuse;
 				[part->fuses setObject: fuse forKey: fuse->name];
 			}
@@ -159,6 +155,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 			}
 		}
 		FuseSetting *fuseSetting = [[FuseSetting alloc] init];
+        [fuseSetting autorelease];
 		fuseSetting->fuse = fuse->name;
 		fuseSetting->mask = settingMask & 0xff;
 		fuseSetting->value = settingValue & 0xff;
@@ -252,8 +249,9 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	[openPanel setCanChooseDirectories: NO];
 	[openPanel setAllowsMultipleSelection: NO];
 	[openPanel setMessage: @"Type / to browse to hidden directories."];
-	if ([openPanel runModalForDirectory: @"/usr/local/bin" file: nil] == NSOKButton) {
-		[[[NSUserDefaultsController sharedUserDefaultsController] values] setValue: [[openPanel filenames] objectAtIndex: 0] forKey: @"avrdudePath"];
+    [openPanel setDirectoryURL:[NSURL fileURLWithPath:@"/usr/local/bin"]];
+	if ([openPanel runModal] == NSOKButton) {
+		[[[NSUserDefaultsController sharedUserDefaultsController] values] setValue: [[openPanel URL] path] forKey: @"avrdudePath"];
 		[self avrdudeChanged: nil];
 	}
 }
@@ -268,8 +266,9 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	NSOpenPanel *openPanel = [NSOpenPanel openPanel];
 	[openPanel setCanChooseDirectories: NO];
 	[openPanel setAllowsMultipleSelection: NO];
-	if ([openPanel runModalForTypes: [NSArray arrayWithObject: @"hex"]] == NSOKButton) {
-		[[[NSUserDefaultsController sharedUserDefaultsController] values] setValue: [[openPanel filenames] objectAtIndex: 0] forKey: @"lastSelectedFlash"];
+    [openPanel setAllowedFileTypes:[NSArray arrayWithObject: @"hex"]];
+	if ([openPanel runModal] == NSOKButton) {
+		[[[NSUserDefaultsController sharedUserDefaultsController] values] setValue: [[openPanel URL] path] forKey: @"lastSelectedFlash"];
 	}
 }
 
@@ -278,8 +277,9 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	NSOpenPanel *openPanel = [NSOpenPanel openPanel];
 	[openPanel setCanChooseDirectories: NO];
 	[openPanel setAllowsMultipleSelection: NO];
-	if ([openPanel runModalForTypes: [NSArray arrayWithObjects: @"hex", @"eep", nil]] == NSOKButton) {
-		[[[NSUserDefaultsController sharedUserDefaultsController] values] setValue: [[openPanel filenames] objectAtIndex: 0] forKey: @"lastSelectedEeprom"];
+    [openPanel setAllowedFileTypes:[NSArray arrayWithObjects: @"hex", @"eep", nil]];
+	if ([openPanel runModal] == NSOKButton) {
+		[[[NSUserDefaultsController sharedUserDefaultsController] values] setValue: [[openPanel URL] path] forKey: @"lastSelectedEeprom"];
 	}
 }
 
@@ -325,11 +325,9 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 
 - (BOOL) avrdudeAvailable
 {
-	//NSString *avrdudePort = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePort"];
 	NSString *avrdudeConfig = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudeConfig"];
 	NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
 
-	//return (avrdudePath && avrdudeConfig && avrdudePort && avrdudeVersion);
 	return (avrdudePath && avrdudeConfig && avrdudeVersion);
 }
 
@@ -415,7 +413,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	NSString *avrdudePort = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePort"];
 	NSString *avrdudeConfig = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudeConfig"];
 	NSString *avrdudeSerialBaud = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudeSerialBaud"];
-	//NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
+	NSString *avrdudeBitClock = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudeBitClock"];
 	NSMutableArray *avrdudeArguments = [[NSMutableArray alloc] init];
 	if (avrdudePort != nil && [avrdudePort length] > 0) {
 		[avrdudeArguments addObject: @"-P"];
@@ -430,8 +428,11 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	[avrdudeArguments addObject: @"-p"];
 	[avrdudeArguments addObject: selectedPart->name];
 	[avrdudeArguments addObject: @"-qq"];
+    if (avrdudeBitClock != nil && [avrdudeBitClock length] > 0) {
+        [avrdudeArguments addObject: @"-B"];
+        [avrdudeArguments addObject: avrdudeBitClock];
+    }
 	[avrdudeArguments autorelease];
-	//NSLog(@"%@", avrdudeArguments);
 	return avrdudeArguments;
 }
 
@@ -461,6 +462,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	}
 	[self log: @"Programming fuses..."];
 	NSTask *task = [[NSTask alloc] init];
+    [task autorelease];
 	[task setLaunchPath: avrdudePath];
 	[task setArguments: avrdudeArguments];
 	NSPipe *pipe = [NSPipe pipe];
@@ -471,6 +473,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	[task waitUntilExit];
 	NSData *data = [file readDataToEndOfFile];
 	NSString *stdErr = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+    [stdErr autorelease];
 	NSArray *stdErrLines = [stdErr componentsSeparatedByString: @"\n"];
 	for (int i = 0; i < [stdErrLines count]; i++) {
 		NSString *line = [stdErrLines objectAtIndex: i];
@@ -506,6 +509,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	}
 	[self log: @"Reading fuses..."];
 	NSTask *task = [[NSTask alloc] init];
+    [task autorelease];
 	[task setLaunchPath: avrdudePath];
 	[task setArguments: avrdudeArguments];
 	NSPipe *pipe = [NSPipe pipe];
@@ -516,6 +520,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	[task waitUntilExit];
 	NSData *data = [file readDataToEndOfFile];
 	NSString *stdErr = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+    [stdErr autorelease];
 	NSArray *stdErrLines = [stdErr componentsSeparatedByString: @"\n"];
 	for (int i = 0; i < [stdErrLines count]; i++) {
 		NSString *line = [stdErrLines objectAtIndex: i];
@@ -531,7 +536,8 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 			char buffer[1000];
 			FILE *file = fopen([[NSString stringWithFormat: @"/tmp/%@.tmp", fuseName] cString], "r");
 			fgets(buffer, 1000, file);
-			NSString *line = [[NSString alloc] initWithCString: buffer];
+			NSString *line = [[NSString alloc] initWithCString: buffer encoding:NSUTF8StringEncoding];
+            [line autorelease];
 			NSScanner *scanner = [NSScanner scannerWithString: line];
 			unsigned int fuseValue;
 			[scanner scanHexInt: &fuseValue];
@@ -571,6 +577,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	}
 	[self log: @"Verifying fuses..."];
 	NSTask *task = [[NSTask alloc] init];
+    [task autorelease];
 	[task setLaunchPath: avrdudePath];
 	[task setArguments: avrdudeArguments];
 	NSPipe *pipe = [NSPipe pipe];
@@ -581,6 +588,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	[task waitUntilExit];
 	NSData *data = [file readDataToEndOfFile];
 	NSString *stdErr = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+    [stdErr autorelease];
 	NSArray *stdErrLines = [stdErr componentsSeparatedByString: @"\n"];
 	for (int i = 0; i < [stdErrLines count]; i++) {
 		NSString *line = [stdErrLines objectAtIndex: i];
@@ -744,6 +752,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 		[[NSUserDefaults standardUserDefaults] stringForKey: @"lastSelectedFlash"]]];
 	[self log: @"Verifying flash..."];
 	NSTask *task = [[NSTask alloc] init];
+    [task autorelease];
 	[task setLaunchPath: avrdudePath];
 	[task setArguments: avrdudeArguments];
 	NSPipe *pipe = [NSPipe pipe];
@@ -754,6 +763,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	[task waitUntilExit];
 	NSData *data = [file readDataToEndOfFile];
 	NSString *stdErr = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+    [stdErr autorelease];
 	NSArray *stdErrLines = [stdErr componentsSeparatedByString: @"\n"];
 	for (int i = 0; i < [stdErrLines count]; i++) {
 		NSString *line = [stdErrLines objectAtIndex: i];
@@ -774,6 +784,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 		[[NSUserDefaults standardUserDefaults] stringForKey: @"lastSelectedFlash"]]];
 	[self log: @"Programming flash..."];
 	NSTask *task = [[NSTask alloc] init];
+    [task autorelease];
 	[task setLaunchPath: avrdudePath];
 	[task setArguments: avrdudeArguments];
 	NSPipe *pipe = [NSPipe pipe];
@@ -784,6 +795,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	[task waitUntilExit];
 	NSData *data = [file readDataToEndOfFile];
 	NSString *stdErr = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+    [stdErr autorelease];
 	NSArray *stdErrLines = [stdErr componentsSeparatedByString: @"\n"];
 	for (int i = 0; i < [stdErrLines count]; i++) {
 		NSString *line = [stdErrLines objectAtIndex: i];
@@ -827,6 +839,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	[avrdudeArguments addObject: [NSString stringWithFormat: @"flash:r:%@:i", filename]];
 	[self log: @"Reading flash..."];
 	NSTask *task = [[NSTask alloc] init];
+    [task autorelease];
 	[task setLaunchPath: avrdudePath];
 	[task setArguments: avrdudeArguments];
 	NSPipe *pipe = [NSPipe pipe];
@@ -837,6 +850,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	[task waitUntilExit];
 	NSData *data = [file readDataToEndOfFile];
 	NSString *stdErr = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+    [stdErr autorelease];
 	NSArray *stdErrLines = [stdErr componentsSeparatedByString: @"\n"];
 	for (int i = 0; i < [stdErrLines count]; i++) {
 		NSString *line = [stdErrLines objectAtIndex: i];
@@ -857,6 +871,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 		[[NSUserDefaults standardUserDefaults] stringForKey: @"lastSelectedEeprom"]]];
 	[self log: @"Verifying EEPROM..."];
 	NSTask *task = [[NSTask alloc] init];
+    [task autorelease];
 	[task setLaunchPath: avrdudePath];
 	[task setArguments: avrdudeArguments];
 	NSPipe *pipe = [NSPipe pipe];
@@ -867,6 +882,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	[task waitUntilExit];
 	NSData *data = [file readDataToEndOfFile];
 	NSString *stdErr = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+    [stdErr autorelease];
 	NSArray *stdErrLines = [stdErr componentsSeparatedByString: @"\n"];
 	for (int i = 0; i < [stdErrLines count]; i++) {
 		NSString *line = [stdErrLines objectAtIndex: i];
@@ -887,6 +903,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 		[[NSUserDefaults standardUserDefaults] stringForKey: @"lastSelectedEeprom"]]];
 	[self log: @"Programming EEPROM..."];
 	NSTask *task = [[NSTask alloc] init];
+    [task autorelease];
 	[task setLaunchPath: avrdudePath];
 	[task setArguments: avrdudeArguments];
 	NSPipe *pipe = [NSPipe pipe];
@@ -897,6 +914,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	[task waitUntilExit];
 	NSData *data = [file readDataToEndOfFile];
 	NSString *stdErr = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+    [stdErr autorelease];
 	NSArray *stdErrLines = [stdErr componentsSeparatedByString: @"\n"];
 	for (int i = 0; i < [stdErrLines count]; i++) {
 		NSString *line = [stdErrLines objectAtIndex: i];
@@ -940,6 +958,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	[avrdudeArguments addObject: [NSString stringWithFormat: @"eeprom:r:%@:i", filename]];
 	[self log: @"Reading EEPROM..."];
 	NSTask *task = [[NSTask alloc] init];
+    [task autorelease];
 	[task setLaunchPath: avrdudePath];
 	[task setArguments: avrdudeArguments];
 	NSPipe *pipe = [NSPipe pipe];
@@ -950,6 +969,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	[task waitUntilExit];
 	NSData *data = [file readDataToEndOfFile];
 	NSString *stdErr = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+    [stdErr autorelease];
 	NSArray *stdErrLines = [stdErr componentsSeparatedByString: @"\n"];
 	for (int i = 0; i < [stdErrLines count]; i++) {
 		NSString *line = [stdErrLines objectAtIndex: i];
@@ -968,6 +988,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	[avrdudeArguments addObject: @"-e"];
 	[self log: @"Erasing chip..."];
 	NSTask *task = [[NSTask alloc] init];
+    [task autorelease];
 	[task setLaunchPath: avrdudePath];
 	[task setArguments: avrdudeArguments];
 	NSPipe *pipe = [NSPipe pipe];
@@ -978,6 +999,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	[task waitUntilExit];
 	NSData *data = [file readDataToEndOfFile];
 	NSString *stdErr = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+    [stdErr autorelease];
 	NSArray *stdErrLines = [stdErr componentsSeparatedByString: @"\n"];
 	for (int i = 0; i < [stdErrLines count]; i++) {
 		NSString *line = [stdErrLines objectAtIndex: i];
@@ -1003,6 +1025,10 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	}
 
 	FuseSetting *fuseSetting = [settings objectAtIndex: [tableView selectedRow]];
+    
+    if (!fuseSetting) {
+        return;
+    }
 	
 	unsigned char fuseValue = [[fuses objectForKey: fuseSetting->fuse] intValue];
 
@@ -1120,11 +1146,17 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	}
 	if ([[column identifier] isEqual:@"checkbox"]) {
 		FuseSetting *fuseSetting = [settings objectAtIndex: row];
+        if (!fuseSetting) {
+            return nil;
+        }
 		unsigned char fuseValue = [[fuses objectForKey: fuseSetting->fuse] intValue];
 		return ((fuseValue & fuseSetting->mask) == fuseSetting->value) ? @"1" : @"0";
 	}
 	else if ([[column identifier] isEqual:@"fuse"]) {
 		FuseSetting *fuseSetting = [settings objectAtIndex: row];
+        if (!fuseSetting) {
+            return nil;
+        }
 		return fuseSetting->text;
 	}
 	
@@ -1151,13 +1183,15 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	if (serialService != 0) {
 		CFStringRef modemName = (CFStringRef)IORegistryEntryCreateCFProperty(serialService, CFSTR(kIOTTYDeviceKey), kCFAllocatorDefault, 0);
 		CFStringRef bsdPath = (CFStringRef)IORegistryEntryCreateCFProperty(serialService, CFSTR(kIOCalloutDeviceKey), kCFAllocatorDefault, 0);
-		CFStringRef serviceType = (CFStringRef)IORegistryEntryCreateCFProperty(serialService, CFSTR(kIOSerialBSDTypeKey), kCFAllocatorDefault, 0);
 		if (modemName && bsdPath) {
 			serialPort = [NSString stringWithString: (NSString *) bsdPath];
 		}
-		CFRelease(modemName);
-		CFRelease(bsdPath);
-		CFRelease(serviceType);
+        if (modemName) {
+            CFRelease(modemName);
+        }
+        if (bsdPath) {
+            CFRelease(bsdPath);
+        }
 		
 		// We have sucked this service dry of information so release it now.
 		(void)IOObjectRelease(serialService);

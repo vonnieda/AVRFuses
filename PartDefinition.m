@@ -12,7 +12,7 @@
 @implementation PartDefinition
 -(id)init;
 {
-	[super init];
+	self = [super init];
 	fuses = [[NSMutableDictionary alloc] init];
 	return self;
 }
@@ -21,7 +21,7 @@
 @implementation FuseDefinition
 -(id)init;
 {
-	[super init];
+	self = [super init];
 	settings = [[NSMutableArray alloc] init];
 	return self;
 }
