@@ -8,13 +8,13 @@ using System.Globalization;
 namespace BuildCache {
 	public class BuildCache {
 		public static void Main(string[] args) {
-			string devicesDirectoryPath = "/Users/jason/Projects/AVRFuses-Cocoa/devices";
-			string outputPath = "/Users/jason/Projects/AVRFuses-Cocoa/AVRFuses.parts";
-
-			if (args.Length == 2) {
-				devicesDirectoryPath = args[0];
-				outputPath = args[1];
+			if (args.Length < 2) {
+			    Console.WriteLine("BuildCache.exe <path to AVR Studio devices directory> <path to AVRFuses.parts output file>");
+			    return;
 			}
+
+			string devicesDirectoryPath = args[0];
+			string outputPath = args[1];
 
 			Console.WriteLine("Reading from: " + devicesDirectoryPath);
 			Console.WriteLine("Writing to: " + outputPath);
@@ -25,7 +25,6 @@ namespace BuildCache {
 			foreach (string file in files) {
 				ProcessPartFile(file, writer);
 			}
-			//ProcessPartFile("/Users/jason/Projects/AVRFuses-Cocoa/devices/ATmega328P.xml", writer);
 
 			writer.Close();
 		}
