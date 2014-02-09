@@ -61,11 +61,15 @@ namespace BuildCache {
 								string bfValueValue = bfValue.GetAttribute("value", "");
 								byte bfMask_i = Convert.ToByte(bfMask, 16);
 								byte bfValue_i = Convert.ToByte(bfValueValue, 16);
-								byte shiftLeftBy = (byte) (bfMask_i & (~(bfMask_i - 1)));
-								if (shiftLeftBy > 1) {
-									bfValue_i = (byte) (bfValue_i << (shiftLeftBy - 1));
+								byte bfMask_i_tmp = bfMask_i;
+								// Shift the value to the left by the number of 0 LSBs in the mask
+								// This effectively lines the value up with the mask
+								while ((bfMask_i_tmp & 1) == 0) {
+								    bfMask_i_tmp >>= 1;
+								    bfValue_i <<= 1;
 								}
-								writer.WriteLine(partName + "," + fuseName + "," + bfMask + ",0x" + bfValue_i.ToString("x2") + "," + bfValueCaption);
+								
+								writer.WriteLine(partName + "," + fuseName + "," + bfMask + ",0x" + bfValue_i.ToString("x2") + "," + bfCaption + ": " + bfValueCaption);
 							}
 						}
 						else {
