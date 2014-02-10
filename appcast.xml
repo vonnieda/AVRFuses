@@ -6,6 +6,25 @@
 		<description>Changes and updates for AVRFuses by Jason von Nieda</description>
 		<language>en</language>
 		<item>
+			<title>Version 1.4.8</title>
+			<pubDate>Sun, 09 Feb 2014 18:43:00 -0700</pubDate>
+			<description>
+				<![CDATA[
+				    <li>Fixes a bug where enumerated values would not have a full description shown. Thanks Luke!
+                    <li>Fixes a bug where enumerated values with high masks would sometimes have the wrong value.
+                    <li>Makes the window wider by default to account for longer value names.
+				]]>
+			</description>
+            
+			<enclosure
+            url="http://www.vonnieda.org/AVRFuses/AVRFuses_1.4.8.zip"
+            sparkle:version="1.4.8"
+            type="application/octet-stream"
+            length="962229"
+            sparkle:dsaSignature="MCwCFA8vIFqJ7VRfmT9WneI8HH+X2U6cAhQk4/6CDTyYCKaQndusgQ0FxNjaqw=="
+			/>
+		</item>
+		<item>
 			<title>Version 1.4.7</title>
 			<pubDate>Sat, 07 Apr 2013 20:45:51 -0700</pubDate>
 			<description>
