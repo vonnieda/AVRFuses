@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment version="1050" defaultVersion="1090" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
+        <deployment version="1050" identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -11,8 +11,8 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
-        <window title="AVRFuses" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" wantsToBeColor="NO" animationBehavior="default" id="21" userLabel="Main">
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="AVRFuses" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="21" userLabel="Main">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="150" y="522" width="600" height="522"/>
@@ -91,18 +91,18 @@
                                                                     <binding destination="286" name="enabled" keyPath="avrdudeAvailable" id="1028"/>
                                                                     <binding destination="524" name="value" keyPath="values.lastSelectedFlash" id="568">
                                                                         <dictionary key="options">
-                                                                            <bool key="NSConditionallySetsEnabled" value="NO"/>
-                                                                            <string key="NSNullPlaceholder"></string>
-                                                                            <bool key="NSConditionallySetsHidden" value="NO"/>
-                                                                            <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                                                                            <string key="NSNotApplicablePlaceholder"></string>
-                                                                            <string key="NSNoSelectionPlaceholder"></string>
-                                                                            <bool key="NSValidatesImmediately" value="NO"/>
-                                                                            <bool key="NSConditionallySetsEditable" value="YES"/>
                                                                             <bool key="NSAllowsEditingMultipleValuesSelection" value="YES"/>
                                                                             <bool key="NSAlwaysPresentsApplicationModalAlerts" value="NO"/>
+                                                                            <bool key="NSConditionallySetsEditable" value="YES"/>
+                                                                            <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                                                            <bool key="NSConditionallySetsHidden" value="NO"/>
+                                                                            <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                                                             <string key="NSMultipleValuesPlaceholder"></string>
+                                                                            <string key="NSNoSelectionPlaceholder"></string>
+                                                                            <string key="NSNotApplicablePlaceholder"></string>
+                                                                            <string key="NSNullPlaceholder"></string>
                                                                             <bool key="NSRaisesForNotApplicableKeys" value="YES"/>
+                                                                            <bool key="NSValidatesImmediately" value="NO"/>
                                                                         </dictionary>
                                                                     </binding>
                                                                     <outlet property="nextKeyView" destination="267" id="305"/>
@@ -205,18 +205,18 @@
                                                                     <binding destination="286" name="enabled" keyPath="avrdudeAvailable" id="1031"/>
                                                                     <binding destination="524" name="value" keyPath="values.lastSelectedEeprom" id="601">
                                                                         <dictionary key="options">
-                                                                            <bool key="NSConditionallySetsEnabled" value="NO"/>
-                                                                            <string key="NSNullPlaceholder"></string>
-                                                                            <bool key="NSConditionallySetsHidden" value="NO"/>
-                                                                            <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                                                                            <string key="NSNotApplicablePlaceholder"></string>
-                                                                            <string key="NSNoSelectionPlaceholder"></string>
-                                                                            <bool key="NSValidatesImmediately" value="NO"/>
-                                                                            <bool key="NSConditionallySetsEditable" value="YES"/>
                                                                             <bool key="NSAllowsEditingMultipleValuesSelection" value="YES"/>
                                                                             <bool key="NSAlwaysPresentsApplicationModalAlerts" value="NO"/>
+                                                                            <bool key="NSConditionallySetsEditable" value="YES"/>
+                                                                            <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                                                            <bool key="NSConditionallySetsHidden" value="NO"/>
+                                                                            <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                                                             <string key="NSMultipleValuesPlaceholder"></string>
+                                                                            <string key="NSNoSelectionPlaceholder"></string>
+                                                                            <string key="NSNotApplicablePlaceholder"></string>
+                                                                            <string key="NSNullPlaceholder"></string>
                                                                             <bool key="NSRaisesForNotApplicableKeys" value="YES"/>
+                                                                            <bool key="NSValidatesImmediately" value="NO"/>
                                                                         </dictionary>
                                                                     </binding>
                                                                     <outlet property="nextKeyView" destination="261" id="306"/>
@@ -248,7 +248,7 @@
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                                                 <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" id="1728">
                                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                    <font key="font" metaFont="system"/>
+                                                                    <font key="font" metaFont="menu"/>
                                                                     <menu key="menu" title="OtherViews" id="271"/>
                                                                 </popUpButtonCell>
                                                                 <connections>
@@ -291,7 +291,7 @@
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" id="246">
-                                                                <rect key="frame" x="0.0" y="0.0" width="552" height="298"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="552" height="19"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -462,7 +462,7 @@
                                     <rect key="frame" x="1" y="1" width="558" height="100"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textView editable="NO" selectable="NO" importsGraphics="NO" richText="NO" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" smartInsertDelete="YES" id="315">
+                                        <textView editable="NO" importsGraphics="NO" richText="NO" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" smartInsertDelete="YES" id="315">
                                             <rect key="frame" x="0.0" y="0.0" width="558" height="100"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -479,7 +479,7 @@
                                     <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" controlSize="small" horizontal="NO" id="1745">
+                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" controlSize="small" horizontal="NO" id="1745">
                                     <rect key="frame" x="-30" y="1" width="15" height="97"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -560,6 +560,219 @@
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="Edit" id="zKD-8c-cXT">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Edit" id="doE-xU-81B">
+                        <items>
+                            <menuItem title="Undo" keyEquivalent="z" id="V75-vg-sQV">
+                                <connections>
+                                    <action selector="undo:" target="-1" id="uVb-SR-eTT"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Redo" keyEquivalent="Z" id="fQX-ik-u9e">
+                                <connections>
+                                    <action selector="redo:" target="-1" id="riC-tt-KhI"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="0eU-mX-Vve"/>
+                            <menuItem title="Cut" keyEquivalent="x" id="IX6-F7-3SH">
+                                <connections>
+                                    <action selector="cut:" target="-1" id="iHc-8H-s9N"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Copy" keyEquivalent="c" id="62j-4G-AaZ">
+                                <connections>
+                                    <action selector="copy:" target="-1" id="tRF-zN-aUK"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Paste" keyEquivalent="v" id="nxS-R6-p54">
+                                <connections>
+                                    <action selector="paste:" target="-1" id="cYF-8h-1LP"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Paste and Match Style" keyEquivalent="V" id="2Dj-AD-rgX">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="pasteAsPlainText:" target="-1" id="fo3-Sn-AXW"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Delete" id="cW0-Ph-nKn">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="delete:" target="-1" id="qom-C6-th1"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Select All" keyEquivalent="a" id="9Vq-Ty-dZz">
+                                <connections>
+                                    <action selector="selectAll:" target="-1" id="sHu-0X-UGn"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="3Z9-vB-xMM"/>
+                            <menuItem title="Find" id="JY0-Cw-Gam">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Find" id="xcZ-pW-E0D">
+                                    <items>
+                                        <menuItem title="Find…" tag="1" keyEquivalent="f" id="pXL-tq-Jpy">
+                                            <connections>
+                                                <action selector="performFindPanelAction:" target="-1" id="jRy-jk-jIU"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Find Next" tag="2" keyEquivalent="g" id="5gd-J5-tej">
+                                            <connections>
+                                                <action selector="performFindPanelAction:" target="-1" id="NGu-Jj-I1t"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Find Previous" tag="3" keyEquivalent="G" id="QcM-3x-Shv">
+                                            <connections>
+                                                <action selector="performFindPanelAction:" target="-1" id="hfl-QP-Cpx"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Use Selection for Find" tag="7" keyEquivalent="e" id="WhO-lG-t5R">
+                                            <connections>
+                                                <action selector="performFindPanelAction:" target="-1" id="uvd-Ko-0Ra"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Jump to Selection" keyEquivalent="j" id="rPi-cI-DfW">
+                                            <connections>
+                                                <action selector="centerSelectionInVisibleArea:" target="-1" id="wFe-Dt-lCI"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Spelling and Grammar" id="CYj-nr-RF0">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Spelling" id="WtS-kL-dAF">
+                                    <items>
+                                        <menuItem title="Show Spelling and Grammar" keyEquivalent=":" id="K0v-Va-5yH">
+                                            <connections>
+                                                <action selector="showGuessPanel:" target="-1" id="FMR-sp-nsh"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Check Document Now" keyEquivalent=";" id="d8s-cp-Sj3">
+                                            <connections>
+                                                <action selector="checkSpelling:" target="-1" id="3fx-dB-afO"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="X48-6D-OVQ"/>
+                                        <menuItem title="Check Spelling While Typing" id="Dcf-WI-VrU">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="toggleContinuousSpellChecking:" target="-1" id="vlz-Ie-49d"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Check Grammar With Spelling" id="5ej-G4-AxF">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="toggleGrammarChecking:" target="-1" id="vmL-xg-H05"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Correct Spelling Automatically" id="VuU-Ws-oz1">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="toggleAutomaticSpellingCorrection:" target="-1" id="K2b-o6-dHb"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Substitutions" id="PvD-6O-gXW">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Substitutions" id="x70-1T-blH">
+                                    <items>
+                                        <menuItem title="Show Substitutions" id="3kB-9a-vNx">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="orderFrontSubstitutionsPanel:" target="-1" id="6rU-q1-Vid"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="0pB-SW-wzY"/>
+                                        <menuItem title="Smart Copy/Paste" id="qd7-XF-0XK">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="toggleSmartInsertDelete:" target="-1" id="TKX-VE-b8P"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Smart Quotes" id="3n7-Ta-aFa">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="toggleAutomaticQuoteSubstitution:" target="-1" id="oRH-lU-Kpu"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Smart Dashes" id="Ysn-ad-Cn3">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="toggleAutomaticDashSubstitution:" target="-1" id="dt4-96-Nc0"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Smart Links" id="OCf-2c-lXD">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="toggleAutomaticLinkDetection:" target="-1" id="Dq2-6J-T8f"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Data Detectors" id="Wux-I5-QdX">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="toggleAutomaticDataDetection:" target="-1" id="U5G-da-KqB"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Text Replacement" id="GeR-eL-JXw">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="toggleAutomaticTextReplacement:" target="-1" id="l2J-pG-9PH"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Transformations" id="VZC-6u-zXm">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Transformations" id="QY3-eW-GUr">
+                                    <items>
+                                        <menuItem title="Make Upper Case" id="UoQ-nB-xkG">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="uppercaseWord:" target="-1" id="GS0-9l-3yL"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Make Lower Case" id="eUz-Qf-hxj">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="lowercaseWord:" target="-1" id="7IZ-vC-hiR"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Capitalize" id="W25-Ja-gL4">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="capitalizeWord:" target="-1" id="Wvs-4O-Vap"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Speech" id="Lxh-2g-h49">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Speech" id="bN5-bs-ElO">
+                                    <items>
+                                        <menuItem title="Start Speaking" id="dgq-Sk-Phq">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="startSpeaking:" target="-1" id="d8E-rH-qyy"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Stop Speaking" id="Asm-2g-0eU">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="stopSpeaking:" target="-1" id="7du-4B-oo7"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
                 <menuItem title="Window" id="19">
                     <menu key="submenu" title="Window" systemMenu="window" id="24">
                         <items>
@@ -607,7 +820,7 @@
                 <outlet property="tabView" destination="216" id="287"/>
             </connections>
         </customObject>
-        <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" wantsToBeColor="NO" visibleAtLaunch="NO" animationBehavior="default" id="336" userLabel="Preferences">
+        <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="336" userLabel="Preferences">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="1160" y="490" width="415" height="331"/>
@@ -640,7 +853,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" inset="2" id="1735">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
+                                        <font key="font" metaFont="menu"/>
                                         <menu key="menu" title="OtherViews" id="985"/>
                                     </popUpButtonCell>
                                     <connections>
@@ -679,7 +892,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" inset="2" id="1737">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
+                                        <font key="font" metaFont="menu"/>
                                         <menu key="menu" title="OtherViews" id="1230"/>
                                     </popUpButtonCell>
                                     <connections>
@@ -706,18 +919,18 @@
                                     <connections>
                                         <binding destination="524" name="value" keyPath="values.avrdudePort" id="1531">
                                             <dictionary key="options">
-                                                <bool key="NSConditionallySetsEnabled" value="YES"/>
-                                                <string key="NSNullPlaceholder"></string>
-                                                <bool key="NSConditionallySetsHidden" value="NO"/>
-                                                <bool key="NSContinuouslyUpdatesValue" value="NO"/>
-                                                <string key="NSNotApplicablePlaceholder"></string>
-                                                <string key="NSNoSelectionPlaceholder"></string>
-                                                <bool key="NSValidatesImmediately" value="NO"/>
-                                                <bool key="NSConditionallySetsEditable" value="NO"/>
                                                 <bool key="NSAllowsEditingMultipleValuesSelection" value="YES"/>
                                                 <bool key="NSAlwaysPresentsApplicationModalAlerts" value="NO"/>
+                                                <bool key="NSConditionallySetsEditable" value="NO"/>
+                                                <bool key="NSConditionallySetsEnabled" value="YES"/>
+                                                <bool key="NSConditionallySetsHidden" value="NO"/>
+                                                <bool key="NSContinuouslyUpdatesValue" value="NO"/>
                                                 <string key="NSMultipleValuesPlaceholder"></string>
+                                                <string key="NSNoSelectionPlaceholder"></string>
+                                                <string key="NSNotApplicablePlaceholder"></string>
+                                                <string key="NSNullPlaceholder"></string>
                                                 <bool key="NSRaisesForNotApplicableKeys" value="YES"/>
+                                                <bool key="NSValidatesImmediately" value="NO"/>
                                             </dictionary>
                                         </binding>
                                     </connections>
@@ -797,16 +1010,16 @@
                                     <connections>
                                         <binding destination="524" name="value" keyPath="values.SUCheckAtStartup" id="1185">
                                             <dictionary key="options">
+                                                <bool key="NSAllowsEditingMultipleValuesSelection" value="YES"/>
                                                 <bool key="NSAlwaysPresentsApplicationModalAlerts" value="NO"/>
                                                 <bool key="NSConditionallySetsEnabled" value="YES"/>
-                                                <integer key="NSMultipleValuesPlaceholder" value="-1"/>
-                                                <bool key="NSRaisesForNotApplicableKeys" value="YES"/>
                                                 <bool key="NSConditionallySetsHidden" value="NO"/>
-                                                <integer key="NSNullPlaceholder" value="-1"/>
-                                                <integer key="NSNotApplicablePlaceholder" value="-1"/>
-                                                <bool key="NSValidatesImmediately" value="NO"/>
+                                                <integer key="NSMultipleValuesPlaceholder" value="-1"/>
                                                 <integer key="NSNoSelectionPlaceholder" value="-1"/>
-                                                <bool key="NSAllowsEditingMultipleValuesSelection" value="YES"/>
+                                                <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                                <integer key="NSNullPlaceholder" value="-1"/>
+                                                <bool key="NSRaisesForNotApplicableKeys" value="YES"/>
+                                                <bool key="NSValidatesImmediately" value="NO"/>
                                             </dictionary>
                                         </binding>
                                     </connections>
