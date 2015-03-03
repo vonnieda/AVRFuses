@@ -5,25 +5,42 @@
 		<link>http://www.vonnieda.org/AVRFUses/appcast.xml</link>
 		<description>Changes and updates for AVRFuses by Jason von Nieda</description>
 		<language>en</language>
-		<item>
-			<title>Version 1.4.8</title>
-			<pubDate>Sun, 09 Feb 2014 18:43:00 -0700</pubDate>
-			<description>
-				<![CDATA[
-				    <li>Fixes a bug where enumerated values would not have a full description shown. Thanks Luke!
+        <item>
+            <title>Version 1.4.9</title>
+            <pubDate>Mon, 02 Mar 2015 23:38:00 -0700</pubDate>
+            <description>
+                <![CDATA[
+                    <li>Adds the ability to copy text from the log window along with an edit menu for same. Thanks @ascorbic!
+                ]]>
+            </description>
+            
+            <enclosure
+            url="http://www.vonnieda.org/AVRFuses/AVRFuses_1.4.9.zip"
+            sparkle:version="1.4.9"
+            type="application/octet-stream"
+            length="966892"
+            sparkle:dsaSignature="MCwCFBS94wfmHiCd8bdv6j/Za2TXu3kFAhQB1IykrVPYsPJkKtvAufphtCHeTQ=="
+            />
+        </item>
+        <item>
+            <title>Version 1.4.8</title>
+            <pubDate>Sun, 09 Feb 2014 18:43:00 -0700</pubDate>
+            <description>
+                <![CDATA[
+                    <li>Fixes a bug where enumerated values would not have a full description shown. Thanks Luke!
                     <li>Fixes a bug where enumerated values with high masks would sometimes have the wrong value.
                     <li>Makes the window wider by default to account for longer value names.
-				]]>
-			</description>
+                ]]>
+            </description>
             
-			<enclosure
+            <enclosure
             url="http://www.vonnieda.org/AVRFuses/AVRFuses_1.4.8.zip"
             sparkle:version="1.4.8"
             type="application/octet-stream"
             length="962229"
             sparkle:dsaSignature="MCwCFA8vIFqJ7VRfmT9WneI8HH+X2U6cAhQk4/6CDTyYCKaQndusgQ0FxNjaqw=="
-			/>
-		</item>
+            />
+        </item>
 		<item>
 			<title>Version 1.4.7</title>
 			<pubDate>Sat, 07 Apr 2013 20:45:51 -0700</pubDate>
