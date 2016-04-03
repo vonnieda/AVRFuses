@@ -18,7 +18,7 @@ AT90CAN128,HIGH,0x06,0x02,Select Boot Size: Boot Flash size=2048 words start add
 AT90CAN128,HIGH,0x06,0x00,Select Boot Size: Boot Flash size=4096 words start address=$F000
 AT90CAN128,HIGH,0x01,0x00,Boot Reset vector Enabled
 AT90CAN128,LOW,0x80,0x00,Divide clock by 8 internally; [CKDIV8=0]
-AT90CAN128,LOW,0x40,0x00,Clock output on PORTE7; [CKOUT=0]
+AT90CAN128,LOW,0x40,0x00,Clock output on PORTC7; [CKOUT=0]
 AT90CAN128,LOW,0x3F,0x00,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 0 ms
 AT90CAN128,LOW,0x3F,0x10,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 4.1 ms
 AT90CAN128,LOW,0x3F,0x20,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 65 ms
@@ -88,8 +88,8 @@ AT90CAN32,HIGH,0x06,0x04,Select Boot Size: Boot Flash size=1024 words start addr
 AT90CAN32,HIGH,0x06,0x02,Select Boot Size: Boot Flash size=2048 words start address=$3800
 AT90CAN32,HIGH,0x06,0x00,Select Boot Size: Boot Flash size=4096 words start address=$3000
 AT90CAN32,HIGH,0x01,0x00,Boot Reset vector Enabled
-AT90CAN32,LOW,0x80,0x00,Divide clock by 8 internally
-AT90CAN32,LOW,0x40,0x00,Clock output on PORTC7
+AT90CAN32,LOW,0x80,0x00,Divide clock by 8 internally; [CKDIV8=0]
+AT90CAN32,LOW,0x40,0x00,Clock output on PORTC7; [CKOUT=0]
 AT90CAN32,LOW,0x3F,0x00,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 0 ms
 AT90CAN32,LOW,0x3F,0x10,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 4.1 ms
 AT90CAN32,LOW,0x3F,0x20,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 65 ms
@@ -147,8 +147,8 @@ AT90CAN64,HIGH,0x06,0x04,Select Boot Size: Boot Flash size=1024 words start addr
 AT90CAN64,HIGH,0x06,0x02,Select Boot Size: Boot Flash size=2048 words start address=$7800
 AT90CAN64,HIGH,0x06,0x00,Select Boot Size: Boot Flash size=4096 words start address=$7000
 AT90CAN64,HIGH,0x01,0x00,Boot Reset vector Enabled
-AT90CAN64,LOW,0x80,0x00,Divide clock by 8 internally
-AT90CAN64,LOW,0x40,0x00,Clock output on PORTC7
+AT90CAN64,LOW,0x80,0x00,Divide clock by 8 internally; [CKDIV8=0]
+AT90CAN64,LOW,0x40,0x00,Clock output on PORTC7; [CKOUT=0]
 AT90CAN64,LOW,0x3F,0x00,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 0 ms
 AT90CAN64,LOW,0x3F,0x10,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 4.1 ms
 AT90CAN64,LOW,0x3F,0x20,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 65 ms
@@ -1137,6 +1137,158 @@ AT90USB82,LOW,0x3F,0x0f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Star
 AT90USB82,LOW,0x3F,0x1f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time: 16K CK + 0 ms
 AT90USB82,LOW,0x3F,0x2f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time: 16K CK + 4.1 ms
 AT90USB82,LOW,0x3F,0x3f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time: 16K CK + 65 ms
+ATA5272,EXTENDED,0x01,0x00,Self Programming enable
+ATA5272,HIGH,0x80,0x00,Reset Disabled (Enable PB7 as i/o pin)
+ATA5272,HIGH,0x40,0x00,Debug Wire enable
+ATA5272,HIGH,0x20,0x00,Serial program downloading (SPI) enabled
+ATA5272,HIGH,0x10,0x00,Watch-dog Timer always ON
+ATA5272,HIGH,0x08,0x00,Preserve EEPROM through the Chip Erase cycle
+ATA5272,HIGH,0x07,0x04,Brown-out Detector trigger level: Brown-out detection at VCC=4.3 V
+ATA5272,HIGH,0x07,0x05,Brown-out Detector trigger level: Brown-out detection at VCC=2.7 V
+ATA5272,HIGH,0x07,0x06,Brown-out Detector trigger level: Brown-out detection at VCC=1.8 V
+ATA5272,HIGH,0x07,0x03,Brown-out Detector trigger level: Brown-out detection at VCC=2.3 V
+ATA5272,HIGH,0x07,0x02,Brown-out Detector trigger level: Brown-out detection at VCC=2.2 V
+ATA5272,HIGH,0x07,0x01,Brown-out Detector trigger level: Brown-out detection at VCC=1.9 V
+ATA5272,HIGH,0x07,0x00,Brown-out Detector trigger level: Brown-out detection at VCC=2.0 V
+ATA5272,HIGH,0x07,0x07,Brown-out Detector trigger level: Brown-out detection disabled
+ATA5272,LOW,0x80,0x00,Divide clock by 8 internally
+ATA5272,LOW,0x40,0x00,Clock output on PORTB5
+ATA5272,LOW,0x3F,0x00,Select Clock source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATA5272,LOW,0x3F,0x10,Select Clock source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4 ms
+ATA5272,LOW,0x3F,0x20,Select Clock source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 64 ms
+ATA5272,LOW,0x3F,0x02,Select Clock source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATA5272,LOW,0x3F,0x12,Select Clock source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4 ms
+ATA5272,LOW,0x3F,0x22,Select Clock source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 64 ms
+ATA5272,LOW,0x3F,0x03,Select Clock source: WD. Osc. 128 kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATA5272,LOW,0x3F,0x13,Select Clock source: WD. Osc. 128 kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4 ms
+ATA5272,LOW,0x3F,0x23,Select Clock source: WD. Osc. 128 kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 64 ms
+ATA5272,LOW,0x3F,0x04,Select Clock source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1024 CK 4 ms
+ATA5272,LOW,0x3F,0x14,Select Clock source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1024 CK + 64 ms
+ATA5272,LOW,0x3F,0x24,Select Clock source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32768 CK + 64 ms
+ATA5272,LOW,0x3F,0x08,Select Clock source: Ext. Ceramic Res. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA5272,LOW,0x3F,0x18,Select Clock source: Ext. Ceramic Res. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA5272,LOW,0x3F,0x28,Select Clock source: Ext. Ceramic Res. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 0 ms
+ATA5272,LOW,0x3F,0x38,Select Clock source: Ext. Ceramic Res. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 4.1 ms
+ATA5272,LOW,0x3F,0x09,Select Clock source: Ext. Ceramic Res. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 65 ms
+ATA5272,LOW,0x3F,0x19,Select Clock source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 0 ms
+ATA5272,LOW,0x3F,0x29,Select Clock source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 4.1 ms
+ATA5272,LOW,0x3F,0x39,Select Clock source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 65 ms
+ATA5272,LOW,0x3F,0x0a,Select Clock source: Ext. Ceramic Res. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA5272,LOW,0x3F,0x1a,Select Clock source: Ext. Ceramic Res. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA5272,LOW,0x3F,0x2a,Select Clock source: Ext. Ceramic Res. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 0 ms
+ATA5272,LOW,0x3F,0x3a,Select Clock source: Ext. Ceramic Res. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 4.1 ms
+ATA5272,LOW,0x3F,0x0b,Select Clock source: Ext. Ceramic Res. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 65 ms
+ATA5272,LOW,0x3F,0x1b,Select Clock source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 0 ms
+ATA5272,LOW,0x3F,0x2b,Select Clock source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 4.1 ms
+ATA5272,LOW,0x3F,0x3b,Select Clock source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 65 ms
+ATA5272,LOW,0x3F,0x0c,Select Clock source: Ext. Ceramic Res. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA5272,LOW,0x3F,0x1c,Select Clock source: Ext. Ceramic Res. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA5272,LOW,0x3F,0x2c,Select Clock source: Ext. Ceramic Res. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 0 ms
+ATA5272,LOW,0x3F,0x3c,Select Clock source: Ext. Ceramic Res. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 4.1 ms
+ATA5272,LOW,0x3F,0x0d,Select Clock source: Ext. Ceramic Res. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 65 ms
+ATA5272,LOW,0x3F,0x1d,Select Clock source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 0 ms
+ATA5272,LOW,0x3F,0x2d,Select Clock source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 4.1 ms
+ATA5272,LOW,0x3F,0x3d,Select Clock source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 65 ms
+ATA5272,LOW,0x3F,0x0e,Select Clock source: Ext. Ceramic Res. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA5272,LOW,0x3F,0x1e,Select Clock source: Ext. Ceramic Res. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA5272,LOW,0x3F,0x2e,Select Clock source: Ext. Ceramic Res. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 0 ms
+ATA5272,LOW,0x3F,0x3e,Select Clock source: Ext. Ceramic Res. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 4.1 ms
+ATA5272,LOW,0x3F,0x0f,Select Clock source: Ext. Ceramic Res. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 65 ms
+ATA5272,LOW,0x3F,0x1f,Select Clock source: Ext. Crystal Osc. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 0 ms
+ATA5272,LOW,0x3F,0x2f,Select Clock source: Ext. Crystal Osc. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 4.1 ms
+ATA5272,LOW,0x3F,0x3f,Select Clock source: Ext. Crystal Osc. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 65 ms
+ATA5505,EXTENDED,0x01,0x00,Self Programming enable
+ATA5505,HIGH,0x80,0x00,Reset Disabled (Enable PB7 as i/o pin)
+ATA5505,HIGH,0x40,0x00,Debug Wire enable
+ATA5505,HIGH,0x20,0x00,Serial program downloading (SPI) enabled
+ATA5505,HIGH,0x10,0x00,Watch-dog Timer always ON
+ATA5505,HIGH,0x08,0x00,Preserve EEPROM through the Chip Erase cycle
+ATA5505,HIGH,0x07,0x04,Brown-out Detector trigger level: Brown-out detection at VCC=4.3 V
+ATA5505,HIGH,0x07,0x05,Brown-out Detector trigger level: Brown-out detection at VCC=2.7 V
+ATA5505,HIGH,0x07,0x06,Brown-out Detector trigger level: Brown-out detection at VCC=1.8 V
+ATA5505,HIGH,0x07,0x03,Brown-out Detector trigger level: Brown-out detection at VCC=2.3 V
+ATA5505,HIGH,0x07,0x02,Brown-out Detector trigger level: Brown-out detection at VCC=2.2 V
+ATA5505,HIGH,0x07,0x01,Brown-out Detector trigger level: Brown-out detection at VCC=1.9 V
+ATA5505,HIGH,0x07,0x00,Brown-out Detector trigger level: Brown-out detection at VCC=2.0 V
+ATA5505,HIGH,0x07,0x07,Brown-out Detector trigger level: Brown-out detection disabled
+ATA5505,LOW,0x80,0x00,Divide clock by 8 internally
+ATA5505,LOW,0x40,0x00,Clock output on PORTB5
+ATA5505,LOW,0x3F,0x00,Select Clock source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATA5505,LOW,0x3F,0x10,Select Clock source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4 ms
+ATA5505,LOW,0x3F,0x20,Select Clock source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 64 ms
+ATA5505,LOW,0x3F,0x02,Select Clock source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATA5505,LOW,0x3F,0x12,Select Clock source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4 ms
+ATA5505,LOW,0x3F,0x22,Select Clock source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 64 ms
+ATA5505,LOW,0x3F,0x03,Select Clock source: WD. Osc. 128 kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATA5505,LOW,0x3F,0x13,Select Clock source: WD. Osc. 128 kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4 ms
+ATA5505,LOW,0x3F,0x23,Select Clock source: WD. Osc. 128 kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 64 ms
+ATA5505,LOW,0x3F,0x04,Select Clock source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1024 CK 4 ms
+ATA5505,LOW,0x3F,0x14,Select Clock source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1024 CK + 64 ms
+ATA5505,LOW,0x3F,0x24,Select Clock source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32768 CK + 64 ms
+ATA5505,LOW,0x3F,0x08,Select Clock source: Ext. Ceramic Res. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA5505,LOW,0x3F,0x18,Select Clock source: Ext. Ceramic Res. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA5505,LOW,0x3F,0x28,Select Clock source: Ext. Ceramic Res. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 0 ms
+ATA5505,LOW,0x3F,0x38,Select Clock source: Ext. Ceramic Res. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 4.1 ms
+ATA5505,LOW,0x3F,0x09,Select Clock source: Ext. Ceramic Res. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 65 ms
+ATA5505,LOW,0x3F,0x19,Select Clock source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 0 ms
+ATA5505,LOW,0x3F,0x29,Select Clock source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 4.1 ms
+ATA5505,LOW,0x3F,0x39,Select Clock source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 65 ms
+ATA5505,LOW,0x3F,0x0a,Select Clock source: Ext. Ceramic Res. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA5505,LOW,0x3F,0x1a,Select Clock source: Ext. Ceramic Res. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA5505,LOW,0x3F,0x2a,Select Clock source: Ext. Ceramic Res. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 0 ms
+ATA5505,LOW,0x3F,0x3a,Select Clock source: Ext. Ceramic Res. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 4.1 ms
+ATA5505,LOW,0x3F,0x0b,Select Clock source: Ext. Ceramic Res. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 65 ms
+ATA5505,LOW,0x3F,0x1b,Select Clock source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 0 ms
+ATA5505,LOW,0x3F,0x2b,Select Clock source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 4.1 ms
+ATA5505,LOW,0x3F,0x3b,Select Clock source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 65 ms
+ATA5505,LOW,0x3F,0x0c,Select Clock source: Ext. Ceramic Res. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA5505,LOW,0x3F,0x1c,Select Clock source: Ext. Ceramic Res. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA5505,LOW,0x3F,0x2c,Select Clock source: Ext. Ceramic Res. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 0 ms
+ATA5505,LOW,0x3F,0x3c,Select Clock source: Ext. Ceramic Res. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 4.1 ms
+ATA5505,LOW,0x3F,0x0d,Select Clock source: Ext. Ceramic Res. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 65 ms
+ATA5505,LOW,0x3F,0x1d,Select Clock source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 0 ms
+ATA5505,LOW,0x3F,0x2d,Select Clock source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 4.1 ms
+ATA5505,LOW,0x3F,0x3d,Select Clock source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 65 ms
+ATA5505,LOW,0x3F,0x0e,Select Clock source: Ext. Ceramic Res. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA5505,LOW,0x3F,0x1e,Select Clock source: Ext. Ceramic Res. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA5505,LOW,0x3F,0x2e,Select Clock source: Ext. Ceramic Res. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 0 ms
+ATA5505,LOW,0x3F,0x3e,Select Clock source: Ext. Ceramic Res. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 4.1 ms
+ATA5505,LOW,0x3F,0x0f,Select Clock source: Ext. Ceramic Res. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 65 ms
+ATA5505,LOW,0x3F,0x1f,Select Clock source: Ext. Crystal Osc. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 0 ms
+ATA5505,LOW,0x3F,0x2f,Select Clock source: Ext. Crystal Osc. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 4.1 ms
+ATA5505,LOW,0x3F,0x3f,Select Clock source: Ext. Crystal Osc. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 65 ms
+ATA5702M322,LOW,0x80,0x00,Divide clock by 8 internally
+ATA5702M322,LOW,0x40,0x00,Debug Wire enable
+ATA5702M322,LOW,0x20,0x00,Serial program downloading (SPI) enabled
+ATA5702M322,LOW,0x10,0x00,Watch-dog Timer always on
+ATA5702M322,LOW,0x08,0x00,Preserve EEPROM memory through the Chip Erase cycle
+ATA5702M322,LOW,0x04,0x00,Select boot reset vector
+ATA5702M322,LOW,0x02,0x00,EEPROM Access Control
+ATA5702M322,LOW,0x01,0x00,Protect Customer EEPROM section
+ATA5781,LOW,0x80,0x00,Divide clock by 8 internally
+ATA5781,LOW,0x40,0x00,Debug Wire enable
+ATA5781,LOW,0x20,0x00,Serial program downloading (SPI) enabled
+ATA5781,LOW,0x10,0x00,Watch-dog Timer always on
+ATA5781,LOW,0x08,0x00,Preserve EEPROM memory through the Chip Erase cycle
+ATA5781,LOW,0x04,0x00,Select interrupt vector location
+ATA5781,LOW,0x02,0x00,Disable external Reset
+ATA5781,LOW,0x01,0x00,External Clock enable
+ATA5782,LOW,0x80,0x00,Divide clock by 8 internally
+ATA5782,LOW,0x40,0x00,Debug Wire enable
+ATA5782,LOW,0x20,0x00,Serial program downloading (SPI) enabled
+ATA5782,LOW,0x10,0x00,Watch-dog Timer always on
+ATA5782,LOW,0x08,0x00,Preserve EEPROM memory through the Chip Erase cycle
+ATA5782,LOW,0x04,0x00,Select interrupt vector location
+ATA5782,LOW,0x02,0x00,Disable external Reset
+ATA5782,LOW,0x01,0x00,External Clock enable
+ATA5783,LOW,0x80,0x00,Divide clock by 8 internally
+ATA5783,LOW,0x40,0x00,Debug Wire enable
+ATA5783,LOW,0x20,0x00,Serial program downloading (SPI) enabled
+ATA5783,LOW,0x10,0x00,Watch-dog Timer always on
+ATA5783,LOW,0x08,0x00,Preserve EEPROM memory through the Chip Erase cycle
+ATA5783,LOW,0x04,0x00,Select interrupt vector location
+ATA5783,LOW,0x02,0x00,Disable external Reset
+ATA5783,LOW,0x01,0x00,External Clock enable
 ATA5790,LOW,0x80,0x00,Divide clock by 8 internally
 ATA5790,LOW,0x40,0x00,DebugWIRE Enable
 ATA5790,LOW,0x20,0x00,SPI Enable
@@ -1145,6 +1297,21 @@ ATA5790,LOW,0x08,0x00,Keep EEPROM contents during chip eraser
 ATA5790,LOW,0x04,0x00,This fuse bit must be set. 
 ATA5790,LOW,0x02,0x00,Enables the 32 kHz oscillator.
 ATA5790,LOW,0x01,0x00,External Clock enable
+ATA5790N,LOW,0x80,0x00,Divide clock by 8 internally
+ATA5790N,LOW,0x40,0x00,DebugWIRE Enable
+ATA5790N,LOW,0x20,0x00,SPI Enable
+ATA5790N,LOW,0x10,0x00,Enable Watchdog Timer
+ATA5790N,LOW,0x08,0x00,Keep EEPROM contents during chip eraser
+ATA5790N,LOW,0x04,0x00,This fuse bit must be set. 
+ATA5790N,LOW,0x02,0x00,Enables the 32 kHz oscillator.
+ATA5791,LOW,0x80,0x00,Divide clock by 8 internally
+ATA5791,LOW,0x40,0x00,DebugWIRE Enable
+ATA5791,LOW,0x20,0x00,SPI Enable
+ATA5791,LOW,0x10,0x00,Enable Watchdog Timer
+ATA5791,LOW,0x08,0x00,Keep EEPROM contents during chip eraser
+ATA5791,LOW,0x04,0x00,This fuse bit must be set. 
+ATA5791,LOW,0x02,0x00,Enables the 32 kHz oscillator.
+ATA5791,LOW,0x01,0x00,External Clock enable
 ATA5795,LOW,0x80,0x00,Divide clock by 8 internally
 ATA5795,LOW,0x40,0x00,DebugWIRE Enable
 ATA5795,LOW,0x20,0x00,SPI Enable
@@ -1152,7 +1319,30 @@ ATA5795,LOW,0x10,0x00,Enable Watchdog Timer
 ATA5795,LOW,0x08,0x00,Keep EEPROM contents during chip eraser
 ATA5795,LOW,0x04,0x00,This fuse bit must be set. 
 ATA5795,LOW,0x02,0x00,Enables the 32 kHz oscillator.
-ATA5795,LOW,0x01,0x00,External Clock enable
+ATA5831,LOW,0x80,0x00,Divide clock by 8 internally
+ATA5831,LOW,0x40,0x00,Debug Wire enable
+ATA5831,LOW,0x20,0x00,Serial program downloading (SPI) enabled
+ATA5831,LOW,0x10,0x00,Watch-dog Timer always on
+ATA5831,LOW,0x08,0x00,Preserve EEPROM memory through the Chip Erase cycle
+ATA5831,LOW,0x04,0x00,Select interrupt vector location
+ATA5831,LOW,0x02,0x00,Disable external Reset
+ATA5831,LOW,0x01,0x00,External Clock enable
+ATA5832,LOW,0x80,0x00,Divide clock by 8 internally
+ATA5832,LOW,0x40,0x00,Debug Wire enable
+ATA5832,LOW,0x20,0x00,Serial program downloading (SPI) enabled
+ATA5832,LOW,0x10,0x00,Watch-dog Timer always on
+ATA5832,LOW,0x08,0x00,Preserve EEPROM memory through the Chip Erase cycle
+ATA5832,LOW,0x04,0x00,Select interrupt vector location
+ATA5832,LOW,0x02,0x00,Disable external Reset
+ATA5832,LOW,0x01,0x00,External Clock enable
+ATA5833,LOW,0x80,0x00,Divide clock by 8 internally
+ATA5833,LOW,0x40,0x00,Debug Wire enable
+ATA5833,LOW,0x20,0x00,Serial program downloading (SPI) enabled
+ATA5833,LOW,0x10,0x00,Watch-dog Timer always on
+ATA5833,LOW,0x08,0x00,Preserve EEPROM memory through the Chip Erase cycle
+ATA5833,LOW,0x04,0x00,Select interrupt vector location
+ATA5833,LOW,0x02,0x00,Disable external Reset
+ATA5833,LOW,0x01,0x00,External Clock enable
 ATA6285,HIGH,0x80,0x00,Upper EEPROM Locked (disabled)
 ATA6285,HIGH,0x40,0x00,Debug Wire enable
 ATA6285,HIGH,0x20,0x00,Serial program downloading (SPI) enabled
@@ -1191,6 +1381,431 @@ ATA6286,LOW,0x08,0x00,Enable Watchdog RC-Oscillator
 ATA6286,LOW,0x04,0x00,Fast RC-Oscillator Frequency select
 ATA6286,LOW,0x02,0x00,Enable Brown-out detection
 ATA6286,LOW,0x01,0x00,Disable Temperatur shutdown Reset 
+ATA6612C,EXTENDED,0x06,0x06,Select boot size: Boot Flash size=128 words Boot address=$0F80
+ATA6612C,EXTENDED,0x06,0x04,Select boot size: Boot Flash size=256 words Boot address=$0F00
+ATA6612C,EXTENDED,0x06,0x02,Select boot size: Boot Flash size=512 words Boot address=$0E00
+ATA6612C,EXTENDED,0x06,0x00,Select boot size: Boot Flash size=1024 words Boot address=$0C00
+ATA6612C,EXTENDED,0x01,0x00,Boot Reset vector Enabled
+ATA6612C,HIGH,0x80,0x00,Reset Disabled (Enable PC6 as i/o pin)]
+ATA6612C,HIGH,0x40,0x00,Debug Wire enable
+ATA6612C,HIGH,0x20,0x00,Serial program downloading (SPI) enabled
+ATA6612C,HIGH,0x10,0x00,Watch-dog Timer always on
+ATA6612C,HIGH,0x08,0x00,Preserve EEPROM through the Chip Erase cycle
+ATA6612C,HIGH,0x07,0x04,Brown-out Detector trigger level: Brown-out detection at VCC=4.3 V
+ATA6612C,HIGH,0x07,0x05,Brown-out Detector trigger level: Brown-out detection at VCC=2.7 V
+ATA6612C,HIGH,0x07,0x06,Brown-out Detector trigger level: Brown-out detection at VCC=1.8 V
+ATA6612C,HIGH,0x07,0x07,Brown-out Detector trigger level: Brown-out detection disabled
+ATA6612C,LOW,0x80,0x00,Divide clock by 8 internally
+ATA6612C,LOW,0x40,0x00,Clock output on PORTB0
+ATA6612C,LOW,0x3F,0x00,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATA6612C,LOW,0x3F,0x10,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATA6612C,LOW,0x3F,0x20,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
+ATA6612C,LOW,0x3F,0x02,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATA6612C,LOW,0x3F,0x12,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATA6612C,LOW,0x3F,0x22,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
+ATA6612C,LOW,0x3F,0x03,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATA6612C,LOW,0x3F,0x13,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATA6612C,LOW,0x3F,0x23,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
+ATA6612C,LOW,0x3F,0x04,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1K CK/14 CK + 0 ms
+ATA6612C,LOW,0x3F,0x14,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1K CK/14 CK + 4.1 ms
+ATA6612C,LOW,0x3F,0x24,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1K CK/14 CK + 65 ms
+ATA6612C,LOW,0x3F,0x05,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32K CK/14 CK + 0 ms
+ATA6612C,LOW,0x3F,0x15,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32K CK/14 CK + 4.1 ms
+ATA6612C,LOW,0x3F,0x25,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32K CK/14 CK + 65 ms
+ATA6612C,LOW,0x3F,0x06,Select Clock Source: Ext. Full-swing Crystal; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA6612C,LOW,0x3F,0x16,Select Clock Source: Ext. Full-swing Crystal; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA6612C,LOW,0x3F,0x26,Select Clock Source: Ext. Full-swing Crystal; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATA6612C,LOW,0x3F,0x36,Select Clock Source: Ext. Full-swing Crystal; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATA6612C,LOW,0x3F,0x07,Select Clock Source: Ext. Full-swing Crystal; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATA6612C,LOW,0x3F,0x17,Select Clock Source: Ext. Full-swing Crystal; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATA6612C,LOW,0x3F,0x27,Select Clock Source: Ext. Full-swing Crystal; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATA6612C,LOW,0x3F,0x37,Select Clock Source: Ext. Full-swing Crystal; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATA6612C,LOW,0x3F,0x08,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA6612C,LOW,0x3F,0x18,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA6612C,LOW,0x3F,0x28,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATA6612C,LOW,0x3F,0x38,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATA6612C,LOW,0x3F,0x09,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATA6612C,LOW,0x3F,0x19,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATA6612C,LOW,0x3F,0x29,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATA6612C,LOW,0x3F,0x39,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATA6612C,LOW,0x3F,0x0a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA6612C,LOW,0x3F,0x1a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA6612C,LOW,0x3F,0x2a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATA6612C,LOW,0x3F,0x3a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATA6612C,LOW,0x3F,0x0b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATA6612C,LOW,0x3F,0x1b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATA6612C,LOW,0x3F,0x2b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATA6612C,LOW,0x3F,0x3b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATA6612C,LOW,0x3F,0x0c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA6612C,LOW,0x3F,0x1c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA6612C,LOW,0x3F,0x2c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATA6612C,LOW,0x3F,0x3c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATA6612C,LOW,0x3F,0x0d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATA6612C,LOW,0x3F,0x1d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATA6612C,LOW,0x3F,0x2d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATA6612C,LOW,0x3F,0x3d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATA6612C,LOW,0x3F,0x0e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA6612C,LOW,0x3F,0x1e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA6612C,LOW,0x3F,0x2e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATA6612C,LOW,0x3F,0x3e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATA6612C,LOW,0x3F,0x0f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATA6612C,LOW,0x3F,0x1f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATA6612C,LOW,0x3F,0x2f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATA6612C,LOW,0x3F,0x3f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATA6613C,EXTENDED,0x06,0x06,Select boot size: Boot Flash size=128 words start address=$1F80
+ATA6613C,EXTENDED,0x06,0x04,Select boot size: Boot Flash size=256 words start address=$1F00
+ATA6613C,EXTENDED,0x06,0x02,Select boot size: Boot Flash size=512 words start address=$1E00
+ATA6613C,EXTENDED,0x06,0x00,Select boot size: Boot Flash size=1024 words start address=$1C00
+ATA6613C,EXTENDED,0x01,0x00,Boot Reset vector Enabled
+ATA6613C,HIGH,0x80,0x00,Reset Disabled (Enable PC6 as i/o pin)
+ATA6613C,HIGH,0x40,0x00,Debug Wire enable
+ATA6613C,HIGH,0x20,0x00,Serial program downloading (SPI) enabled
+ATA6613C,HIGH,0x10,0x00,Watch-dog Timer always on
+ATA6613C,HIGH,0x08,0x00,Preserve EEPROM through the Chip Erase cycle
+ATA6613C,HIGH,0x07,0x04,Brown-out Detector trigger level: Brown-out detection at VCC=4.3 V
+ATA6613C,HIGH,0x07,0x05,Brown-out Detector trigger level: Brown-out detection at VCC=2.7 V
+ATA6613C,HIGH,0x07,0x06,Brown-out Detector trigger level: Brown-out detection at VCC=1.8 V
+ATA6613C,HIGH,0x07,0x07,Brown-out Detector trigger level: Brown-out detection disabled
+ATA6613C,LOW,0x80,0x00,Divide clock by 8 internally
+ATA6613C,LOW,0x40,0x00,Clock output on PORTB0
+ATA6613C,LOW,0x3F,0x00,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATA6613C,LOW,0x3F,0x10,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATA6613C,LOW,0x3F,0x20,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
+ATA6613C,LOW,0x3F,0x02,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATA6613C,LOW,0x3F,0x12,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATA6613C,LOW,0x3F,0x22,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
+ATA6613C,LOW,0x3F,0x03,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATA6613C,LOW,0x3F,0x13,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATA6613C,LOW,0x3F,0x23,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
+ATA6613C,LOW,0x3F,0x04,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1K CK/14 CK + 0 ms
+ATA6613C,LOW,0x3F,0x14,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1K CK/14 CK + 4.1 ms
+ATA6613C,LOW,0x3F,0x24,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1K CK/14 CK + 65 ms
+ATA6613C,LOW,0x3F,0x05,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32K CK/14 CK + 0 ms
+ATA6613C,LOW,0x3F,0x15,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32K CK/14 CK + 4.1 ms
+ATA6613C,LOW,0x3F,0x25,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32K CK/14 CK + 65 ms
+ATA6613C,LOW,0x3F,0x06,Select Clock Source: Ext. Full-swing Crystal; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA6613C,LOW,0x3F,0x16,Select Clock Source: Ext. Full-swing Crystal; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA6613C,LOW,0x3F,0x26,Select Clock Source: Ext. Full-swing Crystal; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATA6613C,LOW,0x3F,0x36,Select Clock Source: Ext. Full-swing Crystal; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATA6613C,LOW,0x3F,0x07,Select Clock Source: Ext. Full-swing Crystal; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATA6613C,LOW,0x3F,0x17,Select Clock Source: Ext. Full-swing Crystal; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATA6613C,LOW,0x3F,0x27,Select Clock Source: Ext. Full-swing Crystal; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATA6613C,LOW,0x3F,0x37,Select Clock Source: Ext. Full-swing Crystal; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATA6613C,LOW,0x3F,0x08,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA6613C,LOW,0x3F,0x18,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA6613C,LOW,0x3F,0x28,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATA6613C,LOW,0x3F,0x38,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATA6613C,LOW,0x3F,0x09,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATA6613C,LOW,0x3F,0x19,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATA6613C,LOW,0x3F,0x29,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATA6613C,LOW,0x3F,0x39,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATA6613C,LOW,0x3F,0x0a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA6613C,LOW,0x3F,0x1a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA6613C,LOW,0x3F,0x2a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATA6613C,LOW,0x3F,0x3a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATA6613C,LOW,0x3F,0x0b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATA6613C,LOW,0x3F,0x1b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATA6613C,LOW,0x3F,0x2b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATA6613C,LOW,0x3F,0x3b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATA6613C,LOW,0x3F,0x0c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA6613C,LOW,0x3F,0x1c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA6613C,LOW,0x3F,0x2c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATA6613C,LOW,0x3F,0x3c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATA6613C,LOW,0x3F,0x0d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATA6613C,LOW,0x3F,0x1d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATA6613C,LOW,0x3F,0x2d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATA6613C,LOW,0x3F,0x3d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATA6613C,LOW,0x3F,0x0e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA6613C,LOW,0x3F,0x1e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA6613C,LOW,0x3F,0x2e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATA6613C,LOW,0x3F,0x3e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATA6613C,LOW,0x3F,0x0f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATA6613C,LOW,0x3F,0x1f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATA6613C,LOW,0x3F,0x2f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATA6613C,LOW,0x3F,0x3f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATA6614Q,EXTENDED,0x07,0x04,Brown-out Detector trigger level: Brown-out detection at VCC=4.3 V
+ATA6614Q,EXTENDED,0x07,0x05,Brown-out Detector trigger level: Brown-out detection at VCC=2.7 V
+ATA6614Q,EXTENDED,0x07,0x06,Brown-out Detector trigger level: Brown-out detection at VCC=1.8 V
+ATA6614Q,EXTENDED,0x07,0x07,Brown-out Detector trigger level: Brown-out detection disabled
+ATA6614Q,HIGH,0x80,0x00,Reset Disabled (Enable PC6 as i/o pin)
+ATA6614Q,HIGH,0x40,0x00,Debug Wire enable
+ATA6614Q,HIGH,0x20,0x00,Serial program downloading (SPI) enabled
+ATA6614Q,HIGH,0x10,0x00,Watch-dog Timer always on
+ATA6614Q,HIGH,0x08,0x00,Preserve EEPROM through the Chip Erase cycle
+ATA6614Q,HIGH,0x06,0x06,Select boot size: Boot Flash size=256 words start address=$3F00
+ATA6614Q,HIGH,0x06,0x04,Select boot size: Boot Flash size=512 words start address=$3E00
+ATA6614Q,HIGH,0x06,0x02,Select boot size: Boot Flash size=1024 words start address=$3C00
+ATA6614Q,HIGH,0x06,0x00,Select boot size: Boot Flash size=2048 words start address=$3800
+ATA6614Q,HIGH,0x01,0x00,Boot Reset vector Enabled
+ATA6614Q,LOW,0x80,0x00,Divide clock by 8 internally
+ATA6614Q,LOW,0x40,0x00,Clock output on PORTB0
+ATA6614Q,LOW,0x3F,0x00,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATA6614Q,LOW,0x3F,0x10,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATA6614Q,LOW,0x3F,0x20,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
+ATA6614Q,LOW,0x3F,0x02,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATA6614Q,LOW,0x3F,0x12,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATA6614Q,LOW,0x3F,0x22,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
+ATA6614Q,LOW,0x3F,0x03,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATA6614Q,LOW,0x3F,0x13,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATA6614Q,LOW,0x3F,0x23,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
+ATA6614Q,LOW,0x3F,0x04,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1K CK/14 CK + 0 ms
+ATA6614Q,LOW,0x3F,0x14,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1K CK/14 CK + 4.1 ms
+ATA6614Q,LOW,0x3F,0x24,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1K CK/14 CK + 65 ms
+ATA6614Q,LOW,0x3F,0x05,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32K CK/14 CK + 0 ms
+ATA6614Q,LOW,0x3F,0x15,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32K CK/14 CK + 4.1 ms
+ATA6614Q,LOW,0x3F,0x25,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32K CK/14 CK + 65 ms
+ATA6614Q,LOW,0x3F,0x06,Select Clock Source: Ext. Full-swing Crystal; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA6614Q,LOW,0x3F,0x16,Select Clock Source: Ext. Full-swing Crystal; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA6614Q,LOW,0x3F,0x26,Select Clock Source: Ext. Full-swing Crystal; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATA6614Q,LOW,0x3F,0x36,Select Clock Source: Ext. Full-swing Crystal; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATA6614Q,LOW,0x3F,0x07,Select Clock Source: Ext. Full-swing Crystal; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATA6614Q,LOW,0x3F,0x17,Select Clock Source: Ext. Full-swing Crystal; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATA6614Q,LOW,0x3F,0x27,Select Clock Source: Ext. Full-swing Crystal; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATA6614Q,LOW,0x3F,0x37,Select Clock Source: Ext. Full-swing Crystal; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATA6614Q,LOW,0x3F,0x08,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA6614Q,LOW,0x3F,0x18,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA6614Q,LOW,0x3F,0x28,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATA6614Q,LOW,0x3F,0x38,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATA6614Q,LOW,0x3F,0x09,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATA6614Q,LOW,0x3F,0x19,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATA6614Q,LOW,0x3F,0x29,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATA6614Q,LOW,0x3F,0x39,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATA6614Q,LOW,0x3F,0x0a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA6614Q,LOW,0x3F,0x1a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA6614Q,LOW,0x3F,0x2a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATA6614Q,LOW,0x3F,0x3a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATA6614Q,LOW,0x3F,0x0b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATA6614Q,LOW,0x3F,0x1b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATA6614Q,LOW,0x3F,0x2b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATA6614Q,LOW,0x3F,0x3b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATA6614Q,LOW,0x3F,0x0c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA6614Q,LOW,0x3F,0x1c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA6614Q,LOW,0x3F,0x2c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATA6614Q,LOW,0x3F,0x3c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATA6614Q,LOW,0x3F,0x0d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATA6614Q,LOW,0x3F,0x1d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATA6614Q,LOW,0x3F,0x2d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATA6614Q,LOW,0x3F,0x3d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATA6614Q,LOW,0x3F,0x0e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA6614Q,LOW,0x3F,0x1e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA6614Q,LOW,0x3F,0x2e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATA6614Q,LOW,0x3F,0x3e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATA6614Q,LOW,0x3F,0x0f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATA6614Q,LOW,0x3F,0x1f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATA6614Q,LOW,0x3F,0x2f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATA6614Q,LOW,0x3F,0x3f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATA6616C,EXTENDED,0x01,0x00,Self Programming enable
+ATA6616C,HIGH,0x80,0x00,Reset Disabled (Enable PB7 as i/o pin)
+ATA6616C,HIGH,0x40,0x00,Debug Wire enable
+ATA6616C,HIGH,0x20,0x00,Serial program downloading (SPI) enabled
+ATA6616C,HIGH,0x10,0x00,Watch-dog Timer always ON
+ATA6616C,HIGH,0x08,0x00,Preserve EEPROM through the Chip Erase cycle
+ATA6616C,HIGH,0x07,0x04,Brown-out Detector trigger level: Brown-out detection at VCC=4.3 V
+ATA6616C,HIGH,0x07,0x05,Brown-out Detector trigger level: Brown-out detection at VCC=2.7 V
+ATA6616C,HIGH,0x07,0x06,Brown-out Detector trigger level: Brown-out detection at VCC=1.8 V
+ATA6616C,HIGH,0x07,0x03,Brown-out Detector trigger level: Brown-out detection at VCC=2.3 V
+ATA6616C,HIGH,0x07,0x02,Brown-out Detector trigger level: Brown-out detection at VCC=2.2 V
+ATA6616C,HIGH,0x07,0x01,Brown-out Detector trigger level: Brown-out detection at VCC=1.9 V
+ATA6616C,HIGH,0x07,0x00,Brown-out Detector trigger level: Brown-out detection at VCC=2.0 V
+ATA6616C,HIGH,0x07,0x07,Brown-out Detector trigger level: Brown-out detection disabled
+ATA6616C,LOW,0x80,0x00,Divide clock by 8 internally
+ATA6616C,LOW,0x40,0x00,Clock output on PORTB5
+ATA6616C,LOW,0x3F,0x00,Select Clock source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATA6616C,LOW,0x3F,0x10,Select Clock source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4 ms
+ATA6616C,LOW,0x3F,0x20,Select Clock source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 64 ms
+ATA6616C,LOW,0x3F,0x02,Select Clock source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATA6616C,LOW,0x3F,0x12,Select Clock source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4 ms
+ATA6616C,LOW,0x3F,0x22,Select Clock source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 64 ms
+ATA6616C,LOW,0x3F,0x03,Select Clock source: WD. Osc. 128 kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATA6616C,LOW,0x3F,0x13,Select Clock source: WD. Osc. 128 kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4 ms
+ATA6616C,LOW,0x3F,0x23,Select Clock source: WD. Osc. 128 kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 64 ms
+ATA6616C,LOW,0x3F,0x04,Select Clock source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1024 CK 4 ms
+ATA6616C,LOW,0x3F,0x14,Select Clock source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1024 CK + 64 ms
+ATA6616C,LOW,0x3F,0x24,Select Clock source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32768 CK + 64 ms
+ATA6616C,LOW,0x3F,0x08,Select Clock source: Ext. Ceramic Res. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA6616C,LOW,0x3F,0x18,Select Clock source: Ext. Ceramic Res. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA6616C,LOW,0x3F,0x28,Select Clock source: Ext. Ceramic Res. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 0 ms
+ATA6616C,LOW,0x3F,0x38,Select Clock source: Ext. Ceramic Res. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 4.1 ms
+ATA6616C,LOW,0x3F,0x09,Select Clock source: Ext. Ceramic Res. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 65 ms
+ATA6616C,LOW,0x3F,0x19,Select Clock source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 0 ms
+ATA6616C,LOW,0x3F,0x29,Select Clock source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 4.1 ms
+ATA6616C,LOW,0x3F,0x39,Select Clock source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 65 ms
+ATA6616C,LOW,0x3F,0x0a,Select Clock source: Ext. Ceramic Res. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA6616C,LOW,0x3F,0x1a,Select Clock source: Ext. Ceramic Res. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA6616C,LOW,0x3F,0x2a,Select Clock source: Ext. Ceramic Res. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 0 ms
+ATA6616C,LOW,0x3F,0x3a,Select Clock source: Ext. Ceramic Res. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 4.1 ms
+ATA6616C,LOW,0x3F,0x0b,Select Clock source: Ext. Ceramic Res. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 65 ms
+ATA6616C,LOW,0x3F,0x1b,Select Clock source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 0 ms
+ATA6616C,LOW,0x3F,0x2b,Select Clock source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 4.1 ms
+ATA6616C,LOW,0x3F,0x3b,Select Clock source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 65 ms
+ATA6616C,LOW,0x3F,0x0c,Select Clock source: Ext. Ceramic Res. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA6616C,LOW,0x3F,0x1c,Select Clock source: Ext. Ceramic Res. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA6616C,LOW,0x3F,0x2c,Select Clock source: Ext. Ceramic Res. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 0 ms
+ATA6616C,LOW,0x3F,0x3c,Select Clock source: Ext. Ceramic Res. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 4.1 ms
+ATA6616C,LOW,0x3F,0x0d,Select Clock source: Ext. Ceramic Res. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 65 ms
+ATA6616C,LOW,0x3F,0x1d,Select Clock source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 0 ms
+ATA6616C,LOW,0x3F,0x2d,Select Clock source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 4.1 ms
+ATA6616C,LOW,0x3F,0x3d,Select Clock source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 65 ms
+ATA6616C,LOW,0x3F,0x0e,Select Clock source: Ext. Ceramic Res. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA6616C,LOW,0x3F,0x1e,Select Clock source: Ext. Ceramic Res. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA6616C,LOW,0x3F,0x2e,Select Clock source: Ext. Ceramic Res. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 0 ms
+ATA6616C,LOW,0x3F,0x3e,Select Clock source: Ext. Ceramic Res. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 4.1 ms
+ATA6616C,LOW,0x3F,0x0f,Select Clock source: Ext. Ceramic Res. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 65 ms
+ATA6616C,LOW,0x3F,0x1f,Select Clock source: Ext. Crystal Osc. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 0 ms
+ATA6616C,LOW,0x3F,0x2f,Select Clock source: Ext. Crystal Osc. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 4.1 ms
+ATA6616C,LOW,0x3F,0x3f,Select Clock source: Ext. Crystal Osc. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 65 ms
+ATA6617C,EXTENDED,0x01,0x00,Self Programming enable
+ATA6617C,HIGH,0x80,0x00,Reset Disabled (Enable PB7 as i/o pin)
+ATA6617C,HIGH,0x40,0x00,Debug Wire enable
+ATA6617C,HIGH,0x20,0x00,Serial program downloading (SPI) enabled
+ATA6617C,HIGH,0x10,0x00,Watch-dog Timer always ON
+ATA6617C,HIGH,0x08,0x00,Preserve EEPROM through the Chip Erase cycle
+ATA6617C,HIGH,0x07,0x04,Brown-out Detector trigger level: Brown-out detection at VCC=4.3 V
+ATA6617C,HIGH,0x07,0x05,Brown-out Detector trigger level: Brown-out detection at VCC=2.7 V
+ATA6617C,HIGH,0x07,0x06,Brown-out Detector trigger level: Brown-out detection at VCC=1.8 V
+ATA6617C,HIGH,0x07,0x03,Brown-out Detector trigger level: Brown-out detection at VCC=2.3 V
+ATA6617C,HIGH,0x07,0x02,Brown-out Detector trigger level: Brown-out detection at VCC=2.2 V
+ATA6617C,HIGH,0x07,0x01,Brown-out Detector trigger level: Brown-out detection at VCC=1.9 V
+ATA6617C,HIGH,0x07,0x00,Brown-out Detector trigger level: Brown-out detection at VCC=2.0 V
+ATA6617C,HIGH,0x07,0x07,Brown-out Detector trigger level: Brown-out detection disabled
+ATA6617C,LOW,0x80,0x00,Divide clock by 8 internally
+ATA6617C,LOW,0x40,0x00,Clock output on PORTB5
+ATA6617C,LOW,0x3F,0x00,Select Clock source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATA6617C,LOW,0x3F,0x10,Select Clock source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4 ms
+ATA6617C,LOW,0x3F,0x20,Select Clock source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 64 ms
+ATA6617C,LOW,0x3F,0x02,Select Clock source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATA6617C,LOW,0x3F,0x12,Select Clock source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4 ms
+ATA6617C,LOW,0x3F,0x22,Select Clock source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 64 ms
+ATA6617C,LOW,0x3F,0x03,Select Clock source: WD. Osc. 128 kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATA6617C,LOW,0x3F,0x13,Select Clock source: WD. Osc. 128 kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4 ms
+ATA6617C,LOW,0x3F,0x23,Select Clock source: WD. Osc. 128 kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 64 ms
+ATA6617C,LOW,0x3F,0x04,Select Clock source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1024 CK 4 ms
+ATA6617C,LOW,0x3F,0x14,Select Clock source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1024 CK + 64 ms
+ATA6617C,LOW,0x3F,0x24,Select Clock source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32768 CK + 64 ms
+ATA6617C,LOW,0x3F,0x08,Select Clock source: Ext. Ceramic Res. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA6617C,LOW,0x3F,0x18,Select Clock source: Ext. Ceramic Res. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA6617C,LOW,0x3F,0x28,Select Clock source: Ext. Ceramic Res. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 0 ms
+ATA6617C,LOW,0x3F,0x38,Select Clock source: Ext. Ceramic Res. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 4.1 ms
+ATA6617C,LOW,0x3F,0x09,Select Clock source: Ext. Ceramic Res. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 65 ms
+ATA6617C,LOW,0x3F,0x19,Select Clock source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 0 ms
+ATA6617C,LOW,0x3F,0x29,Select Clock source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 4.1 ms
+ATA6617C,LOW,0x3F,0x39,Select Clock source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 65 ms
+ATA6617C,LOW,0x3F,0x0a,Select Clock source: Ext. Ceramic Res. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA6617C,LOW,0x3F,0x1a,Select Clock source: Ext. Ceramic Res. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA6617C,LOW,0x3F,0x2a,Select Clock source: Ext. Ceramic Res. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 0 ms
+ATA6617C,LOW,0x3F,0x3a,Select Clock source: Ext. Ceramic Res. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 4.1 ms
+ATA6617C,LOW,0x3F,0x0b,Select Clock source: Ext. Ceramic Res. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 65 ms
+ATA6617C,LOW,0x3F,0x1b,Select Clock source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 0 ms
+ATA6617C,LOW,0x3F,0x2b,Select Clock source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 4.1 ms
+ATA6617C,LOW,0x3F,0x3b,Select Clock source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 65 ms
+ATA6617C,LOW,0x3F,0x0c,Select Clock source: Ext. Ceramic Res. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA6617C,LOW,0x3F,0x1c,Select Clock source: Ext. Ceramic Res. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA6617C,LOW,0x3F,0x2c,Select Clock source: Ext. Ceramic Res. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 0 ms
+ATA6617C,LOW,0x3F,0x3c,Select Clock source: Ext. Ceramic Res. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 4.1 ms
+ATA6617C,LOW,0x3F,0x0d,Select Clock source: Ext. Ceramic Res. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 65 ms
+ATA6617C,LOW,0x3F,0x1d,Select Clock source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 0 ms
+ATA6617C,LOW,0x3F,0x2d,Select Clock source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 4.1 ms
+ATA6617C,LOW,0x3F,0x3d,Select Clock source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 65 ms
+ATA6617C,LOW,0x3F,0x0e,Select Clock source: Ext. Ceramic Res. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA6617C,LOW,0x3F,0x1e,Select Clock source: Ext. Ceramic Res. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA6617C,LOW,0x3F,0x2e,Select Clock source: Ext. Ceramic Res. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 0 ms
+ATA6617C,LOW,0x3F,0x3e,Select Clock source: Ext. Ceramic Res. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 4.1 ms
+ATA6617C,LOW,0x3F,0x0f,Select Clock source: Ext. Ceramic Res. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 65 ms
+ATA6617C,LOW,0x3F,0x1f,Select Clock source: Ext. Crystal Osc. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 0 ms
+ATA6617C,LOW,0x3F,0x2f,Select Clock source: Ext. Crystal Osc. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 4.1 ms
+ATA6617C,LOW,0x3F,0x3f,Select Clock source: Ext. Crystal Osc. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 65 ms
+ATA664251,EXTENDED,0x01,0x00,Self Programming enable
+ATA664251,HIGH,0x80,0x00,Reset Disabled (Enable PB7 as i/o pin)
+ATA664251,HIGH,0x40,0x00,Debug Wire enable
+ATA664251,HIGH,0x20,0x00,Serial program downloading (SPI) enabled
+ATA664251,HIGH,0x10,0x00,Watch-dog Timer always ON
+ATA664251,HIGH,0x08,0x00,Preserve EEPROM through the Chip Erase cycle
+ATA664251,HIGH,0x07,0x04,Brown-out Detector trigger level: Brown-out detection at VCC=4.3 V
+ATA664251,HIGH,0x07,0x05,Brown-out Detector trigger level: Brown-out detection at VCC=2.7 V
+ATA664251,HIGH,0x07,0x06,Brown-out Detector trigger level: Brown-out detection at VCC=1.8 V
+ATA664251,HIGH,0x07,0x03,Brown-out Detector trigger level: Brown-out detection at VCC=2.3 V
+ATA664251,HIGH,0x07,0x02,Brown-out Detector trigger level: Brown-out detection at VCC=2.2 V
+ATA664251,HIGH,0x07,0x01,Brown-out Detector trigger level: Brown-out detection at VCC=1.9 V
+ATA664251,HIGH,0x07,0x00,Brown-out Detector trigger level: Brown-out detection at VCC=2.0 V
+ATA664251,HIGH,0x07,0x07,Brown-out Detector trigger level: Brown-out detection disabled
+ATA664251,LOW,0x80,0x00,Divide clock by 8 internally
+ATA664251,LOW,0x40,0x00,Clock output on PORTB5
+ATA664251,LOW,0x3F,0x00,Select Clock source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATA664251,LOW,0x3F,0x10,Select Clock source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4 ms
+ATA664251,LOW,0x3F,0x20,Select Clock source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 64 ms
+ATA664251,LOW,0x3F,0x02,Select Clock source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATA664251,LOW,0x3F,0x12,Select Clock source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4 ms
+ATA664251,LOW,0x3F,0x22,Select Clock source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 64 ms
+ATA664251,LOW,0x3F,0x03,Select Clock source: WD. Osc. 128 kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATA664251,LOW,0x3F,0x13,Select Clock source: WD. Osc. 128 kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4 ms
+ATA664251,LOW,0x3F,0x23,Select Clock source: WD. Osc. 128 kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 64 ms
+ATA664251,LOW,0x3F,0x04,Select Clock source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1024 CK 4 ms
+ATA664251,LOW,0x3F,0x14,Select Clock source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1024 CK + 64 ms
+ATA664251,LOW,0x3F,0x24,Select Clock source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32768 CK + 64 ms
+ATA664251,LOW,0x3F,0x08,Select Clock source: Ext. Ceramic Res. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA664251,LOW,0x3F,0x18,Select Clock source: Ext. Ceramic Res. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA664251,LOW,0x3F,0x28,Select Clock source: Ext. Ceramic Res. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 0 ms
+ATA664251,LOW,0x3F,0x38,Select Clock source: Ext. Ceramic Res. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 4.1 ms
+ATA664251,LOW,0x3F,0x09,Select Clock source: Ext. Ceramic Res. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 65 ms
+ATA664251,LOW,0x3F,0x19,Select Clock source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 0 ms
+ATA664251,LOW,0x3F,0x29,Select Clock source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 4.1 ms
+ATA664251,LOW,0x3F,0x39,Select Clock source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 65 ms
+ATA664251,LOW,0x3F,0x0a,Select Clock source: Ext. Ceramic Res. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA664251,LOW,0x3F,0x1a,Select Clock source: Ext. Ceramic Res. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA664251,LOW,0x3F,0x2a,Select Clock source: Ext. Ceramic Res. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 0 ms
+ATA664251,LOW,0x3F,0x3a,Select Clock source: Ext. Ceramic Res. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 4.1 ms
+ATA664251,LOW,0x3F,0x0b,Select Clock source: Ext. Ceramic Res. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 65 ms
+ATA664251,LOW,0x3F,0x1b,Select Clock source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 0 ms
+ATA664251,LOW,0x3F,0x2b,Select Clock source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 4.1 ms
+ATA664251,LOW,0x3F,0x3b,Select Clock source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 65 ms
+ATA664251,LOW,0x3F,0x0c,Select Clock source: Ext. Ceramic Res. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA664251,LOW,0x3F,0x1c,Select Clock source: Ext. Ceramic Res. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA664251,LOW,0x3F,0x2c,Select Clock source: Ext. Ceramic Res. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 0 ms
+ATA664251,LOW,0x3F,0x3c,Select Clock source: Ext. Ceramic Res. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 4.1 ms
+ATA664251,LOW,0x3F,0x0d,Select Clock source: Ext. Ceramic Res. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 65 ms
+ATA664251,LOW,0x3F,0x1d,Select Clock source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 0 ms
+ATA664251,LOW,0x3F,0x2d,Select Clock source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 4.1 ms
+ATA664251,LOW,0x3F,0x3d,Select Clock source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 65 ms
+ATA664251,LOW,0x3F,0x0e,Select Clock source: Ext. Ceramic Res. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATA664251,LOW,0x3F,0x1e,Select Clock source: Ext. Ceramic Res. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATA664251,LOW,0x3F,0x2e,Select Clock source: Ext. Ceramic Res. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 0 ms
+ATA664251,LOW,0x3F,0x3e,Select Clock source: Ext. Ceramic Res. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 4.1 ms
+ATA664251,LOW,0x3F,0x0f,Select Clock source: Ext. Ceramic Res. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 1024 CK /14 CK + 65 ms
+ATA664251,LOW,0x3F,0x1f,Select Clock source: Ext. Crystal Osc. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 0 ms
+ATA664251,LOW,0x3F,0x2f,Select Clock source: Ext. Crystal Osc. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 4.1 ms
+ATA664251,LOW,0x3F,0x3f,Select Clock source: Ext. Crystal Osc. 8.0-16.0 MHz; Start-up time PWRDWN/RESET: 16384 CK/14 CK + 65 ms
+ATA8210,LOW,0x80,0x00,Divide clock by 8 internally
+ATA8210,LOW,0x40,0x00,Debug Wire enable
+ATA8210,LOW,0x20,0x00,Serial program downloading (SPI) enabled
+ATA8210,LOW,0x10,0x00,Watch-dog Timer always on
+ATA8210,LOW,0x08,0x00,Preserve EEPROM memory through the Chip Erase cycle
+ATA8210,LOW,0x04,0x00,Select interrupt vector location
+ATA8210,LOW,0x02,0x00,Disable external Reset
+ATA8210,LOW,0x01,0x00,External Clock enable
+ATA8215,LOW,0x80,0x00,Divide clock by 8 internally
+ATA8215,LOW,0x40,0x00,Debug Wire enable
+ATA8215,LOW,0x20,0x00,Serial program downloading (SPI) enabled
+ATA8215,LOW,0x10,0x00,Watch-dog Timer always on
+ATA8215,LOW,0x08,0x00,Preserve EEPROM memory through the Chip Erase cycle
+ATA8215,LOW,0x04,0x00,Select interrupt vector location
+ATA8215,LOW,0x02,0x00,Disable external Reset
+ATA8215,LOW,0x01,0x00,External Clock enable
+ATA8510,LOW,0x80,0x00,Divide clock by 8 internally
+ATA8510,LOW,0x40,0x00,Debug Wire enable
+ATA8510,LOW,0x20,0x00,Serial program downloading (SPI) enabled
+ATA8510,LOW,0x10,0x00,Watch-dog Timer always on
+ATA8510,LOW,0x08,0x00,Preserve EEPROM memory through the Chip Erase cycle
+ATA8510,LOW,0x04,0x00,Select interrupt vector location
+ATA8510,LOW,0x02,0x00,Disable external Reset
+ATA8510,LOW,0x01,0x00,External Clock enable
+ATA8515,LOW,0x80,0x00,Divide clock by 8 internally
+ATA8515,LOW,0x40,0x00,Debug Wire enable
+ATA8515,LOW,0x20,0x00,Serial program downloading (SPI) enabled
+ATA8515,LOW,0x10,0x00,Watch-dog Timer always on
+ATA8515,LOW,0x08,0x00,Preserve EEPROM memory through the Chip Erase cycle
+ATA8515,LOW,0x04,0x00,Select interrupt vector location
+ATA8515,LOW,0x02,0x00,Disable external Reset
+ATA8515,LOW,0x01,0x00,External Clock enable
 ATmega128,EXTENDED,0x02,0x00,ATmega103 Compatibility Mode
 ATmega128,EXTENDED,0x01,0x00,Watchdog Timer always on
 ATmega128,HIGH,0x80,0x00,On-Chip Debug Enabled
@@ -1203,8 +1818,8 @@ ATmega128,HIGH,0x06,0x02,Select Boot Size: Boot Flashsize=2048 words start addre
 ATmega128,HIGH,0x06,0x00,Select Boot Size: Boot Flash size=4096 words start address=$F000
 ATmega128,HIGH,0x01,0x00,Boot Reset vector Enabled
 ATmega128,HIGH,0x10,0x00,CKOPT fuse (operation dependent of CKSEL fuses)
-ATmega128,LOW,0x80,0x00,Brown out detector trigger level: Brown-out detection level at VCC=4.0 V
-ATmega128,LOW,0x80,0x80,Brown out detector trigger level: Brown-out detection level at VCC=2.7 V
+ATmega128,LOW,0x80,0x00,Brownout detector trigger level: Brown-out detection level at VCC=4.0 V
+ATmega128,LOW,0x80,0x80,Brownout detector trigger level: Brown-out detection level at VCC=2.7 V
 ATmega128,LOW,0x40,0x00,Brown-out detection enabled
 ATmega128,LOW,0x3F,0x00,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 0 ms
 ATmega128,LOW,0x3F,0x10,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 4 ms
@@ -1548,6 +2163,75 @@ ATmega1284P,LOW,0x3F,0x0f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; St
 ATmega1284P,LOW,0x3F,0x1f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time: 16K CK + 0 ms
 ATmega1284P,LOW,0x3F,0x2f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time: 16K CK + 4.1 ms
 ATmega1284P,LOW,0x3F,0x3f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time: 16K CK + 65 ms
+ATmega1284RFR2,EXTENDED,0x07,0x07,Brown-out Detector trigger level: Brown-out detection disabled
+ATmega1284RFR2,EXTENDED,0x07,0x06,Brown-out Detector trigger level: Brown-out detection at VCC=1.8 V
+ATmega1284RFR2,EXTENDED,0x07,0x05,Brown-out Detector trigger level: Brown-out detection at VCC=1.9 V
+ATmega1284RFR2,EXTENDED,0x07,0x04,Brown-out Detector trigger level: Brown-out detection at VCC=2.0 V
+ATmega1284RFR2,EXTENDED,0x07,0x03,Brown-out Detector trigger level: Brown-out detection at VCC=2.1 V
+ATmega1284RFR2,EXTENDED,0x07,0x02,Brown-out Detector trigger level: Brown-out detection at VCC=2.2 V
+ATmega1284RFR2,EXTENDED,0x07,0x01,Brown-out Detector trigger level: Brown-out detection at VCC=2.3 V
+ATmega1284RFR2,EXTENDED,0x07,0x00,Brown-out Detector trigger level: Brown-out detection at VCC=2.4 V
+ATmega1284RFR2,HIGH,0x80,0x00,On-Chip Debug Enabled
+ATmega1284RFR2,HIGH,0x40,0x00,JTAG Interface Enabled
+ATmega1284RFR2,HIGH,0x20,0x00,Serial program downloading (SPI) enabled
+ATmega1284RFR2,HIGH,0x10,0x00,Watchdog timer always on
+ATmega1284RFR2,HIGH,0x08,0x00,Preserve EEPROM through the Chip Erase cycle
+ATmega1284RFR2,HIGH,0x06,0x06,Select Boot Size: Boot Flash size=512 words start address=$FE00
+ATmega1284RFR2,HIGH,0x06,0x04,Select Boot Size: Boot Flash size=1024 words start address=$FC00
+ATmega1284RFR2,HIGH,0x06,0x02,Select Boot Size: Boot Flash size=2048 words start address=$F800
+ATmega1284RFR2,HIGH,0x06,0x00,Select Boot Size: Boot Flash size=4096 words start address=$F000
+ATmega1284RFR2,HIGH,0x01,0x00,Boot Reset vector Enabled
+ATmega1284RFR2,LOW,0x80,0x00,Divide clock by 8 internally
+ATmega1284RFR2,LOW,0x40,0x00,Clock output on PORTE7
+ATmega1284RFR2,LOW,0x3F,0x00,Select Clock Source : Start-up time: Ext. Clock; Start-up time: 6 CK + 0 ms
+ATmega1284RFR2,LOW,0x3F,0x10,Select Clock Source : Start-up time: Ext. Clock; Start-up time: 6 CK + 4.1 ms
+ATmega1284RFR2,LOW,0x3F,0x20,Select Clock Source : Start-up time: Ext. Clock; Start-up time: 6 CK + 65 ms
+ATmega1284RFR2,LOW,0x3F,0x02,Select Clock Source : Start-up time: Int. RC Osc.; Start-up time: 6 CK + 0 ms
+ATmega1284RFR2,LOW,0x3F,0x12,Select Clock Source : Start-up time: Int. RC Osc.; Start-up time: 6 CK + 4.1 ms
+ATmega1284RFR2,LOW,0x3F,0x22,Select Clock Source : Start-up time: Int. RC Osc.; Start-up time: 6 CK + 65 ms
+ATmega1284RFR2,LOW,0x3F,0x03,Select Clock Source : Start-up time: Int. 128kHz RC Osc.; Start-up time: 6 CK + 0 ms
+ATmega1284RFR2,LOW,0x3F,0x13,Select Clock Source : Start-up time: Int. 128kHz RC Osc.; Start-up time: 6 CK + 4.1 ms
+ATmega1284RFR2,LOW,0x3F,0x23,Select Clock Source : Start-up time: Int. 128kHz RC Osc.; Start-up time: 6 CK + 65 ms
+ATmega1284RFR2,LOW,0x3F,0x06,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 4.1 ms
+ATmega1284RFR2,LOW,0x3F,0x16,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 65 ms
+ATmega1284RFR2,LOW,0x3F,0x26,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 0 ms
+ATmega1284RFR2,LOW,0x3F,0x36,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 4.1 ms
+ATmega1284RFR2,LOW,0x3F,0x07,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 65 ms
+ATmega1284RFR2,LOW,0x3F,0x17,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 0 ms
+ATmega1284RFR2,LOW,0x3F,0x27,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 4.1 ms
+ATmega1284RFR2,LOW,0x3F,0x37,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 65 ms
+ATmega1284RFR2,LOW,0x3F,0x08,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 4.1 ms
+ATmega1284RFR2,LOW,0x3F,0x18,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 65 ms
+ATmega1284RFR2,LOW,0x3F,0x28,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 0 ms
+ATmega1284RFR2,LOW,0x3F,0x38,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 4.1 ms
+ATmega1284RFR2,LOW,0x3F,0x09,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 65 ms
+ATmega1284RFR2,LOW,0x3F,0x19,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 0 ms
+ATmega1284RFR2,LOW,0x3F,0x29,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 4.1 ms
+ATmega1284RFR2,LOW,0x3F,0x39,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 65 ms
+ATmega1284RFR2,LOW,0x3F,0x0a,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 4.1 ms
+ATmega1284RFR2,LOW,0x3F,0x1a,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 65 ms
+ATmega1284RFR2,LOW,0x3F,0x2a,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 0 ms
+ATmega1284RFR2,LOW,0x3F,0x3a,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 4.1 ms
+ATmega1284RFR2,LOW,0x3F,0x0b,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 65 ms
+ATmega1284RFR2,LOW,0x3F,0x1b,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 0 ms
+ATmega1284RFR2,LOW,0x3F,0x2b,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 4.1 ms
+ATmega1284RFR2,LOW,0x3F,0x3b,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 65 ms
+ATmega1284RFR2,LOW,0x3F,0x0c,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 4.1 ms
+ATmega1284RFR2,LOW,0x3F,0x1c,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 65 ms
+ATmega1284RFR2,LOW,0x3F,0x2c,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 0 ms
+ATmega1284RFR2,LOW,0x3F,0x3c,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 4.1 ms
+ATmega1284RFR2,LOW,0x3F,0x0d,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 65 ms
+ATmega1284RFR2,LOW,0x3F,0x1d,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 0 ms
+ATmega1284RFR2,LOW,0x3F,0x2d,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 4.1 ms
+ATmega1284RFR2,LOW,0x3F,0x3d,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 65 ms
+ATmega1284RFR2,LOW,0x3F,0x0e,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 4.1 ms
+ATmega1284RFR2,LOW,0x3F,0x1e,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 65 ms
+ATmega1284RFR2,LOW,0x3F,0x2e,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 0 ms
+ATmega1284RFR2,LOW,0x3F,0x3e,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 4.1 ms
+ATmega1284RFR2,LOW,0x3F,0x0f,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 65 ms
+ATmega1284RFR2,LOW,0x3F,0x1f,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 0 ms
+ATmega1284RFR2,LOW,0x3F,0x2f,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 4.1 ms
+ATmega1284RFR2,LOW,0x3F,0x3f,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 65 ms
 ATmega128A,EXTENDED,0x02,0x00,ATmega103 Compatibility Mode
 ATmega128A,EXTENDED,0x01,0x00,Watchdog Timer always on
 ATmega128A,HIGH,0x80,0x00,On-Chip Debug Enabled
@@ -1560,8 +2244,8 @@ ATmega128A,HIGH,0x06,0x02,Select Boot Size: Boot Flashsize=2048 words start addr
 ATmega128A,HIGH,0x06,0x00,Select Boot Size: Boot Flash size=4096 words start address=$F000
 ATmega128A,HIGH,0x01,0x00,Boot Reset vector Enabled
 ATmega128A,HIGH,0x10,0x00,CKOPT fuse (operation dependent of CKSEL fuses)
-ATmega128A,LOW,0x80,0x00,Brown out detector trigger level: Brown-out detection level at VCC=4.0 V
-ATmega128A,LOW,0x80,0x80,Brown out detector trigger level: Brown-out detection level at VCC=2.7 V
+ATmega128A,LOW,0x80,0x00,Brownout detector trigger level: Brown-out detection level at VCC=4.0 V
+ATmega128A,LOW,0x80,0x80,Brownout detector trigger level: Brown-out detection level at VCC=2.7 V
 ATmega128A,LOW,0x40,0x00,Brown-out detection enabled
 ATmega128A,LOW,0x3F,0x00,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 0 ms
 ATmega128A,LOW,0x3F,0x10,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 4 ms
@@ -1737,8 +2421,8 @@ ATmega16,HIGH,0x06,0x02,Select Boot Size: Boot Flash size=512 words start addres
 ATmega16,HIGH,0x06,0x00,Select Boot Size: Boot Flash size=1024 words start address=$1C00
 ATmega16,HIGH,0x01,0x00,Boot Reset vector Enabled
 ATmega16,HIGH,0x10,0x00,CKOPT fuse (operation dependent of CKSEL fuses)
-ATmega16,LOW,0x80,0x00,Brown out detector trigger level: Brown-out detection at VCC=4.0 V
-ATmega16,LOW,0x80,0x80,Brown out detector trigger level: Brown-out detection at VCC=2.7 V
+ATmega16,LOW,0x80,0x00,Brownout detector trigger level: Brown-out detection at VCC=4.0 V
+ATmega16,LOW,0x80,0x80,Brownout detector trigger level: Brown-out detection at VCC=2.7 V
 ATmega16,LOW,0x40,0x00,Brown-out detection enabled
 ATmega16,LOW,0x3F,0x00,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 0 ms
 ATmega16,LOW,0x3F,0x10,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 4 ms
@@ -1799,11 +2483,11 @@ ATmega16,LOW,0x3F,0x1f,Select Clock Source: Ext. Crystal/Resonator High Freq.; S
 ATmega16,LOW,0x3F,0x2f,Select Clock Source: Ext. Crystal/Resonator High Freq.; Start-up time: 16K CK + 4 ms
 ATmega16,LOW,0x3F,0x3f,Select Clock Source: Ext. Crystal/Resonator High Freq.; Start-up time: 16K CK + 64 ms
 ATmega162,EXTENDED,0x10,0x00,ATmega161 compability mode
-ATmega162,EXTENDED,0x0E,0x0e,Brown out detector trigger level: Brown-out detection disabled
-ATmega162,EXTENDED,0x0E,0x0c,Brown out detector trigger level: Brown-out detection at VCC=1.8 V
-ATmega162,EXTENDED,0x0E,0x06,Brown out detector trigger level: Brown-out detection at VCC=2.3 V
-ATmega162,EXTENDED,0x0E,0x0a,Brown out detector trigger level: Brown-out detection at VCC=2.7 V
-ATmega162,EXTENDED,0x0E,0x08,Brown out detector trigger level: Brown-out detection at VCC=4.3 V
+ATmega162,EXTENDED,0x0E,0x0e,Brownout detector trigger level: Brown-out detection disabled
+ATmega162,EXTENDED,0x0E,0x0c,Brownout detector trigger level: Brown-out detection at VCC=1.8 V
+ATmega162,EXTENDED,0x0E,0x06,Brownout detector trigger level: Brown-out detection at VCC=2.3 V
+ATmega162,EXTENDED,0x0E,0x0a,Brownout detector trigger level: Brown-out detection at VCC=2.7 V
+ATmega162,EXTENDED,0x0E,0x08,Brownout detector trigger level: Brown-out detection at VCC=4.3 V
 ATmega162,HIGH,0x80,0x00,On-Chip Debug Enabled
 ATmega162,HIGH,0x40,0x00,JTAG Interface Enabled
 ATmega162,HIGH,0x20,0x00,Serial program downloading (SPI) enabled
@@ -2546,6 +3230,69 @@ ATmega168PA,LOW,0x3F,0x0f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; St
 ATmega168PA,LOW,0x3F,0x1f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
 ATmega168PA,LOW,0x3F,0x2f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
 ATmega168PA,LOW,0x3F,0x3f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATmega168PB,EXTENDED,0x06,0x06,Select boot size: Boot Flash size=128 words start address=$1F80
+ATmega168PB,EXTENDED,0x06,0x04,Select boot size: Boot Flash size=256 words start address=$1F00
+ATmega168PB,EXTENDED,0x06,0x02,Select boot size: Boot Flash size=512 words start address=$1E00
+ATmega168PB,EXTENDED,0x06,0x00,Select boot size: Boot Flash size=1024 words start address=$1C00
+ATmega168PB,EXTENDED,0x01,0x00,Boot Reset vector Enabled
+ATmega168PB,HIGH,0x80,0x00,Reset Disabled (Enable PC6 as i/o pin)
+ATmega168PB,HIGH,0x40,0x00,Debug Wire enable
+ATmega168PB,HIGH,0x20,0x00,Serial program downloading (SPI) enabled
+ATmega168PB,HIGH,0x10,0x00,Watch-dog Timer always on
+ATmega168PB,HIGH,0x08,0x00,Preserve EEPROM through the Chip Erase cycle
+ATmega168PB,HIGH,0x07,0x04,Brown-out Detector trigger level: Brown-out detection at VCC=4.3 V
+ATmega168PB,HIGH,0x07,0x05,Brown-out Detector trigger level: Brown-out detection at VCC=2.7 V
+ATmega168PB,HIGH,0x07,0x06,Brown-out Detector trigger level: Brown-out detection at VCC=1.8 V
+ATmega168PB,HIGH,0x07,0x07,Brown-out Detector trigger level: Brown-out detection disabled
+ATmega168PB,LOW,0x80,0x00,Divide clock by 8 internally
+ATmega168PB,LOW,0x40,0x00,Clock output on PORTB0
+ATmega168PB,LOW,0x3F,0x00,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATmega168PB,LOW,0x3F,0x10,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATmega168PB,LOW,0x3F,0x20,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
+ATmega168PB,LOW,0x3F,0x02,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATmega168PB,LOW,0x3F,0x12,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATmega168PB,LOW,0x3F,0x22,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
+ATmega168PB,LOW,0x3F,0x03,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATmega168PB,LOW,0x3F,0x13,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATmega168PB,LOW,0x3F,0x23,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
+ATmega168PB,LOW,0x3F,0x04,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1K CK/14 CK + 0 ms
+ATmega168PB,LOW,0x3F,0x14,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1K CK/14 CK + 4.1 ms
+ATmega168PB,LOW,0x3F,0x24,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1K CK/14 CK + 65 ms
+ATmega168PB,LOW,0x3F,0x05,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32K CK/14 CK + 0 ms
+ATmega168PB,LOW,0x3F,0x15,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32K CK/14 CK + 4.1 ms
+ATmega168PB,LOW,0x3F,0x25,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32K CK/14 CK + 65 ms
+ATmega168PB,LOW,0x3F,0x08,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATmega168PB,LOW,0x3F,0x18,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATmega168PB,LOW,0x3F,0x28,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATmega168PB,LOW,0x3F,0x38,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATmega168PB,LOW,0x3F,0x09,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATmega168PB,LOW,0x3F,0x19,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATmega168PB,LOW,0x3F,0x29,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATmega168PB,LOW,0x3F,0x39,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATmega168PB,LOW,0x3F,0x0a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATmega168PB,LOW,0x3F,0x1a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATmega168PB,LOW,0x3F,0x2a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATmega168PB,LOW,0x3F,0x3a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATmega168PB,LOW,0x3F,0x0b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATmega168PB,LOW,0x3F,0x1b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATmega168PB,LOW,0x3F,0x2b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATmega168PB,LOW,0x3F,0x3b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATmega168PB,LOW,0x3F,0x0c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATmega168PB,LOW,0x3F,0x1c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATmega168PB,LOW,0x3F,0x2c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATmega168PB,LOW,0x3F,0x3c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATmega168PB,LOW,0x3F,0x0d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATmega168PB,LOW,0x3F,0x1d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATmega168PB,LOW,0x3F,0x2d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATmega168PB,LOW,0x3F,0x3d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATmega168PB,LOW,0x3F,0x0e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATmega168PB,LOW,0x3F,0x1e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATmega168PB,LOW,0x3F,0x2e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATmega168PB,LOW,0x3F,0x3e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATmega168PB,LOW,0x3F,0x0f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATmega168PB,LOW,0x3F,0x1f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATmega168PB,LOW,0x3F,0x2f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATmega168PB,LOW,0x3F,0x3f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
 ATmega169A,EXTENDED,0x0E,0x0e,Brown-out Detector trigger level: Brown-out Detection Disabled
 ATmega169A,EXTENDED,0x0E,0x0c,Brown-out Detector trigger level: Brown-out Detection at VCC=1.8 V
 ATmega169A,EXTENDED,0x0E,0x0a,Brown-out Detector trigger level: Brown-out Detection at VCC=2.7 V
@@ -2739,8 +3486,8 @@ ATmega16A,HIGH,0x06,0x02,Select Boot Size: Boot Flash size=512 words start addre
 ATmega16A,HIGH,0x06,0x00,Select Boot Size: Boot Flash size=1024 words start address=$1C00
 ATmega16A,HIGH,0x01,0x00,Boot Reset vector Enabled
 ATmega16A,HIGH,0x10,0x00,CKOPT fuse (operation dependent of CKSEL fuses)
-ATmega16A,LOW,0x80,0x00,Brown out detector trigger level: Brown-out detection at VCC=4.0 V
-ATmega16A,LOW,0x80,0x80,Brown out detector trigger level: Brown-out detection at VCC=2.7 V
+ATmega16A,LOW,0x80,0x00,Brownout detector trigger level: Brown-out detection at VCC=4.0 V
+ATmega16A,LOW,0x80,0x80,Brownout detector trigger level: Brown-out detection at VCC=2.7 V
 ATmega16A,LOW,0x40,0x00,Brown-out detection enabled
 ATmega16A,LOW,0x3F,0x00,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 0 ms
 ATmega16A,LOW,0x3F,0x10,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 4 ms
@@ -2824,6 +3571,7 @@ ATmega16HVB,LOW,0x1C,0x10,Select start-up time: Start-up time 14 CK + 64 ms
 ATmega16HVB,LOW,0x1C,0x14,Select start-up time: Start-up time 14 CK + 128 ms
 ATmega16HVB,LOW,0x1C,0x18,Select start-up time: Start-up time 14 CK + 256 ms
 ATmega16HVB,LOW,0x1C,0x1c,Select start-up time: Start-up time 14 CK + 512 ms
+ATmega16HVB,LOW,0x03,0x01,Oscillator select: Default
 ATmega16HVB,HIGH,0x10,0x00,Clock Divide mode
 ATmega16HVB,HIGH,0x08,0x00,Debug Wire enable
 ATmega16HVB,HIGH,0x06,0x06,Select Boot Size: Boot Flash size=256 words Boot address=$1F00
@@ -2842,6 +3590,7 @@ ATmega16HVBrevB,LOW,0x1C,0x10,Select start-up time: Start-up time 14 CK + 64 ms
 ATmega16HVBrevB,LOW,0x1C,0x14,Select start-up time: Start-up time 14 CK + 128 ms
 ATmega16HVBrevB,LOW,0x1C,0x18,Select start-up time: Start-up time 14 CK + 256 ms
 ATmega16HVBrevB,LOW,0x1C,0x1c,Select start-up time: Start-up time 14 CK + 512 ms
+ATmega16HVBrevB,LOW,0x03,0x01,Oscillator select: Default
 ATmega16HVBrevB,HIGH,0x10,0x00,DUVR mode on
 ATmega16HVBrevB,HIGH,0x08,0x00,Debug Wire enable
 ATmega16HVBrevB,HIGH,0x06,0x06,Select Boot Size: Boot Flash size=256 words Boot address=$1F00
@@ -3209,6 +3958,75 @@ ATmega2561,LOW,0x3F,0x0f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Sta
 ATmega2561,LOW,0x3F,0x1f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time: 16K CK + 0 ms
 ATmega2561,LOW,0x3F,0x2f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time: 16K CK + 4.1 ms
 ATmega2561,LOW,0x3F,0x3f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time: 16K CK + 65 ms
+ATmega2564RFR2,EXTENDED,0x07,0x07,Brown-out Detector trigger level: Brown-out detection disabled
+ATmega2564RFR2,EXTENDED,0x07,0x06,Brown-out Detector trigger level: Brown-out detection at VCC=1.8 V
+ATmega2564RFR2,EXTENDED,0x07,0x05,Brown-out Detector trigger level: Brown-out detection at VCC=1.9 V
+ATmega2564RFR2,EXTENDED,0x07,0x04,Brown-out Detector trigger level: Brown-out detection at VCC=2.0 V
+ATmega2564RFR2,EXTENDED,0x07,0x03,Brown-out Detector trigger level: Brown-out detection at VCC=2.1 V
+ATmega2564RFR2,EXTENDED,0x07,0x02,Brown-out Detector trigger level: Brown-out detection at VCC=2.2 V
+ATmega2564RFR2,EXTENDED,0x07,0x01,Brown-out Detector trigger level: Brown-out detection at VCC=2.3 V
+ATmega2564RFR2,EXTENDED,0x07,0x00,Brown-out Detector trigger level: Brown-out detection at VCC=2.4 V
+ATmega2564RFR2,HIGH,0x80,0x00,On-Chip Debug Enabled
+ATmega2564RFR2,HIGH,0x40,0x00,JTAG Interface Enabled
+ATmega2564RFR2,HIGH,0x20,0x00,Serial program downloading (SPI) enabled
+ATmega2564RFR2,HIGH,0x10,0x00,Watchdog timer always on
+ATmega2564RFR2,HIGH,0x08,0x00,Preserve EEPROM through the Chip Erase cycle
+ATmega2564RFR2,HIGH,0x06,0x06,Select Boot Size: Boot Flash size=512 words start address=$1FE00
+ATmega2564RFR2,HIGH,0x06,0x04,Select Boot Size: Boot Flash size=1024 words start address=$1FC00
+ATmega2564RFR2,HIGH,0x06,0x02,Select Boot Size: Boot Flash size=2048 words start address=$1F800
+ATmega2564RFR2,HIGH,0x06,0x00,Select Boot Size: Boot Flash size=4096 words start address=$1F000
+ATmega2564RFR2,HIGH,0x01,0x00,Boot Reset vector Enabled
+ATmega2564RFR2,LOW,0x80,0x00,Divide clock by 8 internally
+ATmega2564RFR2,LOW,0x40,0x00,Clock output on PORTE7
+ATmega2564RFR2,LOW,0x3F,0x00,Select Clock Source : Start-up time: Ext. Clock; Start-up time: 6 CK + 0 ms
+ATmega2564RFR2,LOW,0x3F,0x10,Select Clock Source : Start-up time: Ext. Clock; Start-up time: 6 CK + 4.1 ms
+ATmega2564RFR2,LOW,0x3F,0x20,Select Clock Source : Start-up time: Ext. Clock; Start-up time: 6 CK + 65 ms
+ATmega2564RFR2,LOW,0x3F,0x02,Select Clock Source : Start-up time: Int. RC Osc.; Start-up time: 6 CK + 0 ms
+ATmega2564RFR2,LOW,0x3F,0x12,Select Clock Source : Start-up time: Int. RC Osc.; Start-up time: 6 CK + 4.1 ms
+ATmega2564RFR2,LOW,0x3F,0x22,Select Clock Source : Start-up time: Int. RC Osc.; Start-up time: 6 CK + 65 ms
+ATmega2564RFR2,LOW,0x3F,0x03,Select Clock Source : Start-up time: Int. 128kHz RC Osc.; Start-up time: 6 CK + 0 ms
+ATmega2564RFR2,LOW,0x3F,0x13,Select Clock Source : Start-up time: Int. 128kHz RC Osc.; Start-up time: 6 CK + 4.1 ms
+ATmega2564RFR2,LOW,0x3F,0x23,Select Clock Source : Start-up time: Int. 128kHz RC Osc.; Start-up time: 6 CK + 65 ms
+ATmega2564RFR2,LOW,0x3F,0x06,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 4.1 ms
+ATmega2564RFR2,LOW,0x3F,0x16,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 65 ms
+ATmega2564RFR2,LOW,0x3F,0x26,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 0 ms
+ATmega2564RFR2,LOW,0x3F,0x36,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 4.1 ms
+ATmega2564RFR2,LOW,0x3F,0x07,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 65 ms
+ATmega2564RFR2,LOW,0x3F,0x17,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 0 ms
+ATmega2564RFR2,LOW,0x3F,0x27,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 4.1 ms
+ATmega2564RFR2,LOW,0x3F,0x37,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 65 ms
+ATmega2564RFR2,LOW,0x3F,0x08,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 4.1 ms
+ATmega2564RFR2,LOW,0x3F,0x18,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 65 ms
+ATmega2564RFR2,LOW,0x3F,0x28,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 0 ms
+ATmega2564RFR2,LOW,0x3F,0x38,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 4.1 ms
+ATmega2564RFR2,LOW,0x3F,0x09,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 65 ms
+ATmega2564RFR2,LOW,0x3F,0x19,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 0 ms
+ATmega2564RFR2,LOW,0x3F,0x29,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 4.1 ms
+ATmega2564RFR2,LOW,0x3F,0x39,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 65 ms
+ATmega2564RFR2,LOW,0x3F,0x0a,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 4.1 ms
+ATmega2564RFR2,LOW,0x3F,0x1a,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 65 ms
+ATmega2564RFR2,LOW,0x3F,0x2a,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 0 ms
+ATmega2564RFR2,LOW,0x3F,0x3a,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 4.1 ms
+ATmega2564RFR2,LOW,0x3F,0x0b,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 65 ms
+ATmega2564RFR2,LOW,0x3F,0x1b,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 0 ms
+ATmega2564RFR2,LOW,0x3F,0x2b,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 4.1 ms
+ATmega2564RFR2,LOW,0x3F,0x3b,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 65 ms
+ATmega2564RFR2,LOW,0x3F,0x0c,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 4.1 ms
+ATmega2564RFR2,LOW,0x3F,0x1c,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 65 ms
+ATmega2564RFR2,LOW,0x3F,0x2c,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 0 ms
+ATmega2564RFR2,LOW,0x3F,0x3c,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 4.1 ms
+ATmega2564RFR2,LOW,0x3F,0x0d,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 65 ms
+ATmega2564RFR2,LOW,0x3F,0x1d,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 0 ms
+ATmega2564RFR2,LOW,0x3F,0x2d,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 4.1 ms
+ATmega2564RFR2,LOW,0x3F,0x3d,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 65 ms
+ATmega2564RFR2,LOW,0x3F,0x0e,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 4.1 ms
+ATmega2564RFR2,LOW,0x3F,0x1e,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 65 ms
+ATmega2564RFR2,LOW,0x3F,0x2e,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 0 ms
+ATmega2564RFR2,LOW,0x3F,0x3e,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 4.1 ms
+ATmega2564RFR2,LOW,0x3F,0x0f,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 65 ms
+ATmega2564RFR2,LOW,0x3F,0x1f,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 0 ms
+ATmega2564RFR2,LOW,0x3F,0x2f,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 4.1 ms
+ATmega2564RFR2,LOW,0x3F,0x3f,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 65 ms
 ATmega256RFR2,EXTENDED,0x07,0x07,Brown-out Detector trigger level: Brown-out detection disabled
 ATmega256RFR2,EXTENDED,0x07,0x06,Brown-out Detector trigger level: Brown-out detection at VCC=1.8 V
 ATmega256RFR2,EXTENDED,0x07,0x05,Brown-out Detector trigger level: Brown-out detection at VCC=1.9 V
@@ -3288,8 +4106,8 @@ ATmega32,HIGH,0x06,0x04,Select Boot Size: Boot Flash size=512 words start addres
 ATmega32,HIGH,0x06,0x02,Select Boot Size: Boot Flash size=1024 words start address=$3C00
 ATmega32,HIGH,0x06,0x00,Select Boot Size: Boot Flash size=2048 words start address=$3800
 ATmega32,HIGH,0x01,0x00,Boot Reset vector Enabled
-ATmega32,LOW,0x80,0x00,Brown out detector trigger level: Brown-out detection at VCC=4.0 V
-ATmega32,LOW,0x80,0x80,Brown out detector trigger level: Brown-out detection at VCC=2.7 V
+ATmega32,LOW,0x80,0x00,Brownout detector trigger level: Brown-out detection at VCC=4.0 V
+ATmega32,LOW,0x80,0x80,Brownout detector trigger level: Brown-out detection at VCC=2.7 V
 ATmega32,LOW,0x40,0x00,Brown-out detection enabled
 ATmega32,LOW,0x3F,0x00,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 0 ms
 ATmega32,LOW,0x3F,0x10,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 4 ms
@@ -3562,6 +4380,70 @@ ATmega324PA,LOW,0x3F,0x0f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; St
 ATmega324PA,LOW,0x3F,0x1f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time: 16K CK + 0 ms
 ATmega324PA,LOW,0x3F,0x2f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time: 16K CK + 4.1 ms
 ATmega324PA,LOW,0x3F,0x3f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time: 16K CK + 65 ms
+ATmega324PB,EXTENDED,0x08,0x00,Crystal Failure detection
+ATmega324PB,EXTENDED,0x07,0x07,Brown-out Detector trigger level: Brown-out detection disabled
+ATmega324PB,EXTENDED,0x07,0x06,Brown-out Detector trigger level: Brown-out detection at VCC=1.8 V
+ATmega324PB,EXTENDED,0x07,0x05,Brown-out Detector trigger level: Brown-out detection at VCC=2.7 V
+ATmega324PB,EXTENDED,0x07,0x04,Brown-out Detector trigger level: Brown-out detection at VCC=4.3 V
+ATmega324PB,HIGH,0x80,0x00,On-Chip Debug Enabled
+ATmega324PB,HIGH,0x40,0x00,JTAG Interface Enabled
+ATmega324PB,HIGH,0x20,0x00,Serial program downloading (SPI) enabled
+ATmega324PB,HIGH,0x10,0x00,Watchdog timer always on
+ATmega324PB,HIGH,0x08,0x00,Preserve EEPROM through the Chip Erase cycle
+ATmega324PB,HIGH,0x06,0x06,Select Boot Size: Boot Flash size=256 words start address=$3F00
+ATmega324PB,HIGH,0x06,0x04,Select Boot Size: Boot Flash size=512 words start address=$3E00
+ATmega324PB,HIGH,0x06,0x02,Select Boot Size: Boot Flash size=1024 words start address=$3C00
+ATmega324PB,HIGH,0x06,0x00,Select Boot Size: Boot Flash size=2048 words start address=$3800
+ATmega324PB,HIGH,0x01,0x00,Boot Reset vector Enabled
+ATmega324PB,LOW,0x80,0x00,Divide clock by 8 internally
+ATmega324PB,LOW,0x40,0x00,Clock output on PORTB1
+ATmega324PB,LOW,0x3F,0x00,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATmega324PB,LOW,0x3F,0x10,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATmega324PB,LOW,0x3F,0x20,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
+ATmega324PB,LOW,0x3F,0x02,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATmega324PB,LOW,0x3F,0x12,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATmega324PB,LOW,0x3F,0x22,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
+ATmega324PB,LOW,0x3F,0x03,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATmega324PB,LOW,0x3F,0x13,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATmega324PB,LOW,0x3F,0x23,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
+ATmega324PB,LOW,0x3F,0x04,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1K CK/14 CK + 0 ms
+ATmega324PB,LOW,0x3F,0x14,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1K CK/14 CK + 4.1 ms
+ATmega324PB,LOW,0x3F,0x24,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1K CK/14 CK + 65 ms
+ATmega324PB,LOW,0x3F,0x05,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32K CK/14 CK + 0 ms
+ATmega324PB,LOW,0x3F,0x15,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32K CK/14 CK + 4.1 ms
+ATmega324PB,LOW,0x3F,0x25,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32K CK/14 CK + 65 ms
+ATmega324PB,LOW,0x3F,0x08,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATmega324PB,LOW,0x3F,0x18,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATmega324PB,LOW,0x3F,0x28,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATmega324PB,LOW,0x3F,0x38,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATmega324PB,LOW,0x3F,0x09,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATmega324PB,LOW,0x3F,0x19,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATmega324PB,LOW,0x3F,0x29,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATmega324PB,LOW,0x3F,0x39,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATmega324PB,LOW,0x3F,0x0a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATmega324PB,LOW,0x3F,0x1a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATmega324PB,LOW,0x3F,0x2a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATmega324PB,LOW,0x3F,0x3a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATmega324PB,LOW,0x3F,0x0b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATmega324PB,LOW,0x3F,0x1b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATmega324PB,LOW,0x3F,0x2b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATmega324PB,LOW,0x3F,0x3b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATmega324PB,LOW,0x3F,0x0c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATmega324PB,LOW,0x3F,0x1c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATmega324PB,LOW,0x3F,0x2c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATmega324PB,LOW,0x3F,0x3c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATmega324PB,LOW,0x3F,0x0d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATmega324PB,LOW,0x3F,0x1d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATmega324PB,LOW,0x3F,0x2d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATmega324PB,LOW,0x3F,0x3d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATmega324PB,LOW,0x3F,0x0e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATmega324PB,LOW,0x3F,0x1e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATmega324PB,LOW,0x3F,0x2e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATmega324PB,LOW,0x3F,0x3e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATmega324PB,LOW,0x3F,0x0f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATmega324PB,LOW,0x3F,0x1f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATmega324PB,LOW,0x3F,0x2f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATmega324PB,LOW,0x3F,0x3f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
 ATmega325,EXTENDED,0x06,0x06,Brown-out Detector trigger level: Brown-out detection disabled
 ATmega325,EXTENDED,0x06,0x04,Brown-out Detector trigger level: Brown-out detection at VCC=1.8 V
 ATmega325,EXTENDED,0x06,0x02,Brown-out Detector trigger level: Brown-out detection at VCC=2.7 V
@@ -4192,6 +5074,70 @@ ATmega328P,LOW,0x3F,0x0f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Sta
 ATmega328P,LOW,0x3F,0x1f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
 ATmega328P,LOW,0x3F,0x2f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
 ATmega328P,LOW,0x3F,0x3f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATmega328PB,EXTENDED,0x08,0x00,Crystal Failure detection enable
+ATmega328PB,EXTENDED,0x07,0x04,Brown-out Detector trigger level: Brown-out detection at VCC=4.3 V
+ATmega328PB,EXTENDED,0x07,0x05,Brown-out Detector trigger level: Brown-out detection at VCC=2.7 V
+ATmega328PB,EXTENDED,0x07,0x06,Brown-out Detector trigger level: Brown-out detection at VCC=1.8 V
+ATmega328PB,EXTENDED,0x07,0x07,Brown-out Detector trigger level: Brown-out detection disabled
+ATmega328PB,HIGH,0x80,0x00,Reset Disabled (Enable PC6 as i/o pin)
+ATmega328PB,HIGH,0x40,0x00,Debug Wire enable
+ATmega328PB,HIGH,0x20,0x00,Serial program downloading (SPI) enabled
+ATmega328PB,HIGH,0x10,0x00,Watch-dog Timer always on
+ATmega328PB,HIGH,0x08,0x00,Preserve EEPROM through the Chip Erase cycle
+ATmega328PB,HIGH,0x06,0x06,Select boot size: Boot Flash size=256 words start address=$3F00
+ATmega328PB,HIGH,0x06,0x04,Select boot size: Boot Flash size=512 words start address=$3E00
+ATmega328PB,HIGH,0x06,0x02,Select boot size: Boot Flash size=1024 words start address=$3C00
+ATmega328PB,HIGH,0x06,0x00,Select boot size: Boot Flash size=2048 words start address=$3800
+ATmega328PB,HIGH,0x01,0x00,Boot Reset vector Enabled
+ATmega328PB,LOW,0x80,0x00,Divide clock by 8 internally
+ATmega328PB,LOW,0x40,0x00,Clock output on PORTB0
+ATmega328PB,LOW,0x3F,0x00,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATmega328PB,LOW,0x3F,0x10,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATmega328PB,LOW,0x3F,0x20,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
+ATmega328PB,LOW,0x3F,0x02,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATmega328PB,LOW,0x3F,0x12,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATmega328PB,LOW,0x3F,0x22,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
+ATmega328PB,LOW,0x3F,0x03,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATmega328PB,LOW,0x3F,0x13,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATmega328PB,LOW,0x3F,0x23,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
+ATmega328PB,LOW,0x3F,0x04,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1K CK/14 CK + 0 ms
+ATmega328PB,LOW,0x3F,0x14,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1K CK/14 CK + 4.1 ms
+ATmega328PB,LOW,0x3F,0x24,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1K CK/14 CK + 65 ms
+ATmega328PB,LOW,0x3F,0x05,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32K CK/14 CK + 0 ms
+ATmega328PB,LOW,0x3F,0x15,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32K CK/14 CK + 4.1 ms
+ATmega328PB,LOW,0x3F,0x25,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32K CK/14 CK + 65 ms
+ATmega328PB,LOW,0x3F,0x08,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATmega328PB,LOW,0x3F,0x18,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATmega328PB,LOW,0x3F,0x28,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATmega328PB,LOW,0x3F,0x38,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATmega328PB,LOW,0x3F,0x09,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATmega328PB,LOW,0x3F,0x19,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATmega328PB,LOW,0x3F,0x29,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATmega328PB,LOW,0x3F,0x39,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATmega328PB,LOW,0x3F,0x0a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATmega328PB,LOW,0x3F,0x1a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATmega328PB,LOW,0x3F,0x2a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATmega328PB,LOW,0x3F,0x3a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATmega328PB,LOW,0x3F,0x0b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATmega328PB,LOW,0x3F,0x1b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATmega328PB,LOW,0x3F,0x2b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATmega328PB,LOW,0x3F,0x3b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATmega328PB,LOW,0x3F,0x0c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATmega328PB,LOW,0x3F,0x1c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATmega328PB,LOW,0x3F,0x2c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATmega328PB,LOW,0x3F,0x3c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATmega328PB,LOW,0x3F,0x0d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATmega328PB,LOW,0x3F,0x1d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATmega328PB,LOW,0x3F,0x2d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATmega328PB,LOW,0x3F,0x3d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATmega328PB,LOW,0x3F,0x0e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATmega328PB,LOW,0x3F,0x1e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATmega328PB,LOW,0x3F,0x2e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATmega328PB,LOW,0x3F,0x3e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATmega328PB,LOW,0x3F,0x0f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATmega328PB,LOW,0x3F,0x1f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATmega328PB,LOW,0x3F,0x2f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATmega328PB,LOW,0x3F,0x3f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
 ATmega329,EXTENDED,0x06,0x06,Brown-out Detector trigger level: Brown-out detection disabled
 ATmega329,EXTENDED,0x06,0x04,Brown-out Detector trigger level: Brown-out detection at VCC=1.8 V
 ATmega329,EXTENDED,0x06,0x02,Brown-out Detector trigger level: Brown-out detection at VCC=2.7 V
@@ -4690,8 +5636,8 @@ ATmega32A,HIGH,0x06,0x04,Select Boot Size: Boot Flash size=512 words start addre
 ATmega32A,HIGH,0x06,0x02,Select Boot Size: Boot Flash size=1024 words start address=$3C00
 ATmega32A,HIGH,0x06,0x00,Select Boot Size: Boot Flash size=2048 words start address=$3800
 ATmega32A,HIGH,0x01,0x00,Boot Reset vector Enabled
-ATmega32A,LOW,0x80,0x00,Brown out detector trigger level: Brown-out detection at VCC=4.0 V
-ATmega32A,LOW,0x80,0x80,Brown out detector trigger level: Brown-out detection at VCC=2.7 V
+ATmega32A,LOW,0x80,0x00,Brownout detector trigger level: Brown-out detection at VCC=4.0 V
+ATmega32A,LOW,0x80,0x80,Brownout detector trigger level: Brown-out detection at VCC=2.7 V
 ATmega32A,LOW,0x40,0x00,Brown-out detection enabled
 ATmega32A,LOW,0x3F,0x00,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 0 ms
 ATmega32A,LOW,0x3F,0x10,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 4 ms
@@ -4838,6 +5784,7 @@ ATmega32HVB,LOW,0x1C,0x10,Select start-up time: Start-up time 14 CK + 64 ms
 ATmega32HVB,LOW,0x1C,0x14,Select start-up time: Start-up time 14 CK + 128 ms
 ATmega32HVB,LOW,0x1C,0x18,Select start-up time: Start-up time 14 CK + 256 ms
 ATmega32HVB,LOW,0x1C,0x1c,Select start-up time: Start-up time 14 CK + 512 ms
+ATmega32HVB,LOW,0x03,0x01,Oscillator select: Default
 ATmega32HVB,HIGH,0x10,0x00,Clock Divide mode
 ATmega32HVB,HIGH,0x08,0x00,Debug Wire enable
 ATmega32HVB,HIGH,0x06,0x06,Select Boot Size: Boot Flash size=256 words Boot address=$3F00
@@ -4856,6 +5803,7 @@ ATmega32HVBrevB,LOW,0x1C,0x10,Select start-up time: Start-up time 14 CK + 64 ms
 ATmega32HVBrevB,LOW,0x1C,0x14,Select start-up time: Start-up time 14 CK + 128 ms
 ATmega32HVBrevB,LOW,0x1C,0x18,Select start-up time: Start-up time 14 CK + 256 ms
 ATmega32HVBrevB,LOW,0x1C,0x1c,Select start-up time: Start-up time 14 CK + 512 ms
+ATmega32HVBrevB,LOW,0x03,0x01,Oscillator select: Default
 ATmega32HVBrevB,HIGH,0x10,0x00,DUVR mode on
 ATmega32HVBrevB,HIGH,0x08,0x00,Debug Wire enable
 ATmega32HVBrevB,HIGH,0x06,0x06,Select Boot Size: Boot Flash size=256 words Boot address=$3F00
@@ -5081,6 +6029,21 @@ ATmega32U4,LOW,0x3F,0x0f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Sta
 ATmega32U4,LOW,0x3F,0x1f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time: 16K CK + 0 ms
 ATmega32U4,LOW,0x3F,0x2f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time: 16K CK + 4.1 ms
 ATmega32U4,LOW,0x3F,0x3f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time: 16K CK + 65 ms
+ATmega406,HIGH,0x02,0x00,On-Chip Debug Enabled
+ATmega406,HIGH,0x01,0x00,JTAG Interface Enabled
+ATmega406,LOW,0x80,0x00,Watchdog timer always on
+ATmega406,LOW,0x40,0x00,Preserve EEPROM through the Chip Erase cycle
+ATmega406,LOW,0x30,0x30,Select boot size: Boot Flash size=256 words Boot address=$4F00
+ATmega406,LOW,0x30,0x20,Select boot size: Boot Flash size=512 words Boot address=$4E00
+ATmega406,LOW,0x30,0x10,Select boot size: Boot Flash size=1024 words Boot address=$4C00
+ATmega406,LOW,0x30,0x00,Select boot size: Boot Flash size=2048 words Boot address=$4800
+ATmega406,LOW,0x08,0x00,Boot Reset vector Enabled
+ATmega406,LOW,0x07,0x00,Clock Selection: Start-up time: 14 CK + 0 ms
+ATmega406,LOW,0x07,0x02,Clock Selection: Start-up time: 14 CK + 3.9 ms
+ATmega406,LOW,0x07,0x04,Clock Selection: Start-up time: 14 CK + 62.5 ms
+ATmega406,LOW,0x07,0x01,Clock Selection: Start-up time: 14 CK + 0 ms
+ATmega406,LOW,0x07,0x03,Clock Selection: Start-up time: 14 CK + 3.9 ms
+ATmega406,LOW,0x07,0x05,Clock Selection: Start-up time: 14 CK + 62.5 ms
 ATmega48,EXTENDED,0x01,0x00,Self Programming enable
 ATmega48,HIGH,0x80,0x00,Reset Disabled (Enable PC6 as i/o pin)
 ATmega48,HIGH,0x40,0x00,Debug Wire enable
@@ -5349,6 +6312,65 @@ ATmega48PA,LOW,0x3F,0x0f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Sta
 ATmega48PA,LOW,0x3F,0x1f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
 ATmega48PA,LOW,0x3F,0x2f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
 ATmega48PA,LOW,0x3F,0x3f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATmega48PB,EXTENDED,0x01,0x00,Self Programming enable
+ATmega48PB,HIGH,0x80,0x00,Reset Disabled (Enable PC6 as i/o pin)
+ATmega48PB,HIGH,0x40,0x00,Debug Wire enable
+ATmega48PB,HIGH,0x20,0x00,Serial program downloading (SPI) enabled
+ATmega48PB,HIGH,0x10,0x00,Watch-dog Timer always on
+ATmega48PB,HIGH,0x08,0x00,Preserve EEPROM through the Chip Erase cycle
+ATmega48PB,HIGH,0x07,0x04,Brown-out Detector trigger level: Brown-out detection at VCC=4.3 V
+ATmega48PB,HIGH,0x07,0x05,Brown-out Detector trigger level: Brown-out detection at VCC=2.7 V
+ATmega48PB,HIGH,0x07,0x06,Brown-out Detector trigger level: Brown-out detection at VCC=1.8 V
+ATmega48PB,HIGH,0x07,0x07,Brown-out Detector trigger level: Brown-out detection disabled
+ATmega48PB,LOW,0x80,0x00,Divide clock by 8 internally
+ATmega48PB,LOW,0x40,0x00,Clock output on PORTB0
+ATmega48PB,LOW,0x3F,0x00,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATmega48PB,LOW,0x3F,0x10,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATmega48PB,LOW,0x3F,0x20,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
+ATmega48PB,LOW,0x3F,0x02,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATmega48PB,LOW,0x3F,0x12,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATmega48PB,LOW,0x3F,0x22,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms; default value
+ATmega48PB,LOW,0x3F,0x03,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATmega48PB,LOW,0x3F,0x13,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATmega48PB,LOW,0x3F,0x23,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
+ATmega48PB,LOW,0x3F,0x04,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1K CK/14 CK + 0 ms
+ATmega48PB,LOW,0x3F,0x14,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1K CK/14 CK + 4.1 ms
+ATmega48PB,LOW,0x3F,0x24,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1K CK/14 CK + 65 ms
+ATmega48PB,LOW,0x3F,0x05,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32K CK/14 CK + 0 ms
+ATmega48PB,LOW,0x3F,0x15,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32K CK/14 CK + 4.1 ms
+ATmega48PB,LOW,0x3F,0x25,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32K CK/14 CK + 65 ms
+ATmega48PB,LOW,0x3F,0x08,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATmega48PB,LOW,0x3F,0x18,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATmega48PB,LOW,0x3F,0x28,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATmega48PB,LOW,0x3F,0x38,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATmega48PB,LOW,0x3F,0x09,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATmega48PB,LOW,0x3F,0x19,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATmega48PB,LOW,0x3F,0x29,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATmega48PB,LOW,0x3F,0x39,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATmega48PB,LOW,0x3F,0x0a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATmega48PB,LOW,0x3F,0x1a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATmega48PB,LOW,0x3F,0x2a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATmega48PB,LOW,0x3F,0x3a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATmega48PB,LOW,0x3F,0x0b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATmega48PB,LOW,0x3F,0x1b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATmega48PB,LOW,0x3F,0x2b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATmega48PB,LOW,0x3F,0x3b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATmega48PB,LOW,0x3F,0x0c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATmega48PB,LOW,0x3F,0x1c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATmega48PB,LOW,0x3F,0x2c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATmega48PB,LOW,0x3F,0x3c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATmega48PB,LOW,0x3F,0x0d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATmega48PB,LOW,0x3F,0x1d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATmega48PB,LOW,0x3F,0x2d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATmega48PB,LOW,0x3F,0x3d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATmega48PB,LOW,0x3F,0x0e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATmega48PB,LOW,0x3F,0x1e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATmega48PB,LOW,0x3F,0x2e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATmega48PB,LOW,0x3F,0x3e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATmega48PB,LOW,0x3F,0x0f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATmega48PB,LOW,0x3F,0x1f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATmega48PB,LOW,0x3F,0x2f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATmega48PB,LOW,0x3F,0x3f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
 ATmega64,EXTENDED,0x02,0x00,ATmega103 Compatibility Mode
 ATmega64,EXTENDED,0x01,0x00,Watchdog Timer always on
 ATmega64,HIGH,0x80,0x00,On-Chip Debug Enabled
@@ -5361,8 +6383,8 @@ ATmega64,HIGH,0x06,0x02,Select Boot Size: Boot Flash size=2048 words Boot addres
 ATmega64,HIGH,0x06,0x00,Select Boot Size: Boot Flash size=4096 words Boot address=$7000
 ATmega64,HIGH,0x01,0x00,Boot Reset vector Enabled
 ATmega64,HIGH,0x10,0x00,CKOPT fuse (operation dependent of CKSEL fuses)
-ATmega64,LOW,0x80,0x00,Brown out detector trigger level: Brown-out detection at VCC=4.0 V
-ATmega64,LOW,0x80,0x80,Brown out detector trigger level: Brown-out detection at VCC=2.7 V
+ATmega64,LOW,0x80,0x00,Brownout detector trigger level: Brown-out detection at VCC=4.0 V
+ATmega64,LOW,0x80,0x80,Brownout detector trigger level: Brown-out detection at VCC=2.7 V
 ATmega64,LOW,0x40,0x00,Brown-out detection enabled
 ATmega64,LOW,0x3F,0x00,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 0 ms
 ATmega64,LOW,0x3F,0x10,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 4 ms
@@ -5777,6 +6799,75 @@ ATmega644PA,LOW,0x3F,0x0f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; St
 ATmega644PA,LOW,0x3F,0x1f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time: 16K CK + 0 ms
 ATmega644PA,LOW,0x3F,0x2f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time: 16K CK + 4.1 ms
 ATmega644PA,LOW,0x3F,0x3f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time: 16K CK + 65 ms
+ATmega644RFR2,EXTENDED,0x07,0x07,Brown-out Detector trigger level: Brown-out detection disabled
+ATmega644RFR2,EXTENDED,0x07,0x06,Brown-out Detector trigger level: Brown-out detection at VCC=1.8 V
+ATmega644RFR2,EXTENDED,0x07,0x05,Brown-out Detector trigger level: Brown-out detection at VCC=1.9 V
+ATmega644RFR2,EXTENDED,0x07,0x04,Brown-out Detector trigger level: Brown-out detection at VCC=2.0 V
+ATmega644RFR2,EXTENDED,0x07,0x03,Brown-out Detector trigger level: Brown-out detection at VCC=2.1 V
+ATmega644RFR2,EXTENDED,0x07,0x02,Brown-out Detector trigger level: Brown-out detection at VCC=2.2 V
+ATmega644RFR2,EXTENDED,0x07,0x01,Brown-out Detector trigger level: Brown-out detection at VCC=2.3 V
+ATmega644RFR2,EXTENDED,0x07,0x00,Brown-out Detector trigger level: Brown-out detection at VCC=2.4 V
+ATmega644RFR2,HIGH,0x80,0x00,On-Chip Debug Enabled
+ATmega644RFR2,HIGH,0x40,0x00,JTAG Interface Enabled
+ATmega644RFR2,HIGH,0x20,0x00,Serial program downloading (SPI) enabled
+ATmega644RFR2,HIGH,0x10,0x00,Watchdog timer always on
+ATmega644RFR2,HIGH,0x08,0x00,Preserve EEPROM through the Chip Erase cycle
+ATmega644RFR2,HIGH,0x06,0x06,Select Boot Size: Boot Flash size=512 words start address=$7E00
+ATmega644RFR2,HIGH,0x06,0x04,Select Boot Size: Boot Flash size=1024 words start address=$7C00
+ATmega644RFR2,HIGH,0x06,0x02,Select Boot Size: Boot Flash size=2048 words start address=$7800
+ATmega644RFR2,HIGH,0x06,0x00,Select Boot Size: Boot Flash size=4096 words start address=$7000
+ATmega644RFR2,HIGH,0x01,0x00,Boot Reset vector Enabled
+ATmega644RFR2,LOW,0x80,0x00,Divide clock by 8 internally
+ATmega644RFR2,LOW,0x40,0x00,Clock output on PORTE7
+ATmega644RFR2,LOW,0x3F,0x00,Select Clock Source : Start-up time: Ext. Clock; Start-up time: 6 CK + 0 ms
+ATmega644RFR2,LOW,0x3F,0x10,Select Clock Source : Start-up time: Ext. Clock; Start-up time: 6 CK + 4.1 ms
+ATmega644RFR2,LOW,0x3F,0x20,Select Clock Source : Start-up time: Ext. Clock; Start-up time: 6 CK + 65 ms
+ATmega644RFR2,LOW,0x3F,0x02,Select Clock Source : Start-up time: Int. RC Osc.; Start-up time: 6 CK + 0 ms
+ATmega644RFR2,LOW,0x3F,0x12,Select Clock Source : Start-up time: Int. RC Osc.; Start-up time: 6 CK + 4.1 ms
+ATmega644RFR2,LOW,0x3F,0x22,Select Clock Source : Start-up time: Int. RC Osc.; Start-up time: 6 CK + 65 ms
+ATmega644RFR2,LOW,0x3F,0x03,Select Clock Source : Start-up time: Int. 128kHz RC Osc.; Start-up time: 6 CK + 0 ms
+ATmega644RFR2,LOW,0x3F,0x13,Select Clock Source : Start-up time: Int. 128kHz RC Osc.; Start-up time: 6 CK + 4.1 ms
+ATmega644RFR2,LOW,0x3F,0x23,Select Clock Source : Start-up time: Int. 128kHz RC Osc.; Start-up time: 6 CK + 65 ms
+ATmega644RFR2,LOW,0x3F,0x06,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 4.1 ms
+ATmega644RFR2,LOW,0x3F,0x16,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 65 ms
+ATmega644RFR2,LOW,0x3F,0x26,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 0 ms
+ATmega644RFR2,LOW,0x3F,0x36,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 4.1 ms
+ATmega644RFR2,LOW,0x3F,0x07,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 65 ms
+ATmega644RFR2,LOW,0x3F,0x17,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 0 ms
+ATmega644RFR2,LOW,0x3F,0x27,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 4.1 ms
+ATmega644RFR2,LOW,0x3F,0x37,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 65 ms
+ATmega644RFR2,LOW,0x3F,0x08,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 4.1 ms
+ATmega644RFR2,LOW,0x3F,0x18,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 65 ms
+ATmega644RFR2,LOW,0x3F,0x28,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 0 ms
+ATmega644RFR2,LOW,0x3F,0x38,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 4.1 ms
+ATmega644RFR2,LOW,0x3F,0x09,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 65 ms
+ATmega644RFR2,LOW,0x3F,0x19,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 0 ms
+ATmega644RFR2,LOW,0x3F,0x29,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 4.1 ms
+ATmega644RFR2,LOW,0x3F,0x39,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 65 ms
+ATmega644RFR2,LOW,0x3F,0x0a,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 4.1 ms
+ATmega644RFR2,LOW,0x3F,0x1a,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 65 ms
+ATmega644RFR2,LOW,0x3F,0x2a,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 0 ms
+ATmega644RFR2,LOW,0x3F,0x3a,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 4.1 ms
+ATmega644RFR2,LOW,0x3F,0x0b,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 65 ms
+ATmega644RFR2,LOW,0x3F,0x1b,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 0 ms
+ATmega644RFR2,LOW,0x3F,0x2b,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 4.1 ms
+ATmega644RFR2,LOW,0x3F,0x3b,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 65 ms
+ATmega644RFR2,LOW,0x3F,0x0c,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 4.1 ms
+ATmega644RFR2,LOW,0x3F,0x1c,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 65 ms
+ATmega644RFR2,LOW,0x3F,0x2c,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 0 ms
+ATmega644RFR2,LOW,0x3F,0x3c,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 4.1 ms
+ATmega644RFR2,LOW,0x3F,0x0d,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 65 ms
+ATmega644RFR2,LOW,0x3F,0x1d,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 0 ms
+ATmega644RFR2,LOW,0x3F,0x2d,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 4.1 ms
+ATmega644RFR2,LOW,0x3F,0x3d,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 65 ms
+ATmega644RFR2,LOW,0x3F,0x0e,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 4.1 ms
+ATmega644RFR2,LOW,0x3F,0x1e,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 258 CK + 65 ms
+ATmega644RFR2,LOW,0x3F,0x2e,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 0 ms
+ATmega644RFR2,LOW,0x3F,0x3e,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 4.1 ms
+ATmega644RFR2,LOW,0x3F,0x0f,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 1K CK + 65 ms
+ATmega644RFR2,LOW,0x3F,0x1f,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 0 ms
+ATmega644RFR2,LOW,0x3F,0x2f,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 4.1 ms
+ATmega644RFR2,LOW,0x3F,0x3f,Select Clock Source : Start-up time: Tranceiver Oscillator; Start-up time: 16K CK + 65 ms
 ATmega645,EXTENDED,0x06,0x06,Brown-out Detector trigger level: Brown-out detection disabled
 ATmega645,EXTENDED,0x06,0x04,Brown-out Detector trigger level: Brown-out detection at VCC=1.8 V
 ATmega645,EXTENDED,0x06,0x02,Brown-out Detector trigger level: Brown-out detection at VCC=2.7 V
@@ -6521,8 +7612,8 @@ ATmega64A,HIGH,0x06,0x02,Select Boot Size: Boot Flash size=2048 words Boot addre
 ATmega64A,HIGH,0x06,0x00,Select Boot Size: Boot Flash size=4096 words Boot address=$7000
 ATmega64A,HIGH,0x01,0x00,Boot Reset vector Enabled
 ATmega64A,HIGH,0x10,0x00,CKOPT fuse (operation dependent of CKSEL fuses)
-ATmega64A,LOW,0x80,0x00,Brown out detector trigger level: Brown-out detection at VCC=4.0 V
-ATmega64A,LOW,0x80,0x80,Brown out detector trigger level: Brown-out detection at VCC=2.7 V
+ATmega64A,LOW,0x80,0x00,Brownout detector trigger level: Brown-out detection at VCC=4.0 V
+ATmega64A,LOW,0x80,0x80,Brownout detector trigger level: Brown-out detection at VCC=2.7 V
 ATmega64A,LOW,0x40,0x00,Brown-out detection enabled
 ATmega64A,LOW,0x3F,0x00,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 0 ms
 ATmega64A,LOW,0x3F,0x10,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 4 ms
@@ -6829,8 +7920,8 @@ ATmega8,HIGH,0x06,0x02,Select Boot Size: Boot Flash size=512 words Boot address=
 ATmega8,HIGH,0x06,0x00,Select Boot Size: Boot Flash size=1024 words Boot address=$0C00
 ATmega8,HIGH,0x01,0x00,Boot Reset vector Enabled
 ATmega8,HIGH,0x10,0x00,CKOPT fuse (operation dependent of CKSEL fuses)
-ATmega8,LOW,0x80,0x00,Brown out detector trigger level: Brown-out detection at VCC=4.0 V
-ATmega8,LOW,0x80,0x80,Brown out detector trigger level: Brown-out detection at VCC=2.7 V
+ATmega8,LOW,0x80,0x00,Brownout detector trigger level: Brown-out detection at VCC=4.0 V
+ATmega8,LOW,0x80,0x80,Brownout detector trigger level: Brown-out detection at VCC=2.7 V
 ATmega8,LOW,0x40,0x00,Brown-out detection enabled
 ATmega8,LOW,0x3F,0x00,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 0 ms
 ATmega8,LOW,0x3F,0x10,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 4 ms
@@ -6900,8 +7991,8 @@ ATmega8515,HIGH,0x06,0x02,Select Boot Size: Boot Flash size=512 words Boot addre
 ATmega8515,HIGH,0x06,0x00,Select Boot Size: Boot Flash size=1024 words Boot address=$0C00
 ATmega8515,HIGH,0x01,0x00,Boot Reset vector Enabled
 ATmega8515,HIGH,0x10,0x00,CKOPT fuse (operation dependent of CKSEL fuses)]
-ATmega8515,LOW,0x80,0x00,Brown out detector trigger level: Brown-out detection at VCC=4.0 V
-ATmega8515,LOW,0x80,0x80,Brown out detector trigger level: Brown-out detection at VCC=2.7 V
+ATmega8515,LOW,0x80,0x00,Brownout detector trigger level: Brown-out detection at VCC=4.0 V
+ATmega8515,LOW,0x80,0x80,Brownout detector trigger level: Brown-out detection at VCC=2.7 V
 ATmega8515,LOW,0x40,0x00,Brown-out detection enabled
 ATmega8515,LOW,0x3F,0x00,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 0 ms
 ATmega8515,LOW,0x3F,0x10,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 4 ms
@@ -6971,8 +8062,8 @@ ATmega8535,HIGH,0x06,0x02,Select Boot Size: Boot Flash size=512 words Boot addre
 ATmega8535,HIGH,0x06,0x00,Select Boot Size: Boot Flash size=1024 words Boot address=$0C00
 ATmega8535,HIGH,0x01,0x00,Boot Reset vector Enabled
 ATmega8535,HIGH,0x10,0x00,CKOPT fuse (operation dependent of CKSEL fuses)
-ATmega8535,LOW,0x80,0x00,Brown out detector trigger level: Brown-out detection at VCC=4.0 V
-ATmega8535,LOW,0x80,0x80,Brown out detector trigger level: Brown-out detection at VCC=2.7 V
+ATmega8535,LOW,0x80,0x00,Brownout detector trigger level: Brown-out detection at VCC=4.0 V
+ATmega8535,LOW,0x80,0x80,Brownout detector trigger level: Brown-out detection at VCC=2.7 V
 ATmega8535,LOW,0x40,0x00,Brown-out detection enabled
 ATmega8535,LOW,0x3F,0x00,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 0 ms
 ATmega8535,LOW,0x3F,0x10,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 4 ms
@@ -7316,6 +8407,69 @@ ATmega88PA,LOW,0x3F,0x0f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Sta
 ATmega88PA,LOW,0x3F,0x1f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
 ATmega88PA,LOW,0x3F,0x2f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
 ATmega88PA,LOW,0x3F,0x3f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATmega88PB,EXTENDED,0x06,0x06,Select boot size: Boot Flash size=128 words Boot address=$0F80
+ATmega88PB,EXTENDED,0x06,0x04,Select boot size: Boot Flash size=256 words Boot address=$0F00
+ATmega88PB,EXTENDED,0x06,0x02,Select boot size: Boot Flash size=512 words Boot address=$0E00
+ATmega88PB,EXTENDED,0x06,0x00,Select boot size: Boot Flash size=1024 words Boot address=$0C00
+ATmega88PB,EXTENDED,0x01,0x00,Boot Reset vector Enabled
+ATmega88PB,HIGH,0x80,0x00,Reset Disabled (Enable PC6 as i/o pin)
+ATmega88PB,HIGH,0x40,0x00,Debug Wire enable
+ATmega88PB,HIGH,0x20,0x00,Serial program downloading (SPI) enabled
+ATmega88PB,HIGH,0x10,0x00,Watch-dog Timer always on
+ATmega88PB,HIGH,0x08,0x00,Preserve EEPROM through the Chip Erase cycle
+ATmega88PB,HIGH,0x07,0x04,Brown-out Detector trigger level: Brown-out detection at VCC=4.3 V
+ATmega88PB,HIGH,0x07,0x05,Brown-out Detector trigger level: Brown-out detection at VCC=2.7 V
+ATmega88PB,HIGH,0x07,0x06,Brown-out Detector trigger level: Brown-out detection at VCC=1.8 V
+ATmega88PB,HIGH,0x07,0x07,Brown-out Detector trigger level: Brown-out detection disabled
+ATmega88PB,LOW,0x80,0x00,Divide clock by 8 internally
+ATmega88PB,LOW,0x40,0x00,Clock output on PORTB0
+ATmega88PB,LOW,0x3F,0x00,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATmega88PB,LOW,0x3F,0x10,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATmega88PB,LOW,0x3F,0x20,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
+ATmega88PB,LOW,0x3F,0x02,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATmega88PB,LOW,0x3F,0x12,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATmega88PB,LOW,0x3F,0x22,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
+ATmega88PB,LOW,0x3F,0x03,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATmega88PB,LOW,0x3F,0x13,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATmega88PB,LOW,0x3F,0x23,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
+ATmega88PB,LOW,0x3F,0x04,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1K CK/14 CK + 0 ms
+ATmega88PB,LOW,0x3F,0x14,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1K CK/14 CK + 4.1 ms
+ATmega88PB,LOW,0x3F,0x24,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1K CK/14 CK + 65 ms
+ATmega88PB,LOW,0x3F,0x05,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32K CK/14 CK + 0 ms
+ATmega88PB,LOW,0x3F,0x15,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32K CK/14 CK + 4.1 ms
+ATmega88PB,LOW,0x3F,0x25,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32K CK/14 CK + 65 ms
+ATmega88PB,LOW,0x3F,0x08,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATmega88PB,LOW,0x3F,0x18,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATmega88PB,LOW,0x3F,0x28,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATmega88PB,LOW,0x3F,0x38,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATmega88PB,LOW,0x3F,0x09,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATmega88PB,LOW,0x3F,0x19,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATmega88PB,LOW,0x3F,0x29,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATmega88PB,LOW,0x3F,0x39,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATmega88PB,LOW,0x3F,0x0a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATmega88PB,LOW,0x3F,0x1a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATmega88PB,LOW,0x3F,0x2a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATmega88PB,LOW,0x3F,0x3a,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATmega88PB,LOW,0x3F,0x0b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATmega88PB,LOW,0x3F,0x1b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATmega88PB,LOW,0x3F,0x2b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATmega88PB,LOW,0x3F,0x3b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATmega88PB,LOW,0x3F,0x0c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATmega88PB,LOW,0x3F,0x1c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATmega88PB,LOW,0x3F,0x2c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATmega88PB,LOW,0x3F,0x3c,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATmega88PB,LOW,0x3F,0x0d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATmega88PB,LOW,0x3F,0x1d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATmega88PB,LOW,0x3F,0x2d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATmega88PB,LOW,0x3F,0x3d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATmega88PB,LOW,0x3F,0x0e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 4.1 ms
+ATmega88PB,LOW,0x3F,0x1e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 258 CK/14 CK + 65 ms
+ATmega88PB,LOW,0x3F,0x2e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 0 ms
+ATmega88PB,LOW,0x3F,0x3e,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 4.1 ms
+ATmega88PB,LOW,0x3F,0x0f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 1K CK /14 CK + 65 ms
+ATmega88PB,LOW,0x3F,0x1f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
+ATmega88PB,LOW,0x3F,0x2f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
+ATmega88PB,LOW,0x3F,0x3f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
 ATmega8A,HIGH,0x80,0x00,Reset Disabled (Enable PC6 as i/o pin)
 ATmega8A,HIGH,0x40,0x00,Watch-dog Timer always on
 ATmega8A,HIGH,0x20,0x00,Serial program downloading (SPI) enabled
@@ -7326,8 +8480,8 @@ ATmega8A,HIGH,0x06,0x02,Select Boot Size: Boot Flash size=512 words Boot address
 ATmega8A,HIGH,0x06,0x00,Select Boot Size: Boot Flash size=1024 words Boot address=$0C00
 ATmega8A,HIGH,0x01,0x00,Boot Reset vector Enabled
 ATmega8A,HIGH,0x10,0x00,CKOPT fuse (operation dependent of CKSEL fuses)
-ATmega8A,LOW,0x80,0x00,Brown out detector trigger level: Brown-out detection at VCC=4.0 V
-ATmega8A,LOW,0x80,0x80,Brown out detector trigger level: Brown-out detection at VCC=2.7 V
+ATmega8A,LOW,0x80,0x00,Brownout detector trigger level: Brown-out detection at VCC=4.0 V
+ATmega8A,LOW,0x80,0x80,Brownout detector trigger level: Brown-out detection at VCC=2.7 V
 ATmega8A,LOW,0x40,0x00,Brown-out detection enabled
 ATmega8A,LOW,0x3F,0x00,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 0 ms
 ATmega8A,LOW,0x3F,0x10,Select Clock Source: Ext. Clock; Start-up time: 6 CK + 4 ms
@@ -7471,6 +8625,34 @@ ATmega8U2,LOW,0x3F,0x0f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Star
 ATmega8U2,LOW,0x3F,0x1f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time: 16K CK + 0 ms
 ATmega8U2,LOW,0x3F,0x2f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time: 16K CK + 4.1 ms
 ATmega8U2,LOW,0x3F,0x3f,Select Clock Source: Ext. Crystal Osc. 8.0-    MHz; Start-up time: 16K CK + 65 ms
+ATtiny11,LOW,0x10,0x00,Short start-up time selected
+ATtiny11,LOW,0x08,0x00,External reset function of PB5 disabled
+ATtiny11,LOW,0x07,0x07,Clock Select: External Crystal / Ceramic Resonator
+ATtiny11,LOW,0x07,0x06,Clock Select: External Low-frequency Crystal
+ATtiny11,LOW,0x07,0x05,Clock Select: External RC Oscillator
+ATtiny11,LOW,0x07,0x04,Clock Select: Internal RC Oscillator
+ATtiny11,LOW,0x07,0x00,Clock Select: External Clock
+ATtiny12,LOW,0x80,0x80,Brown-out Detection Level: Brown-out detection at VCC=1.8 V
+ATtiny12,LOW,0x80,0x00,Brown-out Detection Level: Brown-out detection at VCC=2.7 V
+ATtiny12,LOW,0x40,0x00,Brown-out Detection Enabled
+ATtiny12,LOW,0x20,0x00,Serial program downloading (SPI) enabled
+ATtiny12,LOW,0x10,0x00,External reset function of PB5 disabled
+ATtiny12,LOW,0x0F,0x0f,Clock Select: External Crystal / Ceramic Resonator
+ATtiny12,LOW,0x0F,0x0e,Clock Select: External Crystal / Ceramic Resonator
+ATtiny12,LOW,0x0F,0x0d,Clock Select: External Crystal / Ceramic Resonator
+ATtiny12,LOW,0x0F,0x0c,Clock Select: External Crystal / Ceramic Resonator
+ATtiny12,LOW,0x0F,0x0b,Clock Select: External Crystal / Ceramic Resonator
+ATtiny12,LOW,0x0F,0x0a,Clock Select: External Crystal / Ceramic Resonator
+ATtiny12,LOW,0x0F,0x09,Clock Select: External Low-Frequency Crystal
+ATtiny12,LOW,0x0F,0x08,Clock Select: External Low-Frequency Crystal
+ATtiny12,LOW,0x0F,0x07,Clock Select: External RC Ocsillator
+ATtiny12,LOW,0x0F,0x06,Clock Select: External RC Ocsillator
+ATtiny12,LOW,0x0F,0x05,Clock Select: External RC Ocsillator
+ATtiny12,LOW,0x0F,0x04,Clock Select: Internal RC Ocsillator
+ATtiny12,LOW,0x0F,0x03,Clock Select: Internal RC Ocsillator
+ATtiny12,LOW,0x0F,0x02,Clock Select: Internal RC Ocsillator
+ATtiny12,LOW,0x0F,0x01,Clock Select: External Clock
+ATtiny12,LOW,0x0F,0x00,Clock Select: External Clock
 ATtiny13,HIGH,0x10,0x00,Self Programming enable
 ATtiny13,HIGH,0x08,0x00,Debug Wire enable
 ATtiny13,HIGH,0x06,0x00,Enable BOD and select level: Brown-out detection at VCC=4.3 V
@@ -7517,6 +8699,15 @@ ATtiny13A,LOW,0x0F,0x0a,Select Clock Source: Int. RC Osc. 9.6 MHz; Start-up time
 ATtiny13A,LOW,0x0F,0x03,Select Clock Source: Int. RC Osc. 128 kHz; Start-up time: 14 CK + 0 ms
 ATtiny13A,LOW,0x0F,0x07,Select Clock Source: Int. RC Osc. 128 kHz; Start-up time: 14 CK + 4 ms
 ATtiny13A,LOW,0x0F,0x0b,Select Clock Source: Int. RC Osc. 128 kHz; Start-up time: 14 CK + 64 ms
+ATtiny15,LOW,0x80,0x80,Brown-out Detection Level: Brown-out detection at VCC=2.7 V
+ATtiny15,LOW,0x80,0x00,Brown-out Detection Level: Brown-out detection at VCC=4.0 V
+ATtiny15,LOW,0x40,0x00,Brown-out Detection Enabled
+ATtiny15,LOW,0x20,0x00,Serial program downloading (SPI) enabled
+ATtiny15,LOW,0x10,0x00,External reset function of PB5 disabled
+ATtiny15,LOW,0x03,0x03,Clock Select: Very quickly rising power
+ATtiny15,LOW,0x03,0x02,Clock Select: Quickly rising power
+ATtiny15,LOW,0x03,0x01,Clock Select: Slowly rising power
+ATtiny15,LOW,0x03,0x00,Clock Select: Slowly rising power
 ATtiny1634,EXTENDED,0x18,0x08,BOD mode of operation when the device is in sleep mode: Sampled
 ATtiny1634,EXTENDED,0x18,0x10,BOD mode of operation when the device is in sleep mode: Enabled
 ATtiny1634,EXTENDED,0x18,0x18,BOD mode of operation when the device is in sleep mode: Disabled
@@ -7900,8 +9091,8 @@ ATtiny25,LOW,0x3F,0x3f,Select Clock source: Ext. Crystal Osc. 8.0-    MHz; Start
 ATtiny26,HIGH,0x10,0x00,Reset Disabled (Enable PB7 as i/o pin)
 ATtiny26,HIGH,0x08,0x00,Serial program downloading (SPI) enabled
 ATtiny26,HIGH,0x04,0x00,Preserve EEPROM through the Chip Erase cycle
-ATtiny26,HIGH,0x02,0x00,Brown out detector trigger level: Brown-out detection at VCC=4.0 V
-ATtiny26,HIGH,0x02,0x02,Brown out detector trigger level: Brown-out detection at VCC=2.7 V
+ATtiny26,HIGH,0x02,0x00,Brownout detector trigger level: Brown-out detection at VCC=4.0 V
+ATtiny26,HIGH,0x02,0x02,Brownout detector trigger level: Brown-out detection at VCC=2.7 V
 ATtiny26,HIGH,0x01,0x00,Brown-out detection enabled
 ATtiny26,LOW,0x40,0x00,CKOPT fuse (operation dependent of CKSEL fuses)
 ATtiny26,LOW,0xBF,0x01,Select Clock Source: PLL Clock; Start-up time: 1K CK + 0 ms
@@ -8094,23 +9285,6 @@ ATtiny261A,LOW,0x3F,0x0f,Select Clock source: Ext. Ceramic Res. 8.0-    MHz; Sta
 ATtiny261A,LOW,0x3F,0x1f,Select Clock source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
 ATtiny261A,LOW,0x3F,0x2f,Select Clock source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
 ATtiny261A,LOW,0x3F,0x3f,Select Clock source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
-ATtiny28,LOW,0x10,0x00,Internal load capacitors between XTAL1/XTAL2 and GND
-ATtiny28,LOW,0x0F,0x0f,Clock Select: External Crystal / Ceramic Resonator
-ATtiny28,LOW,0x0F,0x0e,Clock Select: External Crystal / Ceramic Resonator
-ATtiny28,LOW,0x0F,0x0d,Clock Select: External Crystal / Ceramic Resonator
-ATtiny28,LOW,0x0F,0x0c,Clock Select: External Crystal / Ceramic Resonator
-ATtiny28,LOW,0x0F,0x0b,Clock Select: External Crystal / Ceramic Resonator
-ATtiny28,LOW,0x0F,0x0a,Clock Select: External Crystal / Ceramic Resonator
-ATtiny28,LOW,0x0F,0x09,Clock Select: External Low-Frequency Crystal
-ATtiny28,LOW,0x0F,0x08,Clock Select: External Low-Frequency Crystal
-ATtiny28,LOW,0x0F,0x07,Clock Select: External RC Ocsillator
-ATtiny28,LOW,0x0F,0x06,Clock Select: External RC Ocsillator
-ATtiny28,LOW,0x0F,0x05,Clock Select: External RC Ocsillator
-ATtiny28,LOW,0x0F,0x04,Clock Select: Internal RC Ocsillator
-ATtiny28,LOW,0x0F,0x03,Clock Select: Internal RC Ocsillator
-ATtiny28,LOW,0x0F,0x02,Clock Select: Internal RC Ocsillator
-ATtiny28,LOW,0x0F,0x01,Clock Select: External Clock
-ATtiny28,LOW,0x0F,0x00,Clock Select: External Clock
 ATtiny4313,EXTENDED,0x01,0x00,Self programming enable
 ATtiny4313,HIGH,0x80,0x00,Debug Wire enable
 ATtiny4313,HIGH,0x40,0x00,Preserve EEPROM memory through the Chip Erase cycle
@@ -8287,6 +9461,45 @@ ATtiny44,LOW,0x3F,0x0f,Select Clock source: Ext. Crystal Osc. 8.0-    MHz; Start
 ATtiny44,LOW,0x3F,0x1f,Select Clock source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
 ATtiny44,LOW,0x3F,0x2f,Select Clock source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
 ATtiny44,LOW,0x3F,0x3f,Select Clock source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATtiny441,EXTENDED,0xE0,0xe0,Frequency selection for internal ULP oscillator. The selection only affects system clock, watchdog and reset timeout always use 32 kHz clock.: 32 kHz
+ATtiny441,EXTENDED,0xE0,0xc0,Frequency selection for internal ULP oscillator. The selection only affects system clock, watchdog and reset timeout always use 32 kHz clock.: 64 kHz
+ATtiny441,EXTENDED,0xE0,0xa0,Frequency selection for internal ULP oscillator. The selection only affects system clock, watchdog and reset timeout always use 32 kHz clock.: 128 kHz
+ATtiny441,EXTENDED,0xE0,0x80,Frequency selection for internal ULP oscillator. The selection only affects system clock, watchdog and reset timeout always use 32 kHz clock.: 256 kHz
+ATtiny441,EXTENDED,0xE0,0x60,Frequency selection for internal ULP oscillator. The selection only affects system clock, watchdog and reset timeout always use 32 kHz clock.: 512 kHz
+ATtiny441,EXTENDED,0x18,0x08,BOD mode of operation when the device is in sleep mode: Sampled
+ATtiny441,EXTENDED,0x18,0x10,BOD mode of operation when the device is in sleep mode: Enabled
+ATtiny441,EXTENDED,0x18,0x18,BOD mode of operation when the device is in sleep mode: Disabled
+ATtiny441,EXTENDED,0x06,0x02,BOD mode of operation when the device is active or idle: Sampled
+ATtiny441,EXTENDED,0x06,0x04,BOD mode of operation when the device is active or idle: Enabled
+ATtiny441,EXTENDED,0x06,0x06,BOD mode of operation when the device is active or idle: Disabled
+ATtiny441,EXTENDED,0x01,0x00,Self Programming enable
+ATtiny441,HIGH,0x80,0x00,Reset Disabled (Enable PC2 as i/o pin)
+ATtiny441,HIGH,0x40,0x00,Debug Wire enable
+ATtiny441,HIGH,0x20,0x00,Serial program downloading (SPI) enabled
+ATtiny441,HIGH,0x10,0x00,Watch-dog Timer always on
+ATtiny441,HIGH,0x08,0x00,Preserve EEPROM through the Chip Erase cycle
+ATtiny441,HIGH,0x07,0x04,Brown-out Detector trigger level: Brown-out detection at VCC=4.3 V
+ATtiny441,HIGH,0x07,0x05,Brown-out Detector trigger level: Brown-out detection at VCC=2.7 V
+ATtiny441,HIGH,0x07,0x06,Brown-out Detector trigger level: Brown-out detection at VCC=1.8 V
+ATtiny441,LOW,0x80,0x00,Divide clock by 8 internally
+ATtiny441,LOW,0x40,0x00,Clock output on PORTC2
+ATtiny441,LOW,0x1F,0x00,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/16 CK + 16 ms
+ATtiny441,LOW,0x1F,0x02,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/16 CK + 16 ms
+ATtiny441,LOW,0x1F,0x04,Select Clock Source: Int. ULP Osc.; Start-up time PWRDWN/RESET: 6 CK/16 CK + 16 ms
+ATtiny441,LOW,0x1F,0x06,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1K CK/16 CK + 16 ms
+ATtiny441,LOW,0x1F,0x16,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32K CK/16 CK + 16 ms
+ATtiny441,LOW,0x1F,0x08,Select Clock Source: Ext. Ceramic Res. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 258 CK/16 CK + 16 ms
+ATtiny441,LOW,0x1F,0x18,Select Clock Source: Ext. Ceramic Res. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1K CK/16 CK + 16 ms
+ATtiny441,LOW,0x1F,0x09,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16 K CK/16 CK + 16 ms
+ATtiny441,LOW,0x1F,0x0a,Select Clock Source: Ext. Ceramic Res. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 258 CK/16 CK + 16 ms
+ATtiny441,LOW,0x1F,0x1a,Select Clock Source: Ext. Ceramic Res. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1K CK/16 CK + 16 ms
+ATtiny441,LOW,0x1F,0x0b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16 K CK/16 CK + 16 ms
+ATtiny441,LOW,0x1F,0x0c,Select Clock Source: Ext. Ceramic Res. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 258 CK/16 CK + 16 ms
+ATtiny441,LOW,0x1F,0x1c,Select Clock Source: Ext. Ceramic Res. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1K CK/16 CK + 16 ms
+ATtiny441,LOW,0x1F,0x0d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16 K CK/16 CK + 16 ms
+ATtiny441,LOW,0x1F,0x0e,Select Clock Source: Ext. Ceramic Res. 8.0- MHz; Start-up time PWRDWN/RESET: 258 CK/16 CK + 16 ms
+ATtiny441,LOW,0x1F,0x1e,Select Clock Source: Ext. Ceramic Res. 8.0- MHz; Start-up time PWRDWN/RESET: 1K CK/16 CK + 16 ms
+ATtiny441,LOW,0x1F,0x0f,Select Clock Source: Ext. Crystal Osc. 8.0- MHz; Start-up time PWRDWN/RESET: 16 K CK/16 CK + 16 ms
 ATtiny44A,EXTENDED,0x01,0x00,Self Programming enable
 ATtiny44A,HIGH,0x80,0x00,Reset Disabled (Enable PB3 as i/o pin)
 ATtiny44A,HIGH,0x40,0x00,Debug Wire enable
@@ -8556,6 +9769,31 @@ ATtiny48,LOW,0x3F,0x2e,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PW
 ATtiny48,LOW,0x3F,0x0f,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
 ATtiny48,LOW,0x3F,0x1f,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
 ATtiny48,LOW,0x3F,0x2f,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
+ATtiny80,EXTENDED,0x07,0x04,Brown-out Detector trigger level: Brown-out detection at VCC=4.3 V
+ATtiny80,EXTENDED,0x07,0x05,Brown-out Detector trigger level: Brown-out detection at VCC=2.7 V
+ATtiny80,EXTENDED,0x07,0x06,Brown-out Detector trigger level: Brown-out detection at VCC=1.8 V
+ATtiny80,EXTENDED,0x07,0x07,Brown-out Detector trigger level: Brown-out detection disabled
+ATtiny80,HIGH,0x80,0x00,Reset Disabled (Enable PC6 as i/o pin)
+ATtiny80,HIGH,0x40,0x00,Debug Wire enable
+ATtiny80,HIGH,0x20,0x00,Serial program downloading (SPI) enabled
+ATtiny80,HIGH,0x10,0x00,Watch-dog Timer always on
+ATtiny80,HIGH,0x08,0x00,Preserve EEPROM through the Chip Erase cycle
+ATtiny80,HIGH,0x06,0x06,Select boot size: Boot Flash size=128 words start address=$1F80
+ATtiny80,HIGH,0x06,0x04,Select boot size: Boot Flash size=256 words start address=$1F00
+ATtiny80,HIGH,0x06,0x02,Select boot size: Boot Flash size=512 words start address=$1E00
+ATtiny80,HIGH,0x06,0x00,Select boot size: Boot Flash size=1024 words start address=$1C00
+ATtiny80,HIGH,0x01,0x00,Boot Reset vector Enabled
+ATtiny80,LOW,0x80,0x00,Divide clock by 8 internally
+ATtiny80,LOW,0x40,0x00,Clock output on Port
+ATtiny80,LOW,0x3F,0x00,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATtiny80,LOW,0x3F,0x10,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATtiny80,LOW,0x3F,0x20,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
+ATtiny80,LOW,0x3F,0x02,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATtiny80,LOW,0x3F,0x12,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATtiny80,LOW,0x3F,0x22,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
+ATtiny80,LOW,0x3F,0x03,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATtiny80,LOW,0x3F,0x13,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATtiny80,LOW,0x3F,0x23,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
 ATtiny828,EXTENDED,0x06,0x06,Select boot size: Boot Flash size=128 words Boot address=$0F80
 ATtiny828,EXTENDED,0x06,0x04,Select boot size: Boot Flash size=256 words Boot address=$0F00
 ATtiny828,EXTENDED,0x06,0x02,Select boot size: Boot Flash size=512 words Boot address=$0E00
@@ -8650,6 +9888,70 @@ ATtiny84,LOW,0x3F,0x0f,Select Clock source: Ext. Crystal Osc. 8.0-    MHz; Start
 ATtiny84,LOW,0x3F,0x1f,Select Clock source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 0 ms
 ATtiny84,LOW,0x3F,0x2f,Select Clock source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 4.1 ms
 ATtiny84,LOW,0x3F,0x3f,Select Clock source: Ext. Crystal Osc. 8.0-    MHz; Start-up time PWRDWN/RESET: 16K CK/14 CK + 65 ms
+ATtiny840,EXTENDED,0x07,0x04,Brown-out Detector trigger level: Brown-out detection at VCC=4.3 V
+ATtiny840,EXTENDED,0x07,0x05,Brown-out Detector trigger level: Brown-out detection at VCC=2.7 V
+ATtiny840,EXTENDED,0x07,0x06,Brown-out Detector trigger level: Brown-out detection at VCC=1.8 V
+ATtiny840,EXTENDED,0x07,0x07,Brown-out Detector trigger level: Brown-out detection disabled
+ATtiny840,HIGH,0x80,0x00,Reset Disabled (Enable PC6 as i/o pin)
+ATtiny840,HIGH,0x40,0x00,Debug Wire enable
+ATtiny840,HIGH,0x20,0x00,Serial program downloading (SPI) enabled
+ATtiny840,HIGH,0x10,0x00,Watch-dog Timer always on
+ATtiny840,HIGH,0x08,0x00,Preserve EEPROM through the Chip Erase cycle
+ATtiny840,HIGH,0x06,0x06,Select boot size: Boot Flash size=128 words start address=$1F80
+ATtiny840,HIGH,0x06,0x04,Select boot size: Boot Flash size=256 words start address=$1F00
+ATtiny840,HIGH,0x06,0x02,Select boot size: Boot Flash size=512 words start address=$1E00
+ATtiny840,HIGH,0x06,0x00,Select boot size: Boot Flash size=1024 words start address=$1C00
+ATtiny840,HIGH,0x01,0x00,Boot Reset vector Enabled
+ATtiny840,LOW,0x80,0x00,Divide clock by 8 internally
+ATtiny840,LOW,0x40,0x00,Clock output on Port
+ATtiny840,LOW,0x3F,0x00,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATtiny840,LOW,0x3F,0x10,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATtiny840,LOW,0x3F,0x20,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
+ATtiny840,LOW,0x3F,0x02,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATtiny840,LOW,0x3F,0x12,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATtiny840,LOW,0x3F,0x22,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
+ATtiny840,LOW,0x3F,0x03,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 0 ms
+ATtiny840,LOW,0x3F,0x13,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 4.1 ms
+ATtiny840,LOW,0x3F,0x23,Select Clock Source: Int. RC Osc. 128kHz; Start-up time PWRDWN/RESET: 6 CK/14 CK + 65 ms
+ATtiny841,EXTENDED,0xE0,0xe0,Frequency selection for internal ULP oscillator. The selection only affects system clock, watchdog and reset timeout always use 32 kHz clock.: 32 kHz
+ATtiny841,EXTENDED,0xE0,0xc0,Frequency selection for internal ULP oscillator. The selection only affects system clock, watchdog and reset timeout always use 32 kHz clock.: 64 kHz
+ATtiny841,EXTENDED,0xE0,0xa0,Frequency selection for internal ULP oscillator. The selection only affects system clock, watchdog and reset timeout always use 32 kHz clock.: 128 kHz
+ATtiny841,EXTENDED,0xE0,0x80,Frequency selection for internal ULP oscillator. The selection only affects system clock, watchdog and reset timeout always use 32 kHz clock.: 256 kHz
+ATtiny841,EXTENDED,0xE0,0x60,Frequency selection for internal ULP oscillator. The selection only affects system clock, watchdog and reset timeout always use 32 kHz clock.: 512 kHz
+ATtiny841,EXTENDED,0x18,0x08,BOD mode of operation when the device is in sleep mode: Sampled
+ATtiny841,EXTENDED,0x18,0x10,BOD mode of operation when the device is in sleep mode: Enabled
+ATtiny841,EXTENDED,0x18,0x18,BOD mode of operation when the device is in sleep mode: Disabled
+ATtiny841,EXTENDED,0x06,0x02,BOD mode of operation when the device is active or idle: Sampled
+ATtiny841,EXTENDED,0x06,0x04,BOD mode of operation when the device is active or idle: Enabled
+ATtiny841,EXTENDED,0x06,0x06,BOD mode of operation when the device is active or idle: Disabled
+ATtiny841,EXTENDED,0x01,0x00,Self Programming enable
+ATtiny841,HIGH,0x80,0x00,Reset Disabled (Enable PC2 as i/o pin)
+ATtiny841,HIGH,0x40,0x00,Debug Wire enable
+ATtiny841,HIGH,0x20,0x00,Serial program downloading (SPI) enabled
+ATtiny841,HIGH,0x10,0x00,Watch-dog Timer always on
+ATtiny841,HIGH,0x08,0x00,Preserve EEPROM through the Chip Erase cycle
+ATtiny841,HIGH,0x07,0x04,Brown-out Detector trigger level: Brown-out detection at VCC=4.3 V
+ATtiny841,HIGH,0x07,0x05,Brown-out Detector trigger level: Brown-out detection at VCC=2.7 V
+ATtiny841,HIGH,0x07,0x06,Brown-out Detector trigger level: Brown-out detection at VCC=1.8 V
+ATtiny841,LOW,0x80,0x00,Divide clock by 8 internally
+ATtiny841,LOW,0x40,0x00,Clock output on PORTC2
+ATtiny841,LOW,0x1F,0x00,Select Clock Source: Ext. Clock; Start-up time PWRDWN/RESET: 6 CK/16 CK + 16 ms
+ATtiny841,LOW,0x1F,0x02,Select Clock Source: Int. RC Osc. 8 MHz; Start-up time PWRDWN/RESET: 6 CK/16 CK + 16 ms
+ATtiny841,LOW,0x1F,0x04,Select Clock Source: Int. ULP Osc.; Start-up time PWRDWN/RESET: 6 CK/16 CK + 16 ms
+ATtiny841,LOW,0x1F,0x06,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 1K CK/16 CK + 16 ms
+ATtiny841,LOW,0x1F,0x16,Select Clock Source: Ext. Low-Freq. Crystal; Start-up time PWRDWN/RESET: 32K CK/16 CK + 16 ms
+ATtiny841,LOW,0x1F,0x08,Select Clock Source: Ext. Ceramic Res. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 258 CK/16 CK + 16 ms
+ATtiny841,LOW,0x1F,0x18,Select Clock Source: Ext. Ceramic Res. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 1K CK/16 CK + 16 ms
+ATtiny841,LOW,0x1F,0x09,Select Clock Source: Ext. Crystal Osc. 0.4-0.9 MHz; Start-up time PWRDWN/RESET: 16 K CK/16 CK + 16 ms
+ATtiny841,LOW,0x1F,0x0a,Select Clock Source: Ext. Ceramic Res. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 258 CK/16 CK + 16 ms
+ATtiny841,LOW,0x1F,0x1a,Select Clock Source: Ext. Ceramic Res. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 1K CK/16 CK + 16 ms
+ATtiny841,LOW,0x1F,0x0b,Select Clock Source: Ext. Crystal Osc. 0.9-3.0 MHz; Start-up time PWRDWN/RESET: 16 K CK/16 CK + 16 ms
+ATtiny841,LOW,0x1F,0x0c,Select Clock Source: Ext. Ceramic Res. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 258 CK/16 CK + 16 ms
+ATtiny841,LOW,0x1F,0x1c,Select Clock Source: Ext. Ceramic Res. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 1K CK/16 CK + 16 ms
+ATtiny841,LOW,0x1F,0x0d,Select Clock Source: Ext. Crystal Osc. 3.0-8.0 MHz; Start-up time PWRDWN/RESET: 16 K CK/16 CK + 16 ms
+ATtiny841,LOW,0x1F,0x0e,Select Clock Source: Ext. Ceramic Res. 8.0- MHz; Start-up time PWRDWN/RESET: 258 CK/16 CK + 16 ms
+ATtiny841,LOW,0x1F,0x1e,Select Clock Source: Ext. Ceramic Res. 8.0- MHz; Start-up time PWRDWN/RESET: 1K CK/16 CK + 16 ms
+ATtiny841,LOW,0x1F,0x0f,Select Clock Source: Ext. Crystal Osc. 8.0- MHz; Start-up time PWRDWN/RESET: 16 K CK/16 CK + 16 ms
 ATtiny84A,EXTENDED,0x01,0x00,Self Programming enable
 ATtiny84A,HIGH,0x80,0x00,Reset Disabled (Enable PB3 as i/o pin)
 ATtiny84A,HIGH,0x40,0x00,Debug Wire enable

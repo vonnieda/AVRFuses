@@ -5,23 +5,40 @@
 		<link>http://www.vonnieda.org/AVRFUses/appcast.xml</link>
 		<description>Changes and updates for AVRFuses by Jason von Nieda</description>
 		<language>en</language>
-        <item>
-            <title>Version 1.4.9</title>
-            <pubDate>Mon, 02 Mar 2015 23:38:00 -0700</pubDate>
-            <description>
-                <![CDATA[
-                    <li>Adds the ability to copy text from the log window along with an edit menu for same. Thanks @ascorbic!
-                ]]>
-            </description>
-            
-            <enclosure
-            url="http://vonnieda.org/wp-content/uploads/2008/03/AVRFuses_1.4.9.zip"
-            sparkle:version="1.4.9"
-            type="application/octet-stream"
-            length="966892"
-            sparkle:dsaSignature="MCwCFBS94wfmHiCd8bdv6j/Za2TXu3kFAhQB1IykrVPYsPJkKtvAufphtCHeTQ=="
-            />
-        </item>
+				<item>
+						<title>Version 1.4.10</title>
+						<pubDate>Sun, 03 Apr 2016 14:39:00 -0700</pubDate>
+						<description>
+								<![CDATA[
+										<li>Updates device definitions to latest. No code changes.
+								]]>
+						</description>
+
+						<enclosure
+						url="http://vonnieda.org/wp-content/uploads/2008/03/AVRFuses_1.4.10.zip"
+						sparkle:version="1.4.10"
+						type="application/octet-stream"
+						length="972405"
+						sparkle:dsaSignature="MC0CFAmwf8PGKHXGTuN4CQYhU1t73gRlAhUA0Cym8UcE6NBi0iQQMPk4pqwFWRs="
+						/>
+				</item>
+				<item>
+						<title>Version 1.4.9</title>
+						<pubDate>Mon, 02 Mar 2015 23:38:00 -0700</pubDate>
+						<description>
+								<![CDATA[
+										<li>Adds the ability to copy text from the log window along with an edit menu for same. Thanks @ascorbic!
+								]]>
+						</description>
+
+						<enclosure
+						url="http://vonnieda.org/wp-content/uploads/2008/03/AVRFuses_1.4.9.zip"
+						sparkle:version="1.4.9"
+						type="application/octet-stream"
+						length="966892"
+						sparkle:dsaSignature="MCwCFBS94wfmHiCd8bdv6j/Za2TXu3kFAhQB1IykrVPYsPJkKtvAufphtCHeTQ=="
+						/>
+				</item>
         <item>
             <title>Version 1.4.8</title>
             <pubDate>Sun, 09 Feb 2014 18:43:00 -0700</pubDate>
@@ -32,7 +49,7 @@
                     <li>Makes the window wider by default to account for longer value names.
                 ]]>
             </description>
-            
+
             <enclosure
             url="http://vonnieda.org/wp-content/uploads/2008/03/AVRFuses_1.4.8.zip"
             sparkle:version="1.4.8"
@@ -53,7 +70,7 @@
 					<li>Added bit clock option, needed when programming slower devices with some programmers.
 				]]>
 			</description>
-            
+
 			<enclosure
             url="http://vonnieda.org/wp-content/uploads/2008/03/AVRFuses_1.4.7.zip"
             sparkle:version="1.4.7"
@@ -126,7 +143,7 @@
 				]]>
 			</description>
 			<pubDate>Mon, 17 Dec 2007 00:01:00 +0000</pubDate>
-			<enclosure 
+			<enclosure
 			    url="http://vonnieda.org/wp-content/uploads/2008/03/AVRFuses_1.2.zip"
 			    length="2114849"
 			    type="application/octet-stream"
