@@ -15,7 +15,7 @@
             </description>
             
             <enclosure
-            url="http://www.vonnieda.org/AVRFuses/AVRFuses_1.4.9.zip"
+            url="http://vonnieda.org/wp-content/uploads/2008/03/AVRFuses_1.4.9.zip"
             sparkle:version="1.4.9"
             type="application/octet-stream"
             length="966892"
@@ -34,7 +34,7 @@
             </description>
             
             <enclosure
-            url="http://www.vonnieda.org/AVRFuses/AVRFuses_1.4.8.zip"
+            url="http://vonnieda.org/wp-content/uploads/2008/03/AVRFuses_1.4.8.zip"
             sparkle:version="1.4.8"
             type="application/octet-stream"
             length="962229"
@@ -55,7 +55,7 @@
 			</description>
             
 			<enclosure
-            url="http://www.vonnieda.org/AVRFuses/AVRFuses_1.4.7.zip"
+            url="http://vonnieda.org/wp-content/uploads/2008/03/AVRFuses_1.4.7.zip"
             sparkle:version="1.4.7"
             type="application/octet-stream"
             length="964520"
@@ -76,7 +76,7 @@
 			</description>
 
 			<enclosure
-				url="http://www.vonnieda.org/AVRFuses/AVRFuses_1.4.4.zip"
+				url="http://vonnieda.org/wp-content/uploads/2008/03/AVRFuses_1.4.4.zip"
 				sparkle:version="1.4.4"
 				type="application/octet-stream"
 				length="1755506"
@@ -97,7 +97,11 @@
 				]]>
 			</description>
 			<pubDate>Thu, 6 Mar 2008 00:01:00 +0000</pubDate>
-			<enclosure url="http://www.vonnieda.org/download.jsp?name=http://www.vonnieda.org/AVRFuses/AVRFuses_1.4.zip" length="1091604" type="application/octet-stream"/>
+			<enclosure
+			    url="http://vonnieda.org/wp-content/uploads/2008/03/AVRFuses_1.4.zip"
+			    length="1091604"
+			    type="application/octet-stream"
+			/>
 		</item>
 		<item>
 			<title>Version 1.3</title>
@@ -108,7 +112,11 @@
 				]]>
 			</description>
 			<pubDate>Tue, 18 Dec 2007 00:01:00 +0000</pubDate>
-			<enclosure url="http://www.vonnieda.org/download.jsp?name=http://www.vonnieda.org/AVRFuses/AVRFuses_1.3.zip" length="2114855" type="application/octet-stream"/>
+			<enclosure
+			    url="http://vonnieda.org/wp-content/uploads/2008/03/AVRFuses_1.3.zip"
+			    length="2114855"
+			    type="application/octet-stream"
+			/>
 		</item>
 		<item>
 			<title>Version 1.2</title>
@@ -118,7 +126,11 @@
 				]]>
 			</description>
 			<pubDate>Mon, 17 Dec 2007 00:01:00 +0000</pubDate>
-			<enclosure url="http://www.vonnieda.org/download.jsp?name=http://www.vonnieda.org/AVRFuses/AVRFuses_1.2.zip" length="2114849" type="application/octet-stream"/>
+			<enclosure 
+			    url="http://vonnieda.org/wp-content/uploads/2008/03/AVRFuses_1.2.zip"
+			    length="2114849"
+			    type="application/octet-stream"
+			/>
 		</item>
 	</channel>
 </rss>
