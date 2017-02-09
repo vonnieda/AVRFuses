@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C0903A51E4A606100DDE453 /* Signatures.lst in Resources */ = {isa = PBXBuildFile; fileRef = 8C0903A41E4A606100DDE453 /* Signatures.lst */; };
 		8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
@@ -46,6 +47,7 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32CA4F630368D1EE00C91783 /* AVRFuses_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVRFuses_Prefix.pch; sourceTree = "<group>"; };
+		8C0903A41E4A606100DDE453 /* Signatures.lst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Signatures.lst; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* AVRFuses.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AVRFuses.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		960D606D0B6FE9700018E006 /* AVRFusesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AVRFusesWindowController.h; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8C0903A41E4A606100DDE453 /* Signatures.lst */,
 				96EE8B940FA02F320024B974 /* dsa_pub.pem */,
 				9661E70B0D18340400DFABE4 /* appcast.xml */,
 				962D354B0CFD5922003A6C5A /* AVRFuses2.icns */,
@@ -218,6 +221,7 @@
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				96D8D30A0CEEE5D600C7FDC6 /* AVRFuses.parts in Resources */,
 				96A329570CFBF63900500BA9 /* Credits.rtf in Resources */,
+				8C0903A51E4A606100DDE453 /* Signatures.lst in Resources */,
 				962D354C0CFD5922003A6C5A /* AVRFuses2.icns in Resources */,
 				9661E70C0D18340400DFABE4 /* appcast.xml in Resources */,
 				96EE8B950FA02F320024B974 /* dsa_pub.pem in Resources */,

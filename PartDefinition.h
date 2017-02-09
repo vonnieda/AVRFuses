@@ -38,3 +38,16 @@
 	NSString *text;
 }
 @end
+
+@interface Signature : NSObject <NSCopying>
+{
+    @public
+    unsigned int s1;
+    unsigned int s2;
+    unsigned int s3;
+}
+- (NSString*)description;
+- (BOOL)isEqual: (id)other;
+- (NSUInteger)hash;
+-(id)copyWithZone:(NSZone*)zone;
+@end

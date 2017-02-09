@@ -12,11 +12,13 @@
 	NSMutableArray *fuseSettings;
 	NSMutableArray *lockbitSettings;
 	NSString *avrdudeVersion;
+    NSMutableDictionary *signatures;
 }
 
 - (void)awakeFromNib;
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *) theApplication;
 - (void)loadPartDefinitions;
+- (void)loadSignaturesDefinitions;
 - (void)loadAvrdudeConfigs;
 
 - (BOOL) avrdudeAvailable;
