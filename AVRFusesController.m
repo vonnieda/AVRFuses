@@ -1107,7 +1107,6 @@ seperately or come up with a more generic method of read/writing/verifying/displ
         
         
         NSString *name = [signatures objectForKey:signature];
-        [name autorelease];
         [self log: name];
         [devicePopUpButton selectItemWithTitle: name];
         [self deviceChanged: nil];

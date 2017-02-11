@@ -269,7 +269,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button verticalHuggingPriority="750" misplaced="YES" id="67O-VH-RAx">
-                                                                <rect key="frame" x="306" y="4" width="98" height="32"/>
+                                                                <rect key="frame" x="306" y="3" width="98" height="32"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                                                 <buttonCell key="cell" type="push" title="Autodetect" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dLa-MM-Buf">
                                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
