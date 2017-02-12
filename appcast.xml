@@ -6,6 +6,23 @@
 		<description>Changes and updates for AVRFuses by Jason von Nieda</description>
 		<language>en</language>
 				<item>
+						<title>Version 1.4.11</title>
+						<pubDate>Sun, 12 Feb 2017 08:48:00 -0500</pubDate>
+						<description>
+								<![CDATA[
+										<li>Adds Auto Detect for device type. Thank you to @trol73 for this feature!
+								]]>
+						</description>
+
+						<enclosure
+						url="http://vonnieda.org/wp-content/uploads/2008/03/AVRFuses_1.4.11.zip"
+						sparkle:version="1.4.11"
+						type="application/octet-stream"
+						length="977465"
+						sparkle:dsaSignature="MC0CFQDUMxu/Mfx1Etj84MwWXXhcbTR0xAIUGqVS9EEFjNeg6bZTMOlmmfXooSQ="
+						/>
+				</item>
+				<item>
 						<title>Version 1.4.10</title>
 						<pubDate>Sun, 03 Apr 2016 14:39:00 -0700</pubDate>
 						<description>
