@@ -30,6 +30,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 - (void)awakeFromNib
 {
 	parts = [[NSMutableDictionary alloc] init];
+    signatures = [[NSMutableDictionary alloc] init];
 	selectedPart = nil;
 	fuses = [[NSMutableDictionary alloc] init];
 	fuseSettings = [[NSMutableArray alloc] init];
@@ -39,6 +40,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	[lockbitsTableView setDoubleAction: @selector(tableViewDoubleClick:)];
 	
 	[self loadPartDefinitions];
+    [self loadSignaturesDefinitions];
 
 	NSArray *sortedPartNames = [[parts allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 	for (int i = 0; i < [sortedPartNames count]; i++) {
@@ -164,6 +166,44 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 		[fuse->settings addObject: fuseSetting];
 	}
 	fclose(file);
+}
+
+- (void)loadSignaturesDefinitions
+{
+    NSBundle *thisBundle = [NSBundle mainBundle];
+    char buffer[1000];
+    FILE *file = fopen([[thisBundle pathForResource: @"Signatures" ofType: @"lst"] UTF8String], "r");
+    while(fgets(buffer, 1000, file) != NULL) {
+        NSString *line = [[NSString alloc] initWithCString: buffer encoding:NSUTF8StringEncoding];
+        [line autorelease];
+        NSScanner *scanner = [NSScanner scannerWithString: line];
+        
+        NSString *name = nil;
+        unsigned int signature1 = 0;
+        unsigned int signature2 = 0;
+        unsigned int signature3 = 0;
+        
+        [scanner scanUpToString: @"," intoString: &name];
+        [scanner setScanLocation:[scanner scanLocation] + 1];
+        [scanner scanHexInt: &signature1];
+        [scanner setScanLocation:[scanner scanLocation] + 1];
+        [scanner scanHexInt: &signature2];
+        [scanner setScanLocation:[scanner scanLocation] + 1];
+        [scanner scanHexInt: &signature3];
+        
+        // TODO see if this makes sense since we're adding to arrays and such
+        [name retain];
+        
+        Signature *signature = nil;
+        signature = [[Signature alloc] init];
+        [signature autorelease];
+        signature->s1 = signature1;
+        signature->s2 = signature2;
+        signature->s3 = signature3;
+        
+        [signatures setObject: name forKey: signature];
+    }
+    fclose(file);
 }
 
 
@@ -1008,6 +1048,69 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 		}
 	}
 	[self logStatus:[task terminationStatus] == 0];
+}
+
+- (IBAction)autodetectDevice:(id)sender
+{
+    NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
+    NSMutableArray *avrdudeArguments = [self defaultAvrdudeArguments];
+    
+    [avrdudeArguments addObject: @"-F"];
+    [avrdudeArguments addObject: @"-U"];
+    [avrdudeArguments addObject: @"signature:r:/tmp/SIGNATURE.tmp:h"];
+
+    [self log: @"Reading signature..."];
+    
+    NSTask *task = [[NSTask alloc] init];
+    [task autorelease];
+    [task setLaunchPath: avrdudePath];
+    [task setArguments: avrdudeArguments];
+    NSPipe *pipe = [NSPipe pipe];
+    [task setStandardError: pipe];
+    NSFileHandle *file = [pipe fileHandleForReading];
+    [self logCommandLine:task];
+    [task launch];
+    [task waitUntilExit];
+
+    NSData *data = [file readDataToEndOfFile];
+    NSString *stdErr = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+    [stdErr autorelease];
+    NSArray *stdErrLines = [stdErr componentsSeparatedByString: @"\n"];
+    for (int i = 0; i < [stdErrLines count]; i++) {
+        NSString *line = [stdErrLines objectAtIndex: i];
+        if ([line length] > 0) {
+            [self log: line];
+        }
+    }
+
+    [self logStatus:[task terminationStatus] == 0];
+    
+    if ([task terminationStatus] == 0) {
+        char buffer[1000];
+        FILE *file = fopen("/tmp/SIGNATURE.tmp", "r");
+        fgets(buffer, 1000, file);
+        NSString *line = [[NSString alloc] initWithCString: buffer encoding:NSUTF8StringEncoding];
+        [line autorelease];
+        NSScanner *scanner = [NSScanner scannerWithString: line];
+        NSCharacterSet *separatorSet = [NSCharacterSet characterSetWithCharactersInString:@","];
+        unsigned int signByte1, signByte2, signByte3;
+        [scanner setCharactersToBeSkipped:separatorSet];
+        [scanner scanHexInt: &signByte1];
+        [scanner scanHexInt: &signByte2];
+        [scanner scanHexInt: &signByte3];
+        fclose(file);
+        
+        Signature *signature = [[Signature alloc] init];
+        signature->s1 = signByte1;
+        signature->s2 = signByte2;
+        signature->s3 = signByte3;
+        
+        
+        NSString *name = [signatures objectForKey:signature];
+        [self log: name];
+        [devicePopUpButton selectItemWithTitle: name];
+        [self deviceChanged: nil];
+    }
 }
 
 - (void)tableViewDoubleClick: (NSTableView *) tableView
