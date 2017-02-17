@@ -261,11 +261,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 
 - (IBAction)showPrefs:(id)sender
 {
-	[NSApp beginSheet:prefsWindow
-		modalForWindow:mainWindow 
-		modalDelegate:nil 
-		didEndSelector:nil 
-		contextInfo:nil];
+    [mainWindow beginSheet:prefsWindow completionHandler:nil];
 	
 	[self willChangeValueForKey: @"avrdudeAvailable"];
 	[NSApp runModalForWindow:prefsWindow];
@@ -290,7 +286,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	[openPanel setAllowsMultipleSelection: NO];
 	[openPanel setMessage: @"Type / to browse to hidden directories."];
     [openPanel setDirectoryURL:[NSURL fileURLWithPath:@"/usr/local/bin"]];
-	if ([openPanel runModal] == NSOKButton) {
+	if ([openPanel runModal] == NSModalResponseOK) {
 		[[[NSUserDefaultsController sharedUserDefaultsController] values] setValue: [[openPanel URL] path] forKey: @"avrdudePath"];
 		[self avrdudeChanged: nil];
 	}
@@ -307,7 +303,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	[openPanel setCanChooseDirectories: NO];
 	[openPanel setAllowsMultipleSelection: NO];
     [openPanel setAllowedFileTypes:[NSArray arrayWithObject: @"hex"]];
-	if ([openPanel runModal] == NSOKButton) {
+	if ([openPanel runModal] == NSModalResponseOK) {
 		[[[NSUserDefaultsController sharedUserDefaultsController] values] setValue: [[openPanel URL] path] forKey: @"lastSelectedFlash"];
 	}
 }
@@ -318,7 +314,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	[openPanel setCanChooseDirectories: NO];
 	[openPanel setAllowsMultipleSelection: NO];
     [openPanel setAllowedFileTypes:[NSArray arrayWithObjects: @"hex", @"eep", nil]];
-	if ([openPanel runModal] == NSOKButton) {
+	if ([openPanel runModal] == NSModalResponseOK) {
 		[[[NSUserDefaultsController sharedUserDefaultsController] values] setValue: [[openPanel URL] path] forKey: @"lastSelectedEeprom"];
 	}
 }
@@ -356,7 +352,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	[NSDictionary dictionaryWithObject:[NSColor colorWithDeviceRed:0.0 green:0.0 blue:1.0 alpha:1.0]
 								forKey:NSForegroundColorAttributeName];
 	NSMutableString *s = [NSMutableString stringWithFormat:@"\n%@", [t launchPath]];
-	for (int i = 0, count = [[t arguments] count]; i < count; i++) {
+	for (int i = 0, count = (int) [[t arguments] count]; i < count; i++) {
 		[s appendFormat:@" %@", [[t arguments] objectAtIndex:i]];
 	}
 	[s appendString:@"\n"];
@@ -574,7 +570,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 			NSString *fuseName = [[fuses allKeys] objectAtIndex: i];
 			//NSLog(@"%@", fuseName);
 			char buffer[1000];
-			FILE *file = fopen([[NSString stringWithFormat: @"/tmp/%@.tmp", fuseName] cString], "r");
+			FILE *file = fopen([[NSString stringWithFormat: @"/tmp/%@.tmp", fuseName] UTF8String], "r");
 			fgets(buffer, 1000, file);
 			NSString *line = [[NSString alloc] initWithCString: buffer encoding:NSUTF8StringEncoding];
             [line autorelease];
@@ -1230,10 +1226,10 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 - (int)numberOfRowsInTableView:(NSTableView *)tableView
 {
 	if (tableView == fusesTableView) {
-		return [fuseSettings count];
+		return (int) [fuseSettings count];
 	}
 	else if (tableView == lockbitsTableView) {
-		return [lockbitSettings count];
+		return (int) [lockbitSettings count];
 	}
 	return 0;
 }

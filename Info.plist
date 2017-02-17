@@ -9,7 +9,7 @@
 	<key>CFBundleIconFile</key>
 	<string>AVRFuses2</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.vonnieda.AVRFuses</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -18,25 +18,25 @@
 	<string>APPL</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>SUPublicDSAKeyFile</key>
-	<string>dsa_pub.pem</string>
 	<key>CFBundleVersion</key>
 	<string>1.4.11</string>
-	<key>NSMainNibFile</key>
-	<string>MainMenu</string>
-	<key>NSPrincipalClass</key>
-	<string>NSApplication</string>
-	<key>SUFeedURL</key>
-	<string>http://www.vonnieda.org/AVRFuses/appcast.xml</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSMainNibFile</key>
+	<string>MainMenu</string>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
 	<key>RegistrationDefaults</key>
 	<dict>
 		<key>SUCheckAtStartup</key>
 		<true/>
 	</dict>
+	<key>SUFeedURL</key>
+	<string>http://www.vonnieda.org/AVRFuses/appcast.xml</string>
+	<key>SUPublicDSAKeyFile</key>
+	<string>dsa_pub.pem</string>
 </dict>
 </plist>
