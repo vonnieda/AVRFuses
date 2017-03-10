@@ -1105,11 +1105,15 @@ seperately or come up with a more generic method of read/writing/verifying/displ
         signature->s2 = signByte2;
         signature->s3 = signByte3;
         
-        
         NSString *name = [signatures objectForKey:signature];
         [self log: name];
-        [devicePopUpButton selectItemWithTitle: name];
-        [self deviceChanged: nil];
+        NSInteger index = [devicePopUpButton indexOfItemWithTitle: name];
+        if (index >= 0) {
+            [devicePopUpButton selectItemAtIndex: index];
+            [self deviceChanged: nil];
+        } else {
+            [self log: @"Device not found"];
+        }
     }
 }
 
