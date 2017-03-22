@@ -6,6 +6,23 @@
 		<description>Changes and updates for AVRFuses by Jason von Nieda</description>
 		<language>en</language>
 				<item>
+						<title>Version 1.4.12</title>
+						<pubDate>Mon, 6 Mar 2017 08:48:00 -0500</pubDate>
+						<description>
+								<![CDATA[
+										<li>Rebuild of 1.4.11 with support for older versions of OS X.
+								]]>
+						</description>
+
+						<enclosure
+						url="http://vonnieda.org/wp-content/uploads/2008/03/AVRFuses_1.4.12.zip"
+						sparkle:version="1.4.12"
+						type="application/octet-stream"
+						length="968034"
+						sparkle:dsaSignature="MC0CFB7Nslw7G58B/io01z02Sc1gyLIwAhUAxziI0FbfAr4wxJUl6d/Q2QnBBBo="
+						/>
+				</item>
+				<item>
 						<title>Version 1.4.11</title>
 						<pubDate>Sun, 12 Feb 2017 08:48:00 -0500</pubDate>
 						<description>
