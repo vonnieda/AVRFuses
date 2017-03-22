@@ -6,6 +6,23 @@
 		<description>Changes and updates for AVRFuses by Jason von Nieda</description>
 		<language>en</language>
 				<item>
+						<title>Version 1.4.13</title>
+						<pubDate>Mon, 21 Mar 2017 20:00:00 -0500</pubDate>
+						<description>
+								<![CDATA[
+										<li>Fixes a crash in the auto detect function.
+								]]>
+						</description>
+
+						<enclosure
+						url="http://vonnieda.org/wp-content/uploads/2008/03/AVRFuses_1.4.13.zip"
+						sparkle:version="1.4.13"
+						type="application/octet-stream"
+						length="968187"
+						sparkle:dsaSignature="MC4CFQDEgqQzkd6J0PXGhpwpTfe4qYSCXgIVAKSI2bRQjPmAA92F79A55p8l39Mi"
+						/>
+				</item>
+				<item>
 						<title>Version 1.4.12</title>
 						<pubDate>Mon, 6 Mar 2017 08:48:00 -0500</pubDate>
 						<description>
