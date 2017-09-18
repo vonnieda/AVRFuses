@@ -276,6 +276,9 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 
 - (IBAction)closePrefs:(id)sender
 {
+    [NSApp endSheet:prefsWindow];
+    [prefsWindow orderOut:self];
+    [self loadAvrdudeConfigs];
 	[NSApp stopModal];
 }
 
@@ -423,10 +426,14 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 		[alert setMessageText: @"Unable to execute avrdude."];
 		[alert setInformativeText: @"Check that the path to avrdude is correct and that you are able to execute it normally."];
 		[alert addButtonWithTitle: @"OK"];
-		[alert beginSheetModalForWindow: ([prefsWindow isVisible] ? prefsWindow : mainWindow)
-			modalDelegate: nil 
-			didEndSelector: nil
-			contextInfo: nil];
+        [alert beginSheetModalForWindow:([prefsWindow isVisible] ? prefsWindow : mainWindow)
+                      completionHandler: nil
+         ];
+//        [alert beginSheetModalForWindow: ([prefsWindow isVisible] ? prefsWindow : mainWindow)
+//                    modalDelegate: nil
+//                    didEndSelector: nil
+//                    contextInfo: nil];
+    
 	NS_ENDHANDLER
 	
 	if (avrdudeVersion) {
@@ -842,13 +849,13 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	[self logStatus:[task terminationStatus] == 0];
 }
 
-- (void) readFlashAlertDidEnd: (NSAlert *) alert returnCode: (int) returnCode contextInfo: (void *) contextInfo
-{
-	[[alert window] orderOut: self];
-	if (returnCode == NSAlertFirstButtonReturn) {
-		[self readFlash: nil];
-	}
-}
+//- (void) readFlashAlertDidEnd: (NSAlert *) alert returnCode: (int) returnCode contextInfo: (void *) contextInfo
+//{
+//	[[alert window] orderOut: self];
+//	if (returnCode == NSAlertFirstButtonReturn) {
+//		[self readFlash: nil];
+//	}
+//}
 
 - (IBAction)readFlash:(id)sender
 {
@@ -861,10 +868,17 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 		[alert setInformativeText: @"A file or folder with the same name already exists. Replacing it will overwrite it's current contents."];
 		[alert addButtonWithTitle: @"Replace"];
 		[alert addButtonWithTitle: @"Cancel"];
-		[alert beginSheetModalForWindow: mainWindow 
-			modalDelegate: self 
-			didEndSelector: @selector(readFlashAlertDidEnd:returnCode:contextInfo:) 
-			contextInfo: nil];
+        [alert beginSheetModalForWindow: mainWindow
+                      completionHandler: ^(NSModalResponse returnCode) {
+                          [[alert window] orderOut: self];
+                          if (returnCode == NSAlertFirstButtonReturn) {
+                              [self readFlash: nil];
+                          }
+                      }];
+//		[alert beginSheetModalForWindow: mainWindow 
+//			modalDelegate: self 
+//			didEndSelector: @selector(readFlashAlertDidEnd:returnCode:contextInfo:) 
+//			contextInfo: nil];
 		return;
 	}
 
@@ -961,13 +975,13 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	[self logStatus:[task terminationStatus] == 0];
 }
 
-- (void) readEepromAlertDidEnd: (NSAlert *) alert returnCode: (int) returnCode contextInfo: (void *) contextInfo
-{
-	[[alert window] orderOut: self];
-	if (returnCode == NSAlertFirstButtonReturn) {
-		[self readEeprom: nil];
-	}
-}
+//- (void) readEepromAlertDidEnd: (NSAlert *) alert returnCode: (int) returnCode contextInfo: (void *) contextInfo
+//{
+//	[[alert window] orderOut: self];
+//	if (returnCode == NSAlertFirstButtonReturn) {
+//		[self readEeprom: nil];
+//	}
+//}
 
 - (IBAction)readEeprom:(id)sender
 {
@@ -980,10 +994,17 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 		[alert setInformativeText: @"A file or folder with the same name already exists. Replacing it will overwrite it's current contents."];
 		[alert addButtonWithTitle: @"Replace"];
 		[alert addButtonWithTitle: @"Cancel"];
-		[alert beginSheetModalForWindow: mainWindow 
-			modalDelegate: self 
-			didEndSelector: @selector(readEepromAlertDidEnd:returnCode:contextInfo:) 
-			contextInfo: nil];
+//		[alert beginSheetModalForWindow: mainWindow 
+//			modalDelegate: self 
+//			didEndSelector: @selector(readEepromAlertDidEnd:returnCode:contextInfo:) 
+//			contextInfo: nil];
+        [alert beginSheetModalForWindow: mainWindow
+                completionHandler: ^(NSModalResponse returnCode) {
+                    [[alert window] orderOut: self];
+                    if (returnCode == NSAlertFirstButtonReturn) {
+                        [self readEeprom: nil];
+                    }
+                }];
 		return;
 	}
 	
