@@ -15,14 +15,18 @@
     NSMutableDictionary *signatures;
 }
 
+@property (atomic, assign) BOOL avrdudeOperationInProgress;
+
 - (void)awakeFromNib;
-- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *) theApplication;
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication * _Nullable) theApplication;
 - (void)loadPartDefinitions;
 - (void)loadSignaturesDefinitions;
 - (void)loadAvrdudeConfigs;
 
 - (BOOL) avrdudeAvailable;
 
-- (NSString *)getNextSerialPort:(io_iterator_t)serialPortIterator;
-- (void)addAllSerialPortsToArray:(NSMutableArray *)array;
+- (NSString * _Nullable)getNextSerialPort:(io_iterator_t)serialPortIterator;
+- (void)addAllSerialPortsToArray:(NSMutableArray * _Nonnull)array;
+
+- (void) execAvrdude: (NSMutableArray * _Nonnull)avrdudeArguments completionHandler:(void (^ _Nullable)(int returnCode))handler;
 @end
