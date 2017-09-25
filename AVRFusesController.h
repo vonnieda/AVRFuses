@@ -13,6 +13,8 @@
 	NSMutableArray *lockbitSettings;
 	NSString *avrdudeVersion;
     NSMutableDictionary *signatures;
+    
+    NSString *editedProjectName;
 }
 
 @property (atomic, assign) BOOL avrdudeOperationInProgress;
@@ -24,9 +26,10 @@
 - (void)loadAvrdudeConfigs;
 
 - (BOOL) avrdudeAvailable;
+- (BOOL) canSaveProject;
 
 - (NSString * _Nullable)getNextSerialPort:(io_iterator_t)serialPortIterator;
 - (void)addAllSerialPortsToArray:(NSMutableArray * _Nonnull)array;
 
-- (void) execAvrdude: (NSMutableArray * _Nonnull)avrdudeArguments completionHandler:(void (^ _Nullable)(int returnCode))handler;
+- (void)execAvrdude: (NSMutableArray * _Nonnull)avrdudeArguments completionHandler:(void (^ _Nullable)(int returnCode))handler;
 @end

@@ -22,6 +22,10 @@
 {
 }
 
+- (IBAction)autodetectDevice:(id)sender
+{
+}
+
 - (IBAction)programFuses:(id)sender
 {
 }
@@ -92,4 +96,26 @@
     
 }
 
+- (IBAction)clearLog:(id)sender {
+}
+
+- (IBAction)copyLog:(id)sender {
+}
+
+- (IBAction)newProject:(id)sender {
+}
+
+- (IBAction)closeProjectDialog:(id)sender {
+}
+
+- (IBAction)saveProject:(id)sender {
+}
+
+- (IBAction)deleteProject:(id)sender {
+}
+
+- (IBAction)projectBrowseFlash:(id)sender {
+}
+- (IBAction)projectBrowseEeprom:(id)sender {
+}
 @end

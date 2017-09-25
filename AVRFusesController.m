@@ -46,6 +46,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	for (int i = 0; i < [sortedPartNames count]; i++) {
 		NSString *partName = [sortedPartNames objectAtIndex: i];
 		[devicePopUpButton addItemWithTitle: partName];
+        [projectDevicePopUpButton addItemWithTitle: partName];
 	}
 	
 	if ([[NSUserDefaults standardUserDefaults] stringForKey: @"lastSelectedPart"] != nil) {
@@ -90,6 +91,9 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 		[self loadAvrdudeConfigs];
 	}
     self.avrdudeOperationInProgress = NO;
+    [self updateProjectsMenu];
+    
+    [projectNameTextField setDelegate: self];
 }
 
 - (void)loadPartDefinitions
@@ -1139,4 +1143,216 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 		NSLog(@"IOServiceMatching returned a NULL dictionary.");
 	}
 }
+
+- (IBAction)clearLog:(id)sender {
+    logTextView.string = @"";
+}
+
+- (IBAction)copyLog:(id)sender {
+    [logTextView copy:self];
+}
+
+- (void)prepareNewProjectWindow {
+    [projectDevicePopUpButton selectItemWithTitle: devicePopUpButton.selectedItem.title];
+    editedProjectName = nil;
+    
+    NSString *path = [[NSUserDefaults standardUserDefaults] stringForKey: @"lastSelectedFlash"];
+    if (path == nil) {
+        path = @"";
+    }
+    NSString *projectName = [[path lastPathComponent] stringByDeletingPathExtension];
+    projectNameTextField.stringValue = projectName;
+
+    [projectFlashTextField setStringValue: path];
+    path = [[NSUserDefaults standardUserDefaults] stringForKey: @"lastSelectedEeprom"];
+    if (path == nil) {
+        path = @"";
+    }
+    [projectEepromTextField setStringValue: path];
+    
+    for (int i = 0; i < [[fuses allKeys] count]; i++) {
+        NSString *fuseName = [[fuses allKeys] objectAtIndex: i];
+        unsigned char fuseValue = [[fuses objectForKey: fuseName] unsignedCharValue];
+        if ([fuseName isEqualToString: @"EXTENDED"]) {
+            self->projectExtFuseTextField.stringValue = [NSString stringWithFormat:@"0x%02x", fuseValue];
+        } else if ([fuseName isEqualToString: @"LOW"]) {
+            self->projectLowFuseTextField.stringValue = [NSString stringWithFormat:@"0x%02x", fuseValue];
+        } else if ([fuseName isEqualToString: @"HIGH"]) {
+            self->projectHighFuseTextField.stringValue = [NSString stringWithFormat:@"0x%02x", fuseValue];
+        }
+    }
+    projectDeleteButton.hidden = YES;
+}
+
+- (void)prepareEditProjectWindow: (NSString*) name
+{
+    editedProjectName = name;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *projects = [defaults dictionaryForKey: @"projects"];
+    NSDictionary *project = projects[name];
+    
+    projectNameTextField.stringValue = project[@"name"];
+    [projectDevicePopUpButton selectItemWithTitle: project[@"device"]];
+    projectFlashTextField.stringValue = project[@"flash"];
+    projectEepromTextField.stringValue = project[@"eeprom"];
+    projectExtFuseTextField.stringValue = project[@"fuse-e"];
+    projectLowFuseTextField.stringValue = project[@"fuse-l"];
+    projectHighFuseTextField.stringValue = project[@"fuse-h"];
+    
+    [self projectDeviceChanged: nil];
+    projectDeleteButton.hidden = NO;
+}
+
+- (void)updateProjectsMenu
+{
+    while (projectsMenu.numberOfItems > 3) {
+        [projectsMenu removeItemAtIndex: 3];
+    }
+    [projectsEditMenu removeAllItems];
+    
+    NSDictionary *projects = [[NSUserDefaults standardUserDefaults] dictionaryForKey: @"projects"];
+    for (id key in projects) {
+        [projectsMenu addItemWithTitle: projects[key][@"name"] action: @selector(openProject:) keyEquivalent: @""];
+        [projectsEditMenu addItemWithTitle: projects[key][@"name"] action: @selector(editProject:) keyEquivalent: @""];
+    }
+    [[NSApp mainMenu] update];
+}
+
+- (IBAction)openProject: (id)sender
+{
+    NSString *name = [sender title];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *projects = [defaults dictionaryForKey: @"projects"];
+    NSDictionary *project = projects[name];
+    
+    [devicePopUpButton selectItemWithTitle: project[@"device"]];
+    [self deviceChanged: nil];
+    
+    [[[NSUserDefaultsController sharedUserDefaultsController] values] setValue: project[@"flash"] forKey: @"lastSelectedFlash"];
+    [[[NSUserDefaultsController sharedUserDefaultsController] values] setValue: project[@"eeprom"] forKey: @"lastSelectedEeprom"];
+    efuseText.stringValue = project[@"fuse-e"];
+    [self efuseTextUpdated: nil];
+    lfuseText.stringValue = project[@"fuse-l"];
+    [self lfuseTextUpdated: nil];
+    hfuseText.stringValue = project[@"fuse-h"];
+    [self hfuseTextUpdated: nil];
+}
+
+- (IBAction)editProject: (id)sender
+{
+    NSString *name = [sender title];
+    [self prepareEditProjectWindow: name];
+    [mainWindow beginSheet:projectWindow completionHandler:nil];
+    [NSApp runModalForWindow:projectWindow];
+    
+    [NSApp endSheet:projectWindow];
+}
+
+- (IBAction)newProject:(id)sender
+{
+    [self prepareNewProjectWindow];
+    [mainWindow beginSheet:projectWindow completionHandler:nil];
+    [NSApp runModalForWindow:projectWindow];
+    
+    [NSApp endSheet:projectWindow];
+}
+
+- (IBAction)closeProjectDialog:(id)sender
+{
+    [NSApp endSheet:projectWindow];
+    [projectWindow orderOut:self];
+    [NSApp stopModal];
+}
+
+- (IBAction)projectDeviceChanged:(id)sender
+{
+    PartDefinition *part = [parts objectForKey: [[projectDevicePopUpButton selectedItem] title]];
+    
+    BOOL hasLowFuses = [part->fuses objectForKey:@"LOW"] != nil;
+    BOOL hasHighFuses = [part->fuses objectForKey:@"HIGH"] != nil;
+    BOOL hasExtFuses = [part->fuses objectForKey:@"EXTENDED"] != nil;
+    projectLowFuseTextField.hidden = !hasLowFuses;
+    projectHighFuseTextField.hidden = !hasHighFuses;
+    projectExtFuseTextField.hidden = !hasExtFuses;
+    projectLowFuseTextLabel.hidden = !hasLowFuses;
+    projectHighFuseTextLabel.hidden = !hasHighFuses;
+    projectExtFuseTextLabel.hidden = !hasExtFuses;
+}
+
+
+- (IBAction)saveProject:(id)sender
+{
+    NSString *projectName = projectNameTextField.stringValue;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *projects = [defaults dictionaryForKey: @"projects"];
+    NSMutableDictionary *mutProjects = [[NSMutableDictionary alloc] initWithDictionary:projects copyItems:false];
+    if (projects == nil) {
+        projects = @{};
+    }
+    NSDictionary *prj = @{
+                          @"name": projectNameTextField.stringValue,
+                          @"device": projectDevicePopUpButton.title,
+                          @"flash": projectFlashTextField.stringValue,
+                          @"eeprom": projectEepromTextField.stringValue,
+                          @"fuse-h": projectHighFuseTextField.stringValue,
+                          @"fuse-l": projectLowFuseTextField.stringValue,
+                          @"fuse-e": projectExtFuseTextField.stringValue
+                          };
+    mutProjects[projectName] = prj;
+    if (![editedProjectName isEqualToString: projectName] && [mutProjects doesContain: editedProjectName]) {
+        [mutProjects removeObjectForKey:editedProjectName];
+    }
+    [defaults setObject:mutProjects forKey: @"projects"];
+    [NSApp endSheet:projectWindow];
+    [projectWindow orderOut:self];
+    [NSApp stopModal];
+    [self updateProjectsMenu];
+}
+
+- (IBAction)deleteProject:(id)sender
+{
+    [NSApp endSheet:projectWindow];
+    [projectWindow orderOut:self];
+    [NSApp stopModal];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *projects = [defaults dictionaryForKey: @"projects"];
+    if (projects != nil && editedProjectName != nil) {
+        NSMutableDictionary *mutProjects = [[NSMutableDictionary alloc] initWithDictionary:projects copyItems:false];
+        [mutProjects removeObjectForKey:editedProjectName];
+        [defaults setObject:mutProjects forKey: @"projects"];
+        [self updateProjectsMenu];
+    }
+}
+
+- (void)controlTextDidChange:(NSNotification *)notification {
+    if (notification.object == projectNameTextField) {
+        NSString *trimmedName = [projectNameTextField.stringValue stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
+        projectOkButton.enabled = ![trimmedName isEqualToString: @""];
+    }
+}
+
+- (IBAction)projectBrowseFlash:(id)sender
+{
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    [openPanel setCanChooseDirectories: NO];
+    [openPanel setAllowsMultipleSelection: NO];
+    [openPanel setAllowedFileTypes:[NSArray arrayWithObject: @"hex"]];
+    if ([openPanel runModal] == NSModalResponseOK) {
+        projectFlashTextField.stringValue = openPanel.URL.path;
+    }
+}
+
+- (IBAction)projectBrowseEeprom:(id)sender
+{
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    [openPanel setCanChooseDirectories: NO];
+    [openPanel setAllowsMultipleSelection: NO];
+    [openPanel setAllowedFileTypes:[NSArray arrayWithObjects: @"hex", @"eep", nil]];
+    if ([openPanel runModal] == NSModalResponseOK) {
+        projectEepromTextField.stringValue = openPanel.URL.path;
+    }
+}
+
+
 @end
