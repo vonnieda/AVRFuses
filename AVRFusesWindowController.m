@@ -116,6 +116,13 @@
 
 - (IBAction)projectBrowseFlash:(id)sender {
 }
+
 - (IBAction)projectBrowseEeprom:(id)sender {
+}
+
+- (IBAction)editProject: (id)sender {
+}
+
+- (IBAction)openProject: (id)sender {
 }
 @end

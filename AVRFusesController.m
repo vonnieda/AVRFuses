@@ -337,7 +337,20 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 
 - (void)log:(NSString *)s
 {
-	[self log:s withAttributes:[NSDictionary dictionary]];
+    [self log:s withAttributes:[NSDictionary dictionary]];
+}
+
+- (void)appendLog:(NSString *)s
+{
+	[self appendLog:s withAttributes:[NSDictionary dictionary]];
+}
+
+- (void)appendLog:(NSString *)s withAttributes:(NSDictionary *)attributes
+{
+    NSAttributedString *a = [[NSAttributedString alloc] initWithString:s attributes:attributes];
+    [a autorelease];
+    [[logTextView textStorage] appendAttributedString: a];
+    [logTextView scrollRangeToVisible: NSMakeRange([[logTextView textStorage] length], [[logTextView textStorage] length])];
 }
 
 - (void)logStatus:(BOOL)status
@@ -470,7 +483,8 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	}
 	[avrdudeArguments addObject: @"-p"];
 	[avrdudeArguments addObject: selectedPart->name];
-	[avrdudeArguments addObject: @"-qq"];
+	//[avrdudeArguments addObject: @"-qq"];
+    [avrdudeArguments addObject: @"-s"];
     if (avrdudeBitClock != nil && [avrdudeBitClock length] > 0) {
         [avrdudeArguments addObject: @"-B"];
         [avrdudeArguments addObject: avrdudeBitClock];
@@ -500,7 +514,17 @@ seperately or come up with a more generic method of read/writing/verifying/displ
             [self logCommandLine:task];
         });
         [task launch];
-        [task waitUntilExit];
+        while (task.running) {
+            [NSThread sleepForTimeInterval:0.005f];
+            //NSData *data = [file readDataToEndOfFile];
+            NSData *data = [file availableData];
+            NSString *stdErr = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self appendLog: stdErr];
+             });
+            [stdErr autorelease];
+        }
+        //[task waitUntilExit];
 
         dispatch_async(dispatch_get_main_queue(), ^{
             [self willChangeValueForKey: @"avrdudeAvailable"];
@@ -916,8 +940,10 @@ seperately or come up with a more generic method of read/writing/verifying/displ
             signature->s3 = signByte3;
             
             NSString *name = [signatures objectForKey:signature];
-            [self log: name];
-            NSInteger index = [devicePopUpButton indexOfItemWithTitle: name];
+            if (name != nil) {
+                [self log: name];
+            }
+            NSInteger index = name != nil ? [devicePopUpButton indexOfItemWithTitle: name] : -1;
             if (index >= 0) {
                 [devicePopUpButton selectItemAtIndex: index];
                 [self deviceChanged: nil];
@@ -1285,7 +1311,9 @@ seperately or come up with a more generic method of read/writing/verifying/displ
     NSString *projectName = projectNameTextField.stringValue;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *projects = [defaults dictionaryForKey: @"projects"];
+    [projects autorelease];
     NSMutableDictionary *mutProjects = [[NSMutableDictionary alloc] initWithDictionary:projects copyItems:false];
+    [mutProjects autorelease];
     if (projects == nil) {
         projects = @{};
     }
@@ -1317,8 +1345,10 @@ seperately or come up with a more generic method of read/writing/verifying/displ
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *projects = [defaults dictionaryForKey: @"projects"];
+    [projects autorelease];
     if (projects != nil && editedProjectName != nil) {
         NSMutableDictionary *mutProjects = [[NSMutableDictionary alloc] initWithDictionary:projects copyItems:false];
+        [mutProjects autorelease];
         [mutProjects removeObjectForKey:editedProjectName];
         [defaults setObject:mutProjects forKey: @"projects"];
         [self updateProjectsMenu];

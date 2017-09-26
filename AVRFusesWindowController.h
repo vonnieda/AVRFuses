@@ -2,7 +2,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface AVRFusesWindowController : NSObject
+@interface AVRFusesWindowController : NSObject <NSTextFieldDelegate>
 {
     IBOutlet NSPopUpButton *devicePopUpButton;
     IBOutlet NSTableView *fusesTableView;

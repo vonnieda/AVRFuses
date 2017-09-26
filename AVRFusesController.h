@@ -26,7 +26,6 @@
 - (void)loadAvrdudeConfigs;
 
 - (BOOL) avrdudeAvailable;
-- (BOOL) canSaveProject;
 
 - (NSString * _Nullable)getNextSerialPort:(io_iterator_t)serialPortIterator;
 - (void)addAllSerialPortsToArray:(NSMutableArray * _Nonnull)array;
