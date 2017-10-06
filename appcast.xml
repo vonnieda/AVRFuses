@@ -6,6 +6,25 @@
 		<description>Changes and updates for AVRFuses by Jason von Nieda</description>
 		<language>en</language>
 				<item>
+						<title>Version 1.5.0</title>
+						<pubDate>Fri, 6 Oct 2017 20:00:00 -0500</pubDate>
+						<description>
+								<![CDATA[
+										<li>Adds a new Projects menu that makes it easy to manage settings for various projects.
+										<li>avrdude now runs in the background so that the UI does not lock up during operations.
+										<li>Thank you to @trol73 for these nice improvements!
+								]]>
+						</description>
+
+						<enclosure
+						url="http://vonnieda.org/wp-content/uploads/2008/03/AVRFuses_1.5.0.zip"
+						sparkle:version="1.5.0"
+						type="application/octet-stream"
+						length="977939"
+						sparkle:dsaSignature="MC0CFQC/JZk+OAUbJ69wpjb34HkYzz6RDgIUAgiqJ37krFzjH1RDtf7qYzAa3+8="
+						/>
+				</item>
+				<item>
 						<title>Version 1.4.13</title>
 						<pubDate>Mon, 21 Mar 2017 20:00:00 -0500</pubDate>
 						<description>
