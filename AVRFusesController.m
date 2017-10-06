@@ -46,6 +46,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	for (int i = 0; i < [sortedPartNames count]; i++) {
 		NSString *partName = [sortedPartNames objectAtIndex: i];
 		[devicePopUpButton addItemWithTitle: partName];
+        [projectDevicePopUpButton addItemWithTitle: partName];
 	}
 	
 	if ([[NSUserDefaults standardUserDefaults] stringForKey: @"lastSelectedPart"] != nil) {
@@ -89,6 +90,10 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	else {
 		[self loadAvrdudeConfigs];
 	}
+    self.avrdudeOperationInProgress = NO;
+    [self updateProjectsMenu];
+    
+    [projectNameTextField setDelegate: self];
 }
 
 - (void)loadPartDefinitions
@@ -276,6 +281,9 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 
 - (IBAction)closePrefs:(id)sender
 {
+    [NSApp endSheet:prefsWindow];
+    [prefsWindow orderOut:self];
+    [self loadAvrdudeConfigs];
 	[NSApp stopModal];
 }
 
@@ -329,7 +337,20 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 
 - (void)log:(NSString *)s
 {
-	[self log:s withAttributes:[NSDictionary dictionary]];
+    [self log:s withAttributes:[NSDictionary dictionary]];
+}
+
+- (void)appendLog:(NSString *)s
+{
+	[self appendLog:s withAttributes:[NSDictionary dictionary]];
+}
+
+- (void)appendLog:(NSString *)s withAttributes:(NSDictionary *)attributes
+{
+    NSAttributedString *a = [[NSAttributedString alloc] initWithString:s attributes:attributes];
+    [a autorelease];
+    [[logTextView textStorage] appendAttributedString: a];
+    [logTextView scrollRangeToVisible: NSMakeRange([[logTextView textStorage] length], [[logTextView textStorage] length])];
 }
 
 - (void)logStatus:(BOOL)status
@@ -363,8 +384,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 {
 	NSString *avrdudeConfig = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudeConfig"];
 	NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
-
-	return (avrdudePath && avrdudeConfig && avrdudeVersion);
+	return (avrdudePath && avrdudeConfig && avrdudeVersion) && !self.avrdudeOperationInProgress;
 }
 
 - (void)loadAvrdudeConfigs
@@ -423,12 +443,12 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 		[alert setMessageText: @"Unable to execute avrdude."];
 		[alert setInformativeText: @"Check that the path to avrdude is correct and that you are able to execute it normally."];
 		[alert addButtonWithTitle: @"OK"];
-		[alert beginSheetModalForWindow: ([prefsWindow isVisible] ? prefsWindow : mainWindow)
-			modalDelegate: nil 
-			didEndSelector: nil
-			contextInfo: nil];
+        [alert beginSheetModalForWindow:([prefsWindow isVisible] ? prefsWindow : mainWindow)
+                      completionHandler: nil
+         ];
+    
 	NS_ENDHANDLER
-	
+
 	if (avrdudeVersion) {
 		[mainWindow setTitle: [NSString stringWithFormat: @"AVRFuses (avrdude v%@)", avrdudeVersion]];
 		if ([[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudeConfig"] != nil) {
@@ -463,7 +483,8 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	}
 	[avrdudeArguments addObject: @"-p"];
 	[avrdudeArguments addObject: selectedPart->name];
-	[avrdudeArguments addObject: @"-qq"];
+	//[avrdudeArguments addObject: @"-qq"];
+    [avrdudeArguments addObject: @"-s"];
     if (avrdudeBitClock != nil && [avrdudeBitClock length] > 0) {
         [avrdudeArguments addObject: @"-B"];
         [avrdudeArguments addObject: avrdudeBitClock];
@@ -472,11 +493,67 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	return avrdudeArguments;
 }
 
+- (void) execAvrdude:(NSMutableArray* _Nonnull)avrdudeArguments
+        completionHandler:(void (^ _Nullable)(int returnCode))handler
+{
+    NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
+
+    [self willChangeValueForKey: @"avrdudeAvailable"];
+    self.avrdudeOperationInProgress = YES;
+    [self didChangeValueForKey: @"avrdudeAvailable"];
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        NSTask *task = [[NSTask alloc] init];
+        [task autorelease];
+        [task setLaunchPath: avrdudePath];
+        [task setArguments: avrdudeArguments];
+        NSPipe *pipe = [NSPipe pipe];
+        [task setStandardError: pipe];
+        NSFileHandle *file = [pipe fileHandleForReading];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self logCommandLine:task];
+        });
+        [task launch];
+        while (task.running) {
+            [NSThread sleepForTimeInterval:0.005f];
+            //NSData *data = [file readDataToEndOfFile];
+            NSData *data = [file availableData];
+            NSString *stdErr = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self appendLog: stdErr];
+             });
+            [stdErr autorelease];
+        }
+        //[task waitUntilExit];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self willChangeValueForKey: @"avrdudeAvailable"];
+            self.avrdudeOperationInProgress = NO;
+            [self didChangeValueForKey: @"avrdudeAvailable"];
+
+            NSData *data = [file readDataToEndOfFile];
+            NSString *stdErr = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+            [stdErr autorelease];
+            NSArray *stdErrLines = [stdErr componentsSeparatedByString: @"\n"];
+            for (int i = 0; i < [stdErrLines count]; i++) {
+                NSString *line = [stdErrLines objectAtIndex: i];
+                if ([line length] > 0) {
+                    [self log: line];
+                }
+            }
+            int status = [task terminationStatus];
+            [self logStatus: status == 0];
+            if (handler != nil) {
+                handler(status);
+            }
+        });
+    });
+}
+
 - (IBAction)programFuses:(id)sender
 {
-	NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
 	NSMutableArray *avrdudeArguments = [self defaultAvrdudeArguments];
-	
+
 	for (int i = 0; i < [[fuses allKeys] count]; i++) {
 		NSString *fuseName = [[fuses allKeys] objectAtIndex: i];
 		NSString *avrdudeFuseName = nil;
@@ -497,32 +574,12 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 		[avrdudeArguments addObject: [NSString stringWithFormat: @"%@:w:0x%02x:m", avrdudeFuseName, [[fuses objectForKey: fuseName] unsignedCharValue]]];
 	}
 	[self log: @"Programming fuses..."];
-	NSTask *task = [[NSTask alloc] init];
-    [task autorelease];
-	[task setLaunchPath: avrdudePath];
-	[task setArguments: avrdudeArguments];
-	NSPipe *pipe = [NSPipe pipe];
-	[task setStandardError: pipe];
-	NSFileHandle *file = [pipe fileHandleForReading];
-	[self logCommandLine:task];
-	[task launch];
-	[task waitUntilExit];
-	NSData *data = [file readDataToEndOfFile];
-	NSString *stdErr = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-    [stdErr autorelease];
-	NSArray *stdErrLines = [stdErr componentsSeparatedByString: @"\n"];
-	for (int i = 0; i < [stdErrLines count]; i++) {
-		NSString *line = [stdErrLines objectAtIndex: i];
-		if ([line length] > 0) {
-			[self log: line];
-		}
-	}
-	[self logStatus:[task terminationStatus] == 0];
+
+    [self execAvrdude: avrdudeArguments completionHandler: nil];
 }
 
 - (IBAction)readFuses:(id)sender
 {
-	NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
 	NSMutableArray *avrdudeArguments = [self defaultAvrdudeArguments];
 	
 	for (int i = 0; i < [[fuses allKeys] count]; i++) {
@@ -544,53 +601,33 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 		[avrdudeArguments addObject: [NSString stringWithFormat: @"%@:r:/tmp/%@.tmp:h", avrdudeFuseName, fuseName]];
 	}
 	[self log: @"Reading fuses..."];
-	NSTask *task = [[NSTask alloc] init];
-    [task autorelease];
-	[task setLaunchPath: avrdudePath];
-	[task setArguments: avrdudeArguments];
-	NSPipe *pipe = [NSPipe pipe];
-	[task setStandardError: pipe];
-	NSFileHandle *file = [pipe fileHandleForReading];
-	[self logCommandLine:task];
-	[task launch];
-	[task waitUntilExit];
-	NSData *data = [file readDataToEndOfFile];
-	NSString *stdErr = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-    [stdErr autorelease];
-	NSArray *stdErrLines = [stdErr componentsSeparatedByString: @"\n"];
-	for (int i = 0; i < [stdErrLines count]; i++) {
-		NSString *line = [stdErrLines objectAtIndex: i];
-		if ([line length] > 0) {
-			[self log: line];
-		}
-	}
-	if ([task terminationStatus] == 0) {
-		[self logStatus:TRUE];
-		for (int i = 0; i < [[fuses allKeys] count]; i++) {
-			NSString *fuseName = [[fuses allKeys] objectAtIndex: i];
-			//NSLog(@"%@", fuseName);
-			char buffer[1000];
-			FILE *file = fopen([[NSString stringWithFormat: @"/tmp/%@.tmp", fuseName] UTF8String], "r");
-			fgets(buffer, 1000, file);
-			NSString *line = [[NSString alloc] initWithCString: buffer encoding:NSUTF8StringEncoding];
-            [line autorelease];
-			NSScanner *scanner = [NSScanner scannerWithString: line];
-			unsigned int fuseValue;
-			[scanner scanHexInt: &fuseValue];
-			fclose(file);
-			[fuses setObject: [NSNumber numberWithUnsignedChar: (fuseValue & 0xff)] forKey: fuseName];
-		}
-	}
-	else {
-		[self log: @"FAILED"];
-	}
-    [self updateFuseTextFields];
-	[fusesTableView reloadData];
+    [self execAvrdude: avrdudeArguments completionHandler: ^(int returnCode) {
+        if (returnCode == 0) {
+            for (int i = 0; i < [[fuses allKeys] count]; i++) {
+                NSString *fuseName = [[fuses allKeys] objectAtIndex: i];
+                //NSLog(@"%@", fuseName);
+                char buffer[1000];
+                FILE *file = fopen([[NSString stringWithFormat: @"/tmp/%@.tmp", fuseName] UTF8String], "r");
+                fgets(buffer, 1000, file);
+                NSString *line = [[NSString alloc] initWithCString: buffer encoding:NSUTF8StringEncoding];
+                [line autorelease];
+                NSScanner *scanner = [NSScanner scannerWithString: line];
+                unsigned int fuseValue;
+                [scanner scanHexInt: &fuseValue];
+                fclose(file);
+                [fuses setObject: [NSNumber numberWithUnsignedChar: (fuseValue & 0xff)] forKey: fuseName];
+            }
+        }
+        else {
+            [self log: @"FAILED"];
+        }
+        [self updateFuseTextFields];
+        [fusesTableView reloadData];
+    }];
 }
 
 - (IBAction)verifyFuses:(id)sender
 {
-	NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
 	NSMutableArray *avrdudeArguments = [self defaultAvrdudeArguments];
 
 	for (int i = 0; i < [[fuses allKeys] count]; i++) {
@@ -612,28 +649,9 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 		[avrdudeArguments addObject: [NSString stringWithFormat: @"%@:v:0x%02x:m", avrdudeFuseName, [[fuses objectForKey: fuseName] unsignedCharValue]]];
 	}
 	[self log: @"Verifying fuses..."];
-	NSTask *task = [[NSTask alloc] init];
-    [task autorelease];
-	[task setLaunchPath: avrdudePath];
-	[task setArguments: avrdudeArguments];
-	NSPipe *pipe = [NSPipe pipe];
-	[task setStandardError: pipe];
-	NSFileHandle *file = [pipe fileHandleForReading];
-	[self logCommandLine:task];
-	[task launch];
-	[task waitUntilExit];
-	NSData *data = [file readDataToEndOfFile];
-	NSString *stdErr = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-    [stdErr autorelease];
-	NSArray *stdErrLines = [stdErr componentsSeparatedByString: @"\n"];
-	for (int i = 0; i < [stdErrLines count]; i++) {
-		NSString *line = [stdErrLines objectAtIndex: i];
-		if ([line length] > 0) {
-			[self log: line];
-		}
-	}
-	[self logStatus:[task terminationStatus] == 0];
-	[fusesTableView reloadData];
+    [self execAvrdude: avrdudeArguments completionHandler: ^(int returnCode) {
+        [fusesTableView reloadData];
+    }];
 }
 
 // TODO
@@ -780,75 +798,26 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 
 - (IBAction)verifyFlash:(id)sender
 {
-	NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
 	NSMutableArray *avrdudeArguments = [self defaultAvrdudeArguments];
 	
 	[avrdudeArguments addObject: @"-U"];
 	[avrdudeArguments addObject: [NSString stringWithFormat: @"flash:v:%@", 
 		[[NSUserDefaults standardUserDefaults] stringForKey: @"lastSelectedFlash"]]];
 	[self log: @"Verifying flash..."];
-	NSTask *task = [[NSTask alloc] init];
-    [task autorelease];
-	[task setLaunchPath: avrdudePath];
-	[task setArguments: avrdudeArguments];
-	NSPipe *pipe = [NSPipe pipe];
-	[task setStandardError: pipe];
-	NSFileHandle *file = [pipe fileHandleForReading];
-	[self logCommandLine:task];
-	[task launch];
-	[task waitUntilExit];
-	NSData *data = [file readDataToEndOfFile];
-	NSString *stdErr = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-    [stdErr autorelease];
-	NSArray *stdErrLines = [stdErr componentsSeparatedByString: @"\n"];
-	for (int i = 0; i < [stdErrLines count]; i++) {
-		NSString *line = [stdErrLines objectAtIndex: i];
-		if ([line length] > 0) {
-			[self log: line];
-		}
-	}
-	[self logStatus:[task terminationStatus] == 0];
+    [self execAvrdude: avrdudeArguments completionHandler: nil];
 }
 
 - (IBAction)programFlash:(id)sender
 {
-	NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
 	NSMutableArray *avrdudeArguments = [self defaultAvrdudeArguments];
 	
 	[avrdudeArguments addObject: @"-U"];
 	[avrdudeArguments addObject: [NSString stringWithFormat: @"flash:w:%@", 
 		[[NSUserDefaults standardUserDefaults] stringForKey: @"lastSelectedFlash"]]];
 	[self log: @"Programming flash..."];
-	NSTask *task = [[NSTask alloc] init];
-    [task autorelease];
-	[task setLaunchPath: avrdudePath];
-	[task setArguments: avrdudeArguments];
-	NSPipe *pipe = [NSPipe pipe];
-	[task setStandardError: pipe];
-	NSFileHandle *file = [pipe fileHandleForReading];
-	[self logCommandLine:task];
-	[task launch];
-	[task waitUntilExit];
-	NSData *data = [file readDataToEndOfFile];
-	NSString *stdErr = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-    [stdErr autorelease];
-	NSArray *stdErrLines = [stdErr componentsSeparatedByString: @"\n"];
-	for (int i = 0; i < [stdErrLines count]; i++) {
-		NSString *line = [stdErrLines objectAtIndex: i];
-		if ([line length] > 0) {
-			[self log: line];
-		}
-	}
-	[self logStatus:[task terminationStatus] == 0];
+    [self execAvrdude: avrdudeArguments completionHandler: nil];
 }
 
-- (void) readFlashAlertDidEnd: (NSAlert *) alert returnCode: (int) returnCode contextInfo: (void *) contextInfo
-{
-	[[alert window] orderOut: self];
-	if (returnCode == NSAlertFirstButtonReturn) {
-		[self readFlash: nil];
-	}
-}
 
 - (IBAction)readFlash:(id)sender
 {
@@ -861,112 +830,44 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 		[alert setInformativeText: @"A file or folder with the same name already exists. Replacing it will overwrite it's current contents."];
 		[alert addButtonWithTitle: @"Replace"];
 		[alert addButtonWithTitle: @"Cancel"];
-		[alert beginSheetModalForWindow: mainWindow 
-			modalDelegate: self 
-			didEndSelector: @selector(readFlashAlertDidEnd:returnCode:contextInfo:) 
-			contextInfo: nil];
+        [alert beginSheetModalForWindow: mainWindow
+                      completionHandler: ^(NSModalResponse returnCode) {
+                          [[alert window] orderOut: self];
+                          if (returnCode == NSAlertFirstButtonReturn) {
+                              [self readFlash: nil];
+                          }
+                      }];
 		return;
 	}
 
-	NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
 	NSMutableArray *avrdudeArguments = [self defaultAvrdudeArguments];
 	
 	[avrdudeArguments addObject: @"-U"];
 	[avrdudeArguments addObject: [NSString stringWithFormat: @"flash:r:%@:i", filename]];
 	[self log: @"Reading flash..."];
-	NSTask *task = [[NSTask alloc] init];
-    [task autorelease];
-	[task setLaunchPath: avrdudePath];
-	[task setArguments: avrdudeArguments];
-	NSPipe *pipe = [NSPipe pipe];
-	[task setStandardError: pipe];
-	NSFileHandle *file = [pipe fileHandleForReading];
-	[self logCommandLine:task];
-	[task launch];
-	[task waitUntilExit];
-	NSData *data = [file readDataToEndOfFile];
-	NSString *stdErr = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-    [stdErr autorelease];
-	NSArray *stdErrLines = [stdErr componentsSeparatedByString: @"\n"];
-	for (int i = 0; i < [stdErrLines count]; i++) {
-		NSString *line = [stdErrLines objectAtIndex: i];
-		if ([line length] > 0) {
-			[self log: line];
-		}
-	}
-	[self logStatus:[task terminationStatus] == 0];
+    [self execAvrdude: avrdudeArguments completionHandler: nil];
 }
 
 - (IBAction)verifyEeprom:(id)sender
 {
-	NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
 	NSMutableArray *avrdudeArguments = [self defaultAvrdudeArguments];
 	
 	[avrdudeArguments addObject: @"-U"];
 	[avrdudeArguments addObject: [NSString stringWithFormat: @"eeprom:v:%@", 
 		[[NSUserDefaults standardUserDefaults] stringForKey: @"lastSelectedEeprom"]]];
 	[self log: @"Verifying EEPROM..."];
-	NSTask *task = [[NSTask alloc] init];
-    [task autorelease];
-	[task setLaunchPath: avrdudePath];
-	[task setArguments: avrdudeArguments];
-	NSPipe *pipe = [NSPipe pipe];
-	[task setStandardError: pipe];
-	NSFileHandle *file = [pipe fileHandleForReading];
-	[self logCommandLine:task];
-	[task launch];
-	[task waitUntilExit];
-	NSData *data = [file readDataToEndOfFile];
-	NSString *stdErr = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-    [stdErr autorelease];
-	NSArray *stdErrLines = [stdErr componentsSeparatedByString: @"\n"];
-	for (int i = 0; i < [stdErrLines count]; i++) {
-		NSString *line = [stdErrLines objectAtIndex: i];
-		if ([line length] > 0) {
-			[self log: line];
-		}
-	}
-	[self logStatus:[task terminationStatus] == 0];
+    [self execAvrdude: avrdudeArguments completionHandler: nil];
 }
 
 - (IBAction)programEeprom:(id)sender
 {
-	NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
 	NSMutableArray *avrdudeArguments = [self defaultAvrdudeArguments];
 	
 	[avrdudeArguments addObject: @"-U"];
 	[avrdudeArguments addObject: [NSString stringWithFormat: @"eeprom:w:%@", 
 		[[NSUserDefaults standardUserDefaults] stringForKey: @"lastSelectedEeprom"]]];
 	[self log: @"Programming EEPROM..."];
-	NSTask *task = [[NSTask alloc] init];
-    [task autorelease];
-	[task setLaunchPath: avrdudePath];
-	[task setArguments: avrdudeArguments];
-	NSPipe *pipe = [NSPipe pipe];
-	[task setStandardError: pipe];
-	NSFileHandle *file = [pipe fileHandleForReading];
-	[self logCommandLine:task];
-	[task launch];
-	[task waitUntilExit];
-	NSData *data = [file readDataToEndOfFile];
-	NSString *stdErr = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-    [stdErr autorelease];
-	NSArray *stdErrLines = [stdErr componentsSeparatedByString: @"\n"];
-	for (int i = 0; i < [stdErrLines count]; i++) {
-		NSString *line = [stdErrLines objectAtIndex: i];
-		if ([line length] > 0) {
-			[self log: line];
-		}
-	}
-	[self logStatus:[task terminationStatus] == 0];
-}
-
-- (void) readEepromAlertDidEnd: (NSAlert *) alert returnCode: (int) returnCode contextInfo: (void *) contextInfo
-{
-	[[alert window] orderOut: self];
-	if (returnCode == NSAlertFirstButtonReturn) {
-		[self readEeprom: nil];
-	}
+    [self execAvrdude: avrdudeArguments completionHandler: nil];
 }
 
 - (IBAction)readEeprom:(id)sender
@@ -980,75 +881,35 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 		[alert setInformativeText: @"A file or folder with the same name already exists. Replacing it will overwrite it's current contents."];
 		[alert addButtonWithTitle: @"Replace"];
 		[alert addButtonWithTitle: @"Cancel"];
-		[alert beginSheetModalForWindow: mainWindow 
-			modalDelegate: self 
-			didEndSelector: @selector(readEepromAlertDidEnd:returnCode:contextInfo:) 
-			contextInfo: nil];
+        [alert beginSheetModalForWindow: mainWindow
+                completionHandler: ^(NSModalResponse returnCode) {
+                    [[alert window] orderOut: self];
+                    if (returnCode == NSAlertFirstButtonReturn) {
+                        [self readEeprom: nil];
+                    }
+                }];
 		return;
 	}
 	
-	NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
 	NSMutableArray *avrdudeArguments = [self defaultAvrdudeArguments];
 	
 	[avrdudeArguments addObject: @"-U"];
 	[avrdudeArguments addObject: [NSString stringWithFormat: @"eeprom:r:%@:i", filename]];
 	[self log: @"Reading EEPROM..."];
-	NSTask *task = [[NSTask alloc] init];
-    [task autorelease];
-	[task setLaunchPath: avrdudePath];
-	[task setArguments: avrdudeArguments];
-	NSPipe *pipe = [NSPipe pipe];
-	[task setStandardError: pipe];
-	NSFileHandle *file = [pipe fileHandleForReading];
-	[self logCommandLine:task];
-	[task launch];
-	[task waitUntilExit];
-	NSData *data = [file readDataToEndOfFile];
-	NSString *stdErr = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-    [stdErr autorelease];
-	NSArray *stdErrLines = [stdErr componentsSeparatedByString: @"\n"];
-	for (int i = 0; i < [stdErrLines count]; i++) {
-		NSString *line = [stdErrLines objectAtIndex: i];
-		if ([line length] > 0) {
-			[self log: line];
-		}
-	}
-	[self logStatus:[task terminationStatus] == 0];
+    [self execAvrdude: avrdudeArguments completionHandler: nil];
 }
 
 - (IBAction)eraseDevice:(id)sender
 {
-	NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
 	NSMutableArray *avrdudeArguments = [self defaultAvrdudeArguments];
 
 	[avrdudeArguments addObject: @"-e"];
 	[self log: @"Erasing chip..."];
-	NSTask *task = [[NSTask alloc] init];
-    [task autorelease];
-	[task setLaunchPath: avrdudePath];
-	[task setArguments: avrdudeArguments];
-	NSPipe *pipe = [NSPipe pipe];
-	[task setStandardError: pipe];
-	NSFileHandle *file = [pipe fileHandleForReading];
-	[self logCommandLine:task];
-	[task launch];
-	[task waitUntilExit];
-	NSData *data = [file readDataToEndOfFile];
-	NSString *stdErr = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-    [stdErr autorelease];
-	NSArray *stdErrLines = [stdErr componentsSeparatedByString: @"\n"];
-	for (int i = 0; i < [stdErrLines count]; i++) {
-		NSString *line = [stdErrLines objectAtIndex: i];
-		if ([line length] > 0) {
-			[self log: line];
-		}
-	}
-	[self logStatus:[task terminationStatus] == 0];
+    [self execAvrdude: avrdudeArguments completionHandler: nil];
 }
 
 - (IBAction)autodetectDevice:(id)sender
 {
-    NSString *avrdudePath = [[NSUserDefaults standardUserDefaults] stringForKey: @"avrdudePath"];
     NSMutableArray *avrdudeArguments = [self defaultAvrdudeArguments];
     
     [avrdudeArguments addObject: @"-F"];
@@ -1057,60 +918,40 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 
     [self log: @"Reading signature..."];
     
-    NSTask *task = [[NSTask alloc] init];
-    [task autorelease];
-    [task setLaunchPath: avrdudePath];
-    [task setArguments: avrdudeArguments];
-    NSPipe *pipe = [NSPipe pipe];
-    [task setStandardError: pipe];
-    NSFileHandle *file = [pipe fileHandleForReading];
-    [self logCommandLine:task];
-    [task launch];
-    [task waitUntilExit];
-
-    NSData *data = [file readDataToEndOfFile];
-    NSString *stdErr = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-    [stdErr autorelease];
-    NSArray *stdErrLines = [stdErr componentsSeparatedByString: @"\n"];
-    for (int i = 0; i < [stdErrLines count]; i++) {
-        NSString *line = [stdErrLines objectAtIndex: i];
-        if ([line length] > 0) {
-            [self log: line];
+    [self execAvrdude:avrdudeArguments completionHandler: ^(int returnCode) {
+        if (returnCode == 0) {
+            char buffer[1000];
+            FILE *file = fopen("/tmp/SIGNATURE.tmp", "r");
+            fgets(buffer, 1000, file);
+            NSString *line = [[NSString alloc] initWithCString: buffer encoding:NSUTF8StringEncoding];
+            [line autorelease];
+            NSScanner *scanner = [NSScanner scannerWithString: line];
+            NSCharacterSet *separatorSet = [NSCharacterSet characterSetWithCharactersInString:@","];
+            unsigned int signByte1, signByte2, signByte3;
+            [scanner setCharactersToBeSkipped:separatorSet];
+            [scanner scanHexInt: &signByte1];
+            [scanner scanHexInt: &signByte2];
+            [scanner scanHexInt: &signByte3];
+            fclose(file);
+            
+            Signature *signature = [[Signature alloc] init];
+            signature->s1 = signByte1;
+            signature->s2 = signByte2;
+            signature->s3 = signByte3;
+            
+            NSString *name = [signatures objectForKey:signature];
+            if (name != nil) {
+                [self log: name];
+            }
+            NSInteger index = name != nil ? [devicePopUpButton indexOfItemWithTitle: name] : -1;
+            if (index >= 0) {
+                [devicePopUpButton selectItemAtIndex: index];
+                [self deviceChanged: nil];
+            } else {
+                [self log: @"Device not found"];
+            }
         }
-    }
-
-    [self logStatus:[task terminationStatus] == 0];
-    
-    if ([task terminationStatus] == 0) {
-        char buffer[1000];
-        FILE *file = fopen("/tmp/SIGNATURE.tmp", "r");
-        fgets(buffer, 1000, file);
-        NSString *line = [[NSString alloc] initWithCString: buffer encoding:NSUTF8StringEncoding];
-        [line autorelease];
-        NSScanner *scanner = [NSScanner scannerWithString: line];
-        NSCharacterSet *separatorSet = [NSCharacterSet characterSetWithCharactersInString:@","];
-        unsigned int signByte1, signByte2, signByte3;
-        [scanner setCharactersToBeSkipped:separatorSet];
-        [scanner scanHexInt: &signByte1];
-        [scanner scanHexInt: &signByte2];
-        [scanner scanHexInt: &signByte3];
-        fclose(file);
-        
-        Signature *signature = [[Signature alloc] init];
-        signature->s1 = signByte1;
-        signature->s2 = signByte2;
-        signature->s3 = signByte3;
-        
-        NSString *name = [signatures objectForKey:signature];
-        [self log: name];
-        NSInteger index = [devicePopUpButton indexOfItemWithTitle: name];
-        if (index >= 0) {
-            [devicePopUpButton selectItemAtIndex: index];
-            [self deviceChanged: nil];
-        } else {
-            [self log: @"Device not found"];
-        }
-    }
+    }];
 }
 
 - (void)tableViewDoubleClick: (NSTableView *) tableView
@@ -1266,7 +1107,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	return nil;
 }
 
-- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *) theApplication
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication * _Nullable) theApplication
 {
 	return YES;
 }
@@ -1279,7 +1120,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	return 0.0;
 }
 
-- (NSString *)getNextSerialPort:(io_iterator_t)serialPortIterator
+- (NSString * _Nullable)getNextSerialPort:(io_iterator_t)serialPortIterator
 {
 	NSString *serialPort = nil;
 	io_object_t serialService = IOIteratorNext(serialPortIterator);
@@ -1302,7 +1143,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	return serialPort;
 }
 
-- (void)addAllSerialPortsToArray:(NSMutableArray *)array
+- (void)addAllSerialPortsToArray:(NSMutableArray * _Nonnull)array
 {
 	NSString *serialPort;
 	kern_return_t kernResult; 
@@ -1328,4 +1169,220 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 		NSLog(@"IOServiceMatching returned a NULL dictionary.");
 	}
 }
+
+- (IBAction)clearLog:(id)sender {
+    logTextView.string = @"";
+}
+
+- (IBAction)copyLog:(id)sender {
+    [logTextView copy:self];
+}
+
+- (void)prepareNewProjectWindow {
+    [projectDevicePopUpButton selectItemWithTitle: devicePopUpButton.selectedItem.title];
+    editedProjectName = nil;
+    
+    NSString *path = [[NSUserDefaults standardUserDefaults] stringForKey: @"lastSelectedFlash"];
+    if (path == nil) {
+        path = @"";
+    }
+    NSString *projectName = [[path lastPathComponent] stringByDeletingPathExtension];
+    projectNameTextField.stringValue = projectName;
+
+    [projectFlashTextField setStringValue: path];
+    path = [[NSUserDefaults standardUserDefaults] stringForKey: @"lastSelectedEeprom"];
+    if (path == nil) {
+        path = @"";
+    }
+    [projectEepromTextField setStringValue: path];
+    
+    for (int i = 0; i < [[fuses allKeys] count]; i++) {
+        NSString *fuseName = [[fuses allKeys] objectAtIndex: i];
+        unsigned char fuseValue = [[fuses objectForKey: fuseName] unsignedCharValue];
+        if ([fuseName isEqualToString: @"EXTENDED"]) {
+            self->projectExtFuseTextField.stringValue = [NSString stringWithFormat:@"0x%02x", fuseValue];
+        } else if ([fuseName isEqualToString: @"LOW"]) {
+            self->projectLowFuseTextField.stringValue = [NSString stringWithFormat:@"0x%02x", fuseValue];
+        } else if ([fuseName isEqualToString: @"HIGH"]) {
+            self->projectHighFuseTextField.stringValue = [NSString stringWithFormat:@"0x%02x", fuseValue];
+        }
+    }
+    projectDeleteButton.hidden = YES;
+}
+
+- (void)prepareEditProjectWindow: (NSString*) name
+{
+    editedProjectName = name;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *projects = [defaults dictionaryForKey: @"projects"];
+    NSDictionary *project = projects[name];
+    
+    projectNameTextField.stringValue = project[@"name"];
+    [projectDevicePopUpButton selectItemWithTitle: project[@"device"]];
+    projectFlashTextField.stringValue = project[@"flash"];
+    projectEepromTextField.stringValue = project[@"eeprom"];
+    projectExtFuseTextField.stringValue = project[@"fuse-e"];
+    projectLowFuseTextField.stringValue = project[@"fuse-l"];
+    projectHighFuseTextField.stringValue = project[@"fuse-h"];
+    
+    [self projectDeviceChanged: nil];
+    projectDeleteButton.hidden = NO;
+}
+
+- (void)updateProjectsMenu
+{
+    while (projectsMenu.numberOfItems > 3) {
+        [projectsMenu removeItemAtIndex: 3];
+    }
+    [projectsEditMenu removeAllItems];
+    
+    NSDictionary *projects = [[NSUserDefaults standardUserDefaults] dictionaryForKey: @"projects"];
+    for (id key in projects) {
+        [projectsMenu addItemWithTitle: projects[key][@"name"] action: @selector(openProject:) keyEquivalent: @""];
+        [projectsEditMenu addItemWithTitle: projects[key][@"name"] action: @selector(editProject:) keyEquivalent: @""];
+    }
+    [[NSApp mainMenu] update];
+}
+
+- (IBAction)openProject: (id)sender
+{
+    NSString *name = [sender title];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *projects = [defaults dictionaryForKey: @"projects"];
+    NSDictionary *project = projects[name];
+    
+    [devicePopUpButton selectItemWithTitle: project[@"device"]];
+    [self deviceChanged: nil];
+    
+    [[[NSUserDefaultsController sharedUserDefaultsController] values] setValue: project[@"flash"] forKey: @"lastSelectedFlash"];
+    [[[NSUserDefaultsController sharedUserDefaultsController] values] setValue: project[@"eeprom"] forKey: @"lastSelectedEeprom"];
+    efuseText.stringValue = project[@"fuse-e"];
+    [self efuseTextUpdated: nil];
+    lfuseText.stringValue = project[@"fuse-l"];
+    [self lfuseTextUpdated: nil];
+    hfuseText.stringValue = project[@"fuse-h"];
+    [self hfuseTextUpdated: nil];
+}
+
+- (IBAction)editProject: (id)sender
+{
+    NSString *name = [sender title];
+    [self prepareEditProjectWindow: name];
+    [mainWindow beginSheet:projectWindow completionHandler:nil];
+    [NSApp runModalForWindow:projectWindow];
+    
+    [NSApp endSheet:projectWindow];
+}
+
+- (IBAction)newProject:(id)sender
+{
+    [self prepareNewProjectWindow];
+    [mainWindow beginSheet:projectWindow completionHandler:nil];
+    [NSApp runModalForWindow:projectWindow];
+    
+    [NSApp endSheet:projectWindow];
+}
+
+- (IBAction)closeProjectDialog:(id)sender
+{
+    [NSApp endSheet:projectWindow];
+    [projectWindow orderOut:self];
+    [NSApp stopModal];
+}
+
+- (IBAction)projectDeviceChanged:(id)sender
+{
+    PartDefinition *part = [parts objectForKey: [[projectDevicePopUpButton selectedItem] title]];
+    
+    BOOL hasLowFuses = [part->fuses objectForKey:@"LOW"] != nil;
+    BOOL hasHighFuses = [part->fuses objectForKey:@"HIGH"] != nil;
+    BOOL hasExtFuses = [part->fuses objectForKey:@"EXTENDED"] != nil;
+    projectLowFuseTextField.hidden = !hasLowFuses;
+    projectHighFuseTextField.hidden = !hasHighFuses;
+    projectExtFuseTextField.hidden = !hasExtFuses;
+    projectLowFuseTextLabel.hidden = !hasLowFuses;
+    projectHighFuseTextLabel.hidden = !hasHighFuses;
+    projectExtFuseTextLabel.hidden = !hasExtFuses;
+}
+
+
+- (IBAction)saveProject:(id)sender
+{
+    NSString *projectName = projectNameTextField.stringValue;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *projects = [defaults dictionaryForKey: @"projects"];
+    [projects autorelease];
+    NSMutableDictionary *mutProjects = [[NSMutableDictionary alloc] initWithDictionary:projects copyItems:false];
+    [mutProjects autorelease];
+    if (projects == nil) {
+        projects = @{};
+    }
+    NSDictionary *prj = @{
+                          @"name": projectNameTextField.stringValue,
+                          @"device": projectDevicePopUpButton.title,
+                          @"flash": projectFlashTextField.stringValue,
+                          @"eeprom": projectEepromTextField.stringValue,
+                          @"fuse-h": projectHighFuseTextField.stringValue,
+                          @"fuse-l": projectLowFuseTextField.stringValue,
+                          @"fuse-e": projectExtFuseTextField.stringValue
+                          };
+    mutProjects[projectName] = prj;
+    if (![editedProjectName isEqualToString: projectName] && [mutProjects doesContain: editedProjectName]) {
+        [mutProjects removeObjectForKey:editedProjectName];
+    }
+    [defaults setObject:mutProjects forKey: @"projects"];
+    [NSApp endSheet:projectWindow];
+    [projectWindow orderOut:self];
+    [NSApp stopModal];
+    [self updateProjectsMenu];
+}
+
+- (IBAction)deleteProject:(id)sender
+{
+    [NSApp endSheet:projectWindow];
+    [projectWindow orderOut:self];
+    [NSApp stopModal];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *projects = [defaults dictionaryForKey: @"projects"];
+    [projects autorelease];
+    if (projects != nil && editedProjectName != nil) {
+        NSMutableDictionary *mutProjects = [[NSMutableDictionary alloc] initWithDictionary:projects copyItems:false];
+        [mutProjects autorelease];
+        [mutProjects removeObjectForKey:editedProjectName];
+        [defaults setObject:mutProjects forKey: @"projects"];
+        [self updateProjectsMenu];
+    }
+}
+
+- (void)controlTextDidChange:(NSNotification *)notification {
+    if (notification.object == projectNameTextField) {
+        NSString *trimmedName = [projectNameTextField.stringValue stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
+        projectOkButton.enabled = ![trimmedName isEqualToString: @""];
+    }
+}
+
+- (IBAction)projectBrowseFlash:(id)sender
+{
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    [openPanel setCanChooseDirectories: NO];
+    [openPanel setAllowsMultipleSelection: NO];
+    [openPanel setAllowedFileTypes:[NSArray arrayWithObject: @"hex"]];
+    if ([openPanel runModal] == NSModalResponseOK) {
+        projectFlashTextField.stringValue = openPanel.URL.path;
+    }
+}
+
+- (IBAction)projectBrowseEeprom:(id)sender
+{
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    [openPanel setCanChooseDirectories: NO];
+    [openPanel setAllowsMultipleSelection: NO];
+    [openPanel setAllowedFileTypes:[NSArray arrayWithObjects: @"hex", @"eep", nil]];
+    if ([openPanel runModal] == NSModalResponseOK) {
+        projectEepromTextField.stringValue = openPanel.URL.path;
+    }
+}
+
+
 @end
