@@ -3,7 +3,7 @@ AVRFuses
 
 A simple, graphical AVR fuse editor front end for avrdude
 
-More information available at http://vonnieda.org/AVRFuses
+More information available at http://vonnieda.org/software/avrfuses
 
 **Pull requests welcome!**
 
