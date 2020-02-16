@@ -6,8 +6,9 @@ the project owner has access to.
 
 1. In XCode, open Info.plist and change Bundle version to the new version number.
 2. Use the Product -> Archive option to build and create an archive of the binary.
-3. In the Archives tool window which opens after Archive, select the new archive and hit Export.
-4. Choose Export as a macOS App and export the archive.
+3. In the Archives tool window which opens after Archive, select the new archive and hit Distribute App.
+4. Select Developer ID and then Upload to Apple for Notarization.
+4. Once Notarization is complete export the app.
 5. Compress the resulting binary into a Zip: Right click in Finder, Compress.
 6. Rename the Zip in the format of AVRFuses_1.4.11.zip, replacing the numbers with the new version number.
 7. Copy the Zip to the releases folder of the project.

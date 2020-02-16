@@ -6,6 +6,23 @@
 		<description>Changes and updates for AVRFuses by Jason von Nieda</description>
 		<language>en</language>
 		<item>
+				<title>Version 1.5.2</title>
+				<pubDate>Sun, 16 Feb 2020 17:20:00 -0500</pubDate>
+				<description>
+						<![CDATA[
+								<li>App is now notarized by Apple so it should install without any warnings.
+						]]>
+				</description>
+
+				<enclosure
+				url="http://vonnieda.org/wp-content/uploads/2020/02/AVRFuses_1.5.2.zip"
+				sparkle:version="1.5.2"
+				type="application/octet-stream"
+				length="2309221"
+				sparkle:dsaSignature="MCwCFEaqw0yYQztVqm/zQY6foZgviI5sAhRd0rh5DHksJGpwKKd19DZWfWhTGA=="
+				/>
+		</item>
+		<item>
 				<title>Version 1.5.1</title>
 				<pubDate>Sun, 16 Feb 2020 11:07:00 -0500</pubDate>
 				<description>
