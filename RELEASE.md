@@ -19,5 +19,5 @@ the project owner has access to.
 10. Edit appcast.xml and add a new <item> record to the top. Update the title, version number, date, signature, length, url 
 	and description.
 11. Upload the new appcast.xml to the update site.
-	Note to self: I do this via SFTP my hosting company.
+	Note to self: I do this via SFTP to my hosting company.
 12. Commit changes to Github.
