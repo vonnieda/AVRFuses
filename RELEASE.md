@@ -4,7 +4,7 @@ These instructions describe how to perform a release of AVRFuses. These are inte
 the project, and for the project owner on how to release a new version. This process requires keys that only
 the project owner has access to.
 
-1. In XCode, open Info.plist and change Bundle version to the new version number.
+1. In XCode, open Info.plist and change "Bundle version" and "Bundle version string (short)" to the new version number.
 2. Use the Product -> Archive option to build and create an archive of the binary.
 3. In the Archives tool window which opens after Archive, select the new archive and hit Distribute App.
 4. Select Developer ID and then Upload to Apple for Notarization.
