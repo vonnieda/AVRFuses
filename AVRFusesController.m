@@ -484,7 +484,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 	[avrdudeArguments addObject: @"-p"];
 	[avrdudeArguments addObject: selectedPart->name];
 	//[avrdudeArguments addObject: @"-qq"];
-    [avrdudeArguments addObject: @"-s"];
+//    [avrdudeArguments addObject: @"-s"];
     if (avrdudeBitClock != nil && [avrdudeBitClock length] > 0) {
         [avrdudeArguments addObject: @"-B"];
         [avrdudeArguments addObject: avrdudeBitClock];

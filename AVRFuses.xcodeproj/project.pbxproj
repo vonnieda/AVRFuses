@@ -16,8 +16,6 @@
 		960D60720B6FE9780018E006 /* AVRFusesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 960D60700B6FE9780018E006 /* AVRFusesController.m */; };
 		962D354C0CFD5922003A6C5A /* AVRFuses2.icns in Resources */ = {isa = PBXBuildFile; fileRef = 962D354B0CFD5922003A6C5A /* AVRFuses2.icns */; };
 		964C0B930D599BD2008FDB06 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 964C0B920D599BD2008FDB06 /* IOKit.framework */; };
-		965A46BE23F9B43400F9643E /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 965A46BD23F9B43400F9643E /* Sparkle.framework */; };
-		965A46C123F9B5B400F9643E /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 965A46BD23F9B43400F9643E /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9661E70C0D18340400DFABE4 /* appcast.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9661E70B0D18340400DFABE4 /* appcast.xml */; };
 		96A329570CFBF63900500BA9 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 96A329560CFBF63900500BA9 /* Credits.rtf */; };
 		96D8D1E80CEEB5DF00C7FDC6 /* PartDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D8D1E70CEEB5DF00C7FDC6 /* PartDefinition.m */; };
@@ -32,7 +30,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				965A46C123F9B5B400F9643E /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,7 +51,6 @@
 		960D60710B6FE9780018E006 /* AVRFusesController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AVRFusesController.h; sourceTree = "<group>"; };
 		962D354B0CFD5922003A6C5A /* AVRFuses2.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AVRFuses2.icns; sourceTree = "<group>"; };
 		964C0B920D599BD2008FDB06 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
-		965A46BD23F9B43400F9643E /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		9661E70B0D18340400DFABE4 /* appcast.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = appcast.xml; sourceTree = "<group>"; };
 		967E47F923FA020D00670EDC /* AVRFuses.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AVRFuses.entitlements; sourceTree = "<group>"; };
 		969F75F523F874F5000C3AC1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -72,7 +68,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
-				965A46BE23F9B43400F9643E /* Sparkle.framework in Frameworks */,
 				964C0B930D599BD2008FDB06 /* IOKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -90,7 +85,6 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				965A46BD23F9B43400F9643E /* Sparkle.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 			);
 			name = "Linked Frameworks";
@@ -196,7 +190,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					8D1107260486CEB800E47090 = {
 						DevelopmentTeam = KZ3MZ5JYNR;
@@ -282,6 +276,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = KZ3MZ5JYNR;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -317,6 +312,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = KZ3MZ5JYNR;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -357,12 +353,14 @@
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = KZ3MZ5JYNR;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -395,12 +393,14 @@
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = KZ3MZ5JYNR;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
