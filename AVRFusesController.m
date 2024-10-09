@@ -424,7 +424,7 @@ seperately or come up with a more generic method of read/writing/verifying/displ
 			NSString *line = [lines objectAtIndex: i];
 			NSRange range;
 			if (!avrdudeVersion) {
-				range = [line rangeOfString: @"version" options:NSCaseInsensitiveSearch];
+                range = [line rangeOfString: @"version" options:NSCaseInsensitiveSearch];
 				if (range.location != NSNotFound) {
 					NSString *substr = [line substringFromIndex: range.location];
 					NSArray *comps = [substr componentsSeparatedByString: @" "];
